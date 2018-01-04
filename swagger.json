@@ -1,0 +1,1882 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "SecuConnect API",
+        "version": "2.0"
+    },
+    "basePath": "/api/v2/",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "Payment/Containers": {
+            "get": {
+                "tags": [
+                    "paymentContainers"
+                ],
+                "description": "Get all payment containers",
+                "responses": {
+                    "200": {
+                        "description": "Returns list with all payment containers",
+                        "schema": {
+                            "properties": {
+                                "count": {
+                                    "description": "Count of returned payment containers",
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/PaymentContainersProductModel"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "paymentContainers"
+                ],
+                "description": "Add new containers",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Payment container properties",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContainersDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Newly created payment container",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContainersProductModel"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Containers/{id}": {
+            "put": {
+                "tags": [
+                    "paymentContainers"
+                ],
+                "description": "Update payment container",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Payment container id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Payment container properties",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContainersDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Updated payment container",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContainersProductModel"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "paymentContainers"
+                ],
+                "description": "Delete payment container",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Payment container id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted payment container",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContainersProductModel"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Containers/{id}/assign/{secondary-id}": {
+            "post": {
+                "tags": [
+                    "paymentContainers"
+                ],
+                "description": "Assign an existing payment container to ...",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Payment container id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "secondary-id",
+                        "in": "path",
+                        "description": "Id to which container will be assigned",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Affected container",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContainersProductModel"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "paymentContainers"
+                ],
+                "description": "Removes an existing payment container assignment",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Payment container id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "secondary-id",
+                        "in": "path",
+                        "description": "Id for which container is currently assigned to",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Affected container",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContainersProductModel"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Contracts": {
+            "get": {
+                "tags": [
+                    "paymentContracts"
+                ],
+                "description": "Get all payment contracts",
+                "responses": {
+                    "200": {
+                        "description": "Returns list with all payment contracts",
+                        "schema": {
+                            "properties": {
+                                "count": {
+                                    "description": "Count of returned payment contracts",
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/PaymentContractsProductModel"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "paymentContracts"
+                ],
+                "description": "Add new contract",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "WTF??",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContractsDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Newly created payment contract",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContractsProductModel"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Contracts/{id}": {
+            "put": {
+                "tags": [
+                    "paymentContracts"
+                ],
+                "description": "Update payment contract",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Payment contract id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Payment contract properties",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContractsDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Updated payment contract",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContractsProductModel"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "paymentContracts"
+                ],
+                "description": "Delete payment contract",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Payment contract id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted payment contract",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContractsProductModel"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Contracts/{id}/PaymentMethods": {
+            "get": {
+                "tags": [
+                    "paymentContracts"
+                ],
+                "description": "Get available payment methods for given contract",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Contract identifier",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Payment methods possible for given contract",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Contracts/{id}/clone": {
+            "post": {
+                "tags": [
+                    "paymentContracts"
+                ],
+                "description": "WTF??",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Contract identifier",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Updated payment contract",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContractsProductModel"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Contracts/{id}/RequestId": {
+            "post": {
+                "tags": [
+                    "paymentContracts"
+                ],
+                "description": "Function to clone contracts data over the old apiv2 (requestapikey)",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Contract identifier",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "WTF??",
+                        "schema": {
+                            "properties": {
+                                "contract": {
+                                    "description": "WTF??",
+                                    "$ref": "#/definitions/PaymentContractsProductModel"
+                                },
+                                "apikey": {
+                                    "description": "WTF??",
+                                    "type": "string"
+                                },
+                                "paying_account": {
+                                    "description": "WTF??",
+                                    "properties": {
+                                        "accountowner": {
+                                            "description": "WTF??",
+                                            "type": "string"
+                                        },
+                                        "iban": {
+                                            "description": "WTF??",
+                                            "type": "string"
+                                        },
+                                        "bic": {
+                                            "description": "WTF??",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Customers": {
+            "get": {
+                "tags": [
+                    "paymentCustomers"
+                ],
+                "description": "Get all payment customers",
+                "responses": {
+                    "200": {
+                        "description": "Returns list with all payment customers",
+                        "schema": {
+                            "properties": {
+                                "count": {
+                                    "description": "Count of returned payment customers",
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/PaymentCustomersProductModel"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "paymentCustomers"
+                ],
+                "description": "Add new customer",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Payment customer properties",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/PaymentCustomersDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Newly created payment customer",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentCustomersProductModel"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Customers/{id}": {
+            "put": {
+                "tags": [
+                    "paymentCustomers"
+                ],
+                "description": "Update payment customer",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Payment customer id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Payment customer properties",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/PaymentCustomersDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Updated payment customer",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentCustomersProductModel"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "paymentCustomers"
+                ],
+                "description": "Delete payment customer",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Payment customer id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted payment customer",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentCustomersProductModel"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Secupaycreditcards/{hash}": {
+            "get": {
+                "tags": [
+                    "paymentSecupayCreditcards"
+                ],
+                "description": "Function to get status for transaction_hash",
+                "parameters": [
+                    {
+                        "name": "hash",
+                        "in": "path",
+                        "description": "Transaction hash",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/SecupayTransactionDTO"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Secupaycreditcards": {
+            "post": {
+                "tags": [
+                    "paymentSecupayCreditcards"
+                ],
+                "description": "WTF??",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/SecupayTransactionDTO"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Secupaycreditcards/{hash}/cancel": {
+            "post": {
+                "tags": [
+                    "paymentSecupayCreditcards"
+                ],
+                "description": "Function to cancel the transaction",
+                "parameters": [
+                    {
+                        "name": "hash",
+                        "in": "path",
+                        "description": "Transaction hash",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Canceled successfully",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Secupaydebits/{hash}": {
+            "get": {
+                "tags": [
+                    "paymentSecupayDebits"
+                ],
+                "description": "Function to get status for transaction_hash",
+                "parameters": [
+                    {
+                        "name": "hash",
+                        "in": "path",
+                        "description": "Transaction hash",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/SecupayTransactionDTO"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Secupaydebits": {
+            "post": {
+                "tags": [
+                    "paymentSecupayDebits"
+                ],
+                "description": "WTF??",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/SecupayTransactionDTO"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Secupaydebits/{hash}/cancel": {
+            "post": {
+                "tags": [
+                    "paymentSecupayDebits"
+                ],
+                "description": "Function to cancel the transaction",
+                "parameters": [
+                    {
+                        "name": "hash",
+                        "in": "path",
+                        "description": "Transaction hash",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Canceled successfully",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Secupayinvoices/{hash}": {
+            "get": {
+                "tags": [
+                    "paymentSecupayInvoices"
+                ],
+                "description": "Function to get status for transaction_hash",
+                "parameters": [
+                    {
+                        "name": "hash",
+                        "in": "path",
+                        "description": "Transaction hash",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/SecupayTransactionDTO"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Secupayinvoices": {
+            "post": {
+                "tags": [
+                    "paymentSecupayInvoices"
+                ],
+                "description": "WTF??",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/SecupayTransactionDTO"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Secupayinvoices/{hash}/cancel": {
+            "post": {
+                "tags": [
+                    "paymentSecupayInvoices"
+                ],
+                "description": "Function to cancel the transaction",
+                "parameters": [
+                    {
+                        "name": "hash",
+                        "in": "path",
+                        "description": "Transaction hash",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Canceled successfully",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Secupayprepays/{hash}": {
+            "get": {
+                "tags": [
+                    "paymentSecupayPrepays"
+                ],
+                "description": "Function to get status for transaction_hash",
+                "parameters": [
+                    {
+                        "name": "hash",
+                        "in": "path",
+                        "description": "Transaction hash",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/SecupayTransactionDTO"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Secupayprepays": {
+            "post": {
+                "tags": [
+                    "paymentSecupayPrepays"
+                ],
+                "description": "WTF??",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/SecupayTransactionDTO"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Secupayprepays/{hash}/cancel": {
+            "post": {
+                "tags": [
+                    "paymentSecupayPrepays"
+                ],
+                "description": "Function to cancel the transaction",
+                "parameters": [
+                    {
+                        "name": "hash",
+                        "in": "path",
+                        "description": "Transaction hash",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Canceled successfully",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Transactions": {
+            "get": {
+                "tags": [
+                    "paymentTransactions"
+                ],
+                "description": "Get all payment transactions",
+                "responses": {
+                    "200": {
+                        "description": "Returns list with all payment transactions",
+                        "schema": {
+                            "properties": {
+                                "count": {
+                                    "description": "Count of returned payment transactions",
+                                    "type": "integer"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/PaymentTransactionsProductModel"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Transactions/{id}/cancel": {
+            "post": {
+                "tags": [
+                    "paymentTransactions"
+                ],
+                "description": "WTF??",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Transaction identifier",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "WTF??",
+                        "schema": {
+                            "description": "WTF??",
+                            "type": "array",
+                            "items": {
+                                "properties": {
+                                    "count": {
+                                        "description": "Count of returned payment contracts",
+                                        "type": "integer"
+                                    },
+                                    "data": {
+                                        "type": "array",
+                                        "items": {
+                                            "$ref": "#/definitions/PaymentTransactionsProductModel"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
+        "Payment/Transactions/{id}/shippingUrl": {
+            "get": {
+                "tags": [
+                    "paymentTransactions"
+                ],
+                "description": "WTF??",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Transaction identifier",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "WTF??",
+                        "schema": {
+                            "properties": {
+                                "url": {
+                                    "description": "WTF??",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "default": {
+                        "description": "WTF??",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        }
+    },
+    "definitions": {
+        "ProductInstanceUID": {
+            "description": "Product name and instance id, uniquely identifying instance of Product",
+            "properties": {
+                "object": {
+                    "description": "Product name",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "ID of instance",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "Address": {
+            "description": "Address",
+            "properties": {
+                "street": {
+                    "description": "Street",
+                    "type": "string"
+                },
+                "street_number": {
+                    "description": "Street number",
+                    "type": "string"
+                },
+                "city": {
+                    "description": "City",
+                    "type": "string"
+                },
+                "postal_code": {
+                    "description": "Postal code",
+                    "type": "string"
+                },
+                "country": {
+                    "description": "Country",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ProductExceptionPayload": {
+            "description": "Payload of exceptions returned by API",
+            "properties": {
+                "status": {
+                    "description": "Request status (always equals to 'error')",
+                    "type": "string"
+                },
+                "error": {
+                    "description": "Error type identifier",
+                    "type": "string"
+                },
+                "error_details": {
+                    "description": "Error details",
+                    "type": "string"
+                },
+                "error_user": {
+                    "description": "WTF??",
+                    "type": "string"
+                },
+                "code": {
+                    "description": "HTTP code corresponding to error",
+                    "type": "string"
+                },
+                "supportId": {
+                    "description": "WTF??",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "BankAccountDescriptor": {
+            "description": "Bank account data like owner, iban, bic and bank name",
+            "properties": {
+                "owner": {
+                    "description": "Owner",
+                    "type": "string"
+                },
+                "iban": {
+                    "description": "IBAN",
+                    "type": "string"
+                },
+                "bic": {
+                    "description": "BIC",
+                    "type": "string"
+                },
+                "bankname": {
+                    "description": "Bank name",
+                    "type": "string"
+                }
+            }
+        },
+        "SecupayTransactionDTO": {
+            "properties": {
+                "object": {
+                    "description": "Product name",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "ID of instance",
+                    "type": "string"
+                },
+                "trans_id": {
+                    "description": "Transaction identifier",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Transaction status",
+                    "type": "string"
+                },
+                "amount": {
+                    "description": "WTF??",
+                    "type": "string"
+                },
+                "currency": {
+                    "description": "WTF??",
+                    "type": "string"
+                },
+                "purpose": {
+                    "description": "WTF??",
+                    "type": "string"
+                },
+                "order_id": {
+                    "description": "WTF??",
+                    "type": "string"
+                },
+                "basket": {
+                    "description": "WTF??",
+                    "type": "string"
+                },
+                "accrual": {
+                    "description": "WTF??",
+                    "type": "string"
+                },
+                "payment_action": {
+                    "description": "WTF??",
+                    "type": "string"
+                },
+                "transfer_purpose": {
+                    "description": "WTF??",
+                    "type": "string"
+                },
+                "transfer_account": {
+                    "description": "WTF??",
+                    "properties": {
+                        "iban": {
+                            "description": "IBAN",
+                            "type": "string"
+                        },
+                        "bic": {
+                            "description": "BIC",
+                            "type": "string"
+                        },
+                        "accountnumber": {
+                            "description": "Account number",
+                            "type": "string"
+                        },
+                        "bankcode": {
+                            "description": "WTF??",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "customer": {
+                    "description": "WTF??",
+                    "type": "object",
+                    "$ref": "#/definitions/PaymentCustomersProductModel"
+                },
+                "used_payment_instrument": {
+                    "description": "WTF??",
+                    "properties": {
+                        "type": {
+                            "description": "WTF?",
+                            "type": "string"
+                        },
+                        "data": {
+                            "description": "WTF??",
+                            "type": "object",
+                            "$ref": "#/definitions/BankAccountDescriptor"
+                        }
+                    },
+                    "type": "object"
+                },
+                "redirect_url": {
+                    "description": "WTF??",
+                    "properties": {
+                        "iframe_url": {
+                            "description": "WTF??",
+                            "type": "string"
+                        },
+                        "url_success": {
+                            "description": "WTF??",
+                            "type": "string"
+                        },
+                        "url_failure": {
+                            "description": "WTF??",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "PaymentContainersDTO": {
+            "properties": {
+                "assign": {
+                    "description": "WTF??",
+                    "type": "boolean"
+                },
+                "customer": {
+                    "description": "WTF??",
+                    "properties": {
+                        "id": {
+                            "description": "Customer identifier",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": {
+                    "description": "Type of Payment Containers",
+                    "type": "string"
+                },
+                "private": {
+                    "description": "",
+                    "properties": {
+                        "owner": {
+                            "type": "string"
+                        },
+                        "iban": {
+                            "type": "string"
+                        },
+                        "bic": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "PaymentContainersProductModel": {
+            "properties": {
+                "object": {
+                    "description": "Object of payment container",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Id of payment container",
+                    "type": "string",
+                    "format": "id"
+                },
+                "contract": {
+                    "description": "Payment container contract",
+                    "$ref": "#/definitions/ProductInstanceUID"
+                },
+                "customer": {
+                    "description": "Payment container customer",
+                    "$ref": "#/definitions/ProductInstanceUID"
+                },
+                "assign": {
+                    "description": "Assign",
+                    "$ref": "#/definitions/ProductInstanceUID"
+                },
+                "type": {
+                    "description": "Type of payment container",
+                    "type": "string"
+                },
+                "public": {
+                    "description": "Public bank account data",
+                    "$ref": "#/definitions/BankAccountDescriptor"
+                },
+                "private": {
+                    "description": "Private bank account data",
+                    "$ref": "#/definitions/BankAccountDescriptor"
+                },
+                "created": {
+                    "description": "Creation date",
+                    "type": "string",
+                    "format": "date"
+                },
+                "updated": {
+                    "description": "Last update date",
+                    "type": "string",
+                    "format": "date"
+                }
+            },
+            "type": "object"
+        },
+        "PaymentContractsDTO": {
+            "properties": {
+                "merchant": {
+                    "description": "Contracts Merchant",
+                    "type": "string"
+                },
+                "internal_reference": {
+                    "description": "WTF??",
+                    "type": "string"
+                },
+                "contract_id": {
+                    "description": "Contracts id",
+                    "type": "string"
+                },
+                "demo": {
+                    "description": "WTF??",
+                    "type": "string"
+                },
+                "debit_product_id": {
+                    "description": "Contract debit product id",
+                    "type": "string"
+                },
+                "prepay_product_id": {
+                    "description": "Contracts prepay product id",
+                    "type": "string"
+                },
+                "invoice_product_id": {
+                    "description": "Contracts invoice product id",
+                    "type": "string"
+                },
+                "creditcard_product_id": {
+                    "description": "Contracts credit card product id",
+                    "type": "string"
+                },
+                "url_push": {
+                    "description": "WTF??",
+                    "type": "string"
+                },
+                "allow_transactions": {
+                    "description": "Should allow transactions?",
+                    "type": "boolean"
+                },
+                "allow_cloning": {
+                    "description": "Should allow cloning?",
+                    "type": "boolean"
+                },
+                "unique_order_id": {
+                    "description": "WTF??",
+                    "type": "string"
+                },
+                "scoring": {
+                    "description": "WTF??",
+                    "type": "string"
+                },
+                "sepa_mandate_inform": {
+                    "description": "WTF??",
+                    "type": "boolean"
+                }
+            }
+        },
+        "PaymentContractsProductModel": {
+            "properties": {
+                "object": {
+                    "description": "Object of payment container",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Id of payment container",
+                    "type": "string",
+                    "format": "id"
+                },
+                "parent": {
+                    "description": "Payment container contract",
+                    "$ref": "#/definitions/ProductInstanceUID"
+                },
+                "demo": {
+                    "description": "WTF ??",
+                    "type": "boolean"
+                },
+                "allow_cloning": {
+                    "description": "WTF ??",
+                    "type": "boolean"
+                },
+                "sepa_mandate_inform": {
+                    "description": "WTF ??",
+                    "type": "string"
+                },
+                "created": {
+                    "description": "Created at date",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated": {
+                    "description": "Updated at date",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "type": "object"
+        },
+        "PaymentCustomersDTO": {
+            "properties": {
+                "contact": {
+                    "type": "object",
+                    "$ref": "#/definitions/PaymentCustomersDTOContact"
+                }
+            },
+            "type": "object"
+        },
+        "PaymentCustomersDTOContact": {
+            "properties": {
+                "forename": {
+                    "description": "Customer forename",
+                    "type": "string"
+                },
+                "surname": {
+                    "description": "Customer surname",
+                    "type": "string"
+                },
+                "companyname": {
+                    "description": "Customer company name",
+                    "type": "string"
+                },
+                "salutation": {
+                    "description": "Customer salutation",
+                    "type": "string"
+                },
+                "gender": {
+                    "description": "Customer gender",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Customer title",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "Customer email",
+                    "type": "string"
+                },
+                "phone": {
+                    "description": "Customer phone",
+                    "type": "string"
+                },
+                "mobile": {
+                    "description": "Customer mobile",
+                    "type": "string"
+                },
+                "dob": {
+                    "description": "WTF??",
+                    "type": "string"
+                },
+                "picture": {
+                    "description": "WTF??",
+                    "type": "string"
+                },
+                "url_website": {
+                    "description": "URL to customer website",
+                    "type": "string"
+                },
+                "birthplace": {
+                    "description": "Customer birthplace",
+                    "type": "string"
+                },
+                "nationality": {
+                    "description": "Customer nationality",
+                    "type": "string"
+                },
+                "address": {
+                    "description": "Customer address",
+                    "type": "object",
+                    "$ref": "#/definitions/Address"
+                }
+            },
+            "type": "object"
+        },
+        "PaymentCustomersProductModel": {
+            "properties": {
+                "object": {
+                    "description": "Object of payment container",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Id of payment container",
+                    "type": "string",
+                    "format": "id"
+                },
+                "contract": {
+                    "description": "Payment container contract",
+                    "$ref": "#/definitions/ProductInstanceUID"
+                },
+                "contact": {
+                    "description": "Customer contact info",
+                    "$ref": "#/definitions/PaymentCustomersDTOContact"
+                },
+                "created": {
+                    "description": "Created at date",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated": {
+                    "description": "Updated at date",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            },
+            "type": "object"
+        },
+        "PaymentTransactionsProductModel": {
+            "properties": {
+                "object": {
+                    "description": "Object of payment container",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Id of payment container",
+                    "type": "string",
+                    "format": "id"
+                },
+                "merchant": {
+                    "description": "Merchant information",
+                    "properties": {
+                        "object": {
+                            "description": "Type of product",
+                            "type": "string"
+                        },
+                        "id": {
+                            "description": "Identifier of product",
+                            "type": "string"
+                        },
+                        "type": {
+                            "description": "Type of merchant",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "trans_id": {
+                    "description": "Transaction identifier",
+                    "type": "integer"
+                },
+                "product_id": {
+                    "description": "Product identifier",
+                    "type": "integer"
+                },
+                "product": {
+                    "description": "Product type",
+                    "type": "string"
+                },
+                "product_raw": {
+                    "description": "WTF??",
+                    "type": "string"
+                },
+                "zahlungsmittel_id": {
+                    "description": "WTF??",
+                    "type": "integer"
+                },
+                "contract_id": {
+                    "description": "Contract identifier",
+                    "type": "integer"
+                },
+                "amount": {
+                    "description": "WTF?",
+                    "type": "integer"
+                },
+                "currency": {
+                    "description": "WTF??",
+                    "type": "string"
+                },
+                "created": {
+                    "description": "Created at date",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated": {
+                    "description": "Updated at date",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "status": {
+                    "description": "WTF??",
+                    "type": "integer"
+                },
+                "status_text": {
+                    "description": "WTF??",
+                    "type": "string"
+                },
+                "details": {
+                    "description": "WTF??",
+                    "properties": {
+                        "amount": {
+                            "description": "WTF??",
+                            "type": "integer"
+                        },
+                        "cleared": {
+                            "description": "WTF??",
+                            "type": "string"
+                        },
+                        "status": {
+                            "description": "WTF??",
+                            "type": "integer"
+                        },
+                        "status_text": {
+                            "description": "WTF??",
+                            "type": "string"
+                        },
+                        "status_simple": {
+                            "description": "WTF??",
+                            "type": "integer"
+                        },
+                        "status_text_simple": {
+                            "description": "WTF??",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "WTF??",
+                            "type": "string"
+                        },
+                        "description_raw": {
+                            "description": "WTF??",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "customer": {
+                    "description": "Function to return product model public definition",
+                    "properties": {
+                        "object": {
+                            "description": "Customer type name",
+                            "type": "string"
+                        },
+                        "id": {
+                            "description": "Id of customer",
+                            "type": "string",
+                            "format": "id"
+                        },
+                        "companyname": {
+                            "description": "Customer company name",
+                            "type": "string"
+                        },
+                        "salutation": {
+                            "description": "Customer salutation",
+                            "type": "string"
+                        },
+                        "title": {
+                            "description": "Customer title",
+                            "type": "string"
+                        },
+                        "forename": {
+                            "description": "Customer forename",
+                            "type": "string"
+                        },
+                        "surname": {
+                            "description": "Customer surname",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "securityDefinitions": {
+        "oauth_token": {
+            "type": "oauth2",
+            "flow": "application",
+            "authorizationUrl": "https://connect-testing.secupay-ag.de/oauth/token"
+        }
+    }
+}
