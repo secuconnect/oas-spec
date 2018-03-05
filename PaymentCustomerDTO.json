@@ -1,0 +1,9 @@
+{
+    "properties": {
+        "contact": {
+            "type": "object",
+            "$ref": "#/definitions/PaymentCustomersDTOContact"
+        }
+    },
+    "type": "object"
+}
