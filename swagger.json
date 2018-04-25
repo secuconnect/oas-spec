@@ -1,12 +1,13 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "SecuConnect API",
-        "version": "2.0"
+        "title": "Secuconnect API",
+        "version": "2.0.0"
     },
+    "host": "connect-testing.secupay-ag.de",
     "basePath": "/api/v2/",
     "schemes": [
-        "http"
+        "https"
     ],
     "paths": {
         "Payment/Containers": {
@@ -14,17 +15,36 @@
                 "tags": [
                     "paymentContainers"
                 ],
-                "description": "Get all payment containers",
+                "summary": "GET Payment/Containers",
+                "description": "Get a list of payment containers",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/count"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/parameters/query"
+                    },
+                    {
+                        "$ref": "#/parameters/sort"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Returns list with all payment containers",
+                        "description": "Returns a list of payment containers",
                         "schema": {
                             "properties": {
                                 "count": {
-                                    "description": "Count of returned payment containers",
+                                    "description": "Number of existing payment containers",
                                     "type": "integer"
                                 },
                                 "data": {
+                                    "description": "GET Payment/Containers",
                                     "type": "array",
                                     "items": {
                                         "$ref": "#/definitions/PaymentContainersProductModel"
@@ -45,6 +65,7 @@
                 "tags": [
                     "paymentContainers"
                 ],
+                "summary": "POST Payment/Containers",
                 "description": "Add new containers",
                 "parameters": [
                     {
@@ -65,7 +86,7 @@
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -79,10 +100,40 @@
             }
         },
         "Payment/Containers/{id}": {
+            "get": {
+                "tags": [
+                    "paymentContainers"
+                ],
+                "summary": "GET Payment/Containers/{id}",
+                "description": "Get all payment containers",
+                "operationId": "paymentContainersGetById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search one by provided id",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns payment container for a specific id",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContainersProductModel"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            },
             "put": {
                 "tags": [
                     "paymentContainers"
                 ],
+                "summary": "PUT Payment/Containers/{id}",
                 "description": "Update payment container",
                 "parameters": [
                     {
@@ -110,7 +161,7 @@
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -126,6 +177,7 @@
                 "tags": [
                     "paymentContainers"
                 ],
+                "summary": "DELETE Payment/Containers/{id}",
                 "description": "Delete payment container",
                 "parameters": [
                     {
@@ -140,11 +192,14 @@
                     "200": {
                         "description": "Deleted payment container",
                         "schema": {
-                            "$ref": "#/definitions/PaymentContainersProductModel"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/PaymentContainersProductModel"
+                            }
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -162,6 +217,7 @@
                 "tags": [
                     "paymentContainers"
                 ],
+                "summary": "POST Payment/Containers/{id}/assign/{secondary-id}",
                 "description": "Assign an existing payment container to ...",
                 "parameters": [
                     {
@@ -187,7 +243,7 @@
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -203,6 +259,7 @@
                 "tags": [
                     "paymentContainers"
                 ],
+                "summary": "DELETE Payment/Containers/{id}/assign/{secondary-id}",
                 "description": "Removes an existing payment container assignment",
                 "parameters": [
                     {
@@ -224,11 +281,14 @@
                     "200": {
                         "description": "Affected container",
                         "schema": {
-                            "$ref": "#/definitions/PaymentContainersProductModel"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/PaymentContainersProductModel"
+                            }
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -246,17 +306,36 @@
                 "tags": [
                     "paymentContracts"
                 ],
-                "description": "Get all payment contracts",
+                "summary": "GET Payment/Contracts",
+                "description": "Get a list of payment contracts",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/count"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/parameters/query"
+                    },
+                    {
+                        "$ref": "#/parameters/sort"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Returns list with all payment contracts",
+                        "description": "Returns a list of payment contracts",
                         "schema": {
                             "properties": {
                                 "count": {
-                                    "description": "Count of returned payment contracts",
+                                    "description": "Number of existing payment contracts",
                                     "type": "integer"
                                 },
                                 "data": {
+                                    "description": "GET Payment/Contracts",
                                     "type": "array",
                                     "items": {
                                         "$ref": "#/definitions/PaymentContractsProductModel"
@@ -277,12 +356,13 @@
                 "tags": [
                     "paymentContracts"
                 ],
+                "summary": "POST Payment/Contracts",
                 "description": "Add new contract",
                 "parameters": [
                     {
                         "name": "body",
                         "in": "body",
-                        "description": "WTF??",
+                        "description": "Payment contracts properties",
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/PaymentContractsDTO"
@@ -297,7 +377,7 @@
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -311,10 +391,40 @@
             }
         },
         "Payment/Contracts/{id}": {
+            "get": {
+                "tags": [
+                    "paymentContracts"
+                ],
+                "summary": "GET Payment/Contracts/{id}",
+                "description": "Get all payment contracts",
+                "operationId": "paymentContractsGetById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search one by provided id",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns payment contract for a specific id",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentContractsProductModel"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            },
             "put": {
                 "tags": [
                     "paymentContracts"
                 ],
+                "summary": "PUT Payment/Contracts/{id}",
                 "description": "Update payment contract",
                 "parameters": [
                     {
@@ -342,7 +452,7 @@
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -358,6 +468,7 @@
                 "tags": [
                     "paymentContracts"
                 ],
+                "summary": "DELETE Payment/Contracts/{id}",
                 "description": "Delete payment contract",
                 "parameters": [
                     {
@@ -372,11 +483,14 @@
                     "200": {
                         "description": "Deleted payment contract",
                         "schema": {
-                            "$ref": "#/definitions/PaymentContractsProductModel"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/PaymentContractsProductModel"
+                            }
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -394,6 +508,7 @@
                 "tags": [
                     "paymentContracts"
                 ],
+                "summary": "GET Payment/Contracts/{id}/PaymentMethods",
                 "description": "Get available payment methods for given contract",
                 "parameters": [
                     {
@@ -415,7 +530,7 @@
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -433,7 +548,8 @@
                 "tags": [
                     "paymentContracts"
                 ],
-                "description": "WTF??",
+                "summary": "POST Payment/Contracts/{id}/clone",
+                "description": "Clone an existing payment contract",
                 "parameters": [
                     {
                         "name": "id",
@@ -451,7 +567,7 @@
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -464,12 +580,13 @@
                 ]
             }
         },
-        "Payment/Contracts/{id}/RequestId": {
+        "Payment/Contracts/{id}/requestId": {
             "post": {
                 "tags": [
                     "paymentContracts"
                 ],
-                "description": "Function to clone contracts data over the old apiv2 (requestapikey)",
+                "summary": "POST Payment/Contracts/{id}/requestId",
+                "description": "This method clones your payment contract, so that you can use this to separate the merchants of your marketplace. (Needs to be activated))",
                 "parameters": [
                     {
                         "name": "id",
@@ -481,30 +598,30 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "WTF??",
+                        "description": "Proper response after cloning your payment contract",
                         "schema": {
                             "properties": {
                                 "contract": {
-                                    "description": "WTF??",
+                                    "description": "The payment contract object",
                                     "$ref": "#/definitions/PaymentContractsProductModel"
                                 },
                                 "apikey": {
-                                    "description": "WTF??",
+                                    "description": "Returns the apikey of the created merchant",
                                     "type": "string"
                                 },
                                 "paying_account": {
-                                    "description": "WTF??",
+                                    "description": "The bank account you can use for pay in.",
                                     "properties": {
                                         "accountowner": {
-                                            "description": "WTF??",
+                                            "description": "The bank account owner",
                                             "type": "string"
                                         },
                                         "iban": {
-                                            "description": "WTF??",
+                                            "description": "IBAN",
                                             "type": "string"
                                         },
                                         "bic": {
-                                            "description": "WTF??",
+                                            "description": "BIC",
                                             "type": "string"
                                         }
                                     },
@@ -515,7 +632,7 @@
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -533,17 +650,36 @@
                 "tags": [
                     "paymentCustomers"
                 ],
-                "description": "Get all payment customers",
+                "summary": "GET Payment/Customers",
+                "description": "Get a list of payment customers",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/count"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/parameters/query"
+                    },
+                    {
+                        "$ref": "#/parameters/sort"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Returns list with all payment customers",
+                        "description": "Returns a list of payment customers",
                         "schema": {
                             "properties": {
                                 "count": {
-                                    "description": "Count of returned payment customers",
+                                    "description": "Number of existing payment customers",
                                     "type": "integer"
                                 },
                                 "data": {
+                                    "description": "GET Payment/Customers",
                                     "type": "array",
                                     "items": {
                                         "$ref": "#/definitions/PaymentCustomersProductModel"
@@ -564,6 +700,7 @@
                 "tags": [
                     "paymentCustomers"
                 ],
+                "summary": "POST Payment/Customers",
                 "description": "Add new customer",
                 "parameters": [
                     {
@@ -584,7 +721,7 @@
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -598,10 +735,40 @@
             }
         },
         "Payment/Customers/{id}": {
+            "get": {
+                "tags": [
+                    "paymentCustomers"
+                ],
+                "summary": "GET Payment/Customers/{id}",
+                "description": "Get all payment customers",
+                "operationId": "paymentCustomersGetById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search one by provided id",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns payment customer for a specific id",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentCustomersProductModel"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            },
             "put": {
                 "tags": [
                     "paymentCustomers"
                 ],
+                "summary": "PUT Payment/Customers/{id}",
                 "description": "Update payment customer",
                 "parameters": [
                     {
@@ -629,7 +796,7 @@
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -645,6 +812,7 @@
                 "tags": [
                     "paymentCustomers"
                 ],
+                "summary": "DELETE Payment/Customers/{id}",
                 "description": "Delete payment customer",
                 "parameters": [
                     {
@@ -659,11 +827,14 @@
                     "200": {
                         "description": "Deleted payment customer",
                         "schema": {
-                            "$ref": "#/definitions/PaymentCustomersProductModel"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/PaymentCustomersProductModel"
+                            }
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -681,25 +852,27 @@
                 "tags": [
                     "paymentSecupayCreditcards"
                 ],
-                "description": "Function to get status for transaction_hash",
+                "summary": "GET Payment/Secupaycreditcards/{id}",
+                "description": "Get the details of a payment transaction",
+                "operationId": "paymentSecupayCreditcardsGetById",
                 "parameters": [
                     {
                         "name": "hash",
                         "in": "path",
-                        "description": "Transaction hash",
+                        "description": "Payment transaction ID",
                         "required": true,
                         "type": "string"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "WTF??",
+                        "description": "Details of the payment transaction",
                         "schema": {
-                            "$ref": "#/definitions/SecupayTransactionDTO"
+                            "$ref": "#/definitions/SecupayTransactionProductModel"
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -717,21 +890,24 @@
                 "tags": [
                     "paymentSecupayCreditcards"
                 ],
-                "description": "WTF??",
+                "summary": "POST Payment/Secupaycreditcards",
+                "description": "Start a credit card payment transaction",
                 "parameters": [
                     {
                         "name": "body",
                         "in": "body",
+                        "description": "Credit card payment transaction input properties",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "$ref": "#/definitions/SecupayTransactionProductDTO"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
-                            "$ref": "#/definitions/SecupayTransactionDTO"
+                            "$ref": "#/definitions/SecupayTransactionProductModel"
                         }
                     }
                 },
@@ -747,7 +923,9 @@
                 "tags": [
                     "paymentSecupayCreditcards"
                 ],
+                "summary": "POST Payment/Secupaycreditcards/{id}/cancel",
                 "description": "Function to cancel the transaction",
+                "operationId": "paymentSecupayCreditcardsCancelById",
                 "parameters": [
                     {
                         "name": "hash",
@@ -765,7 +943,7 @@
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -783,25 +961,27 @@
                 "tags": [
                     "paymentSecupayDebits"
                 ],
-                "description": "Function to get status for transaction_hash",
+                "summary": "GET Payment/Secupaydebits/{id}",
+                "description": "Get the details of a payment transaction",
+                "operationId": "paymentSecupayDebitsGetById",
                 "parameters": [
                     {
                         "name": "hash",
                         "in": "path",
-                        "description": "Transaction hash",
+                        "description": "Payment transaction ID",
                         "required": true,
                         "type": "string"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "WTF??",
+                        "description": "Details of the payment transaction",
                         "schema": {
-                            "$ref": "#/definitions/SecupayTransactionDTO"
+                            "$ref": "#/definitions/SecupayTransactionProductModel"
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -819,25 +999,28 @@
                 "tags": [
                     "paymentSecupayDebits"
                 ],
-                "description": "WTF??",
+                "summary": "POST Payment/Secupaydebits",
+                "description": "Start a debit payment transaction",
                 "parameters": [
                     {
                         "name": "body",
                         "in": "body",
+                        "description": "Debit payment transaction input properties",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "$ref": "#/definitions/SecupayTransactionProductDTO"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "WTF??",
+                        "description": "Started debit payment transaction",
                         "schema": {
-                            "$ref": "#/definitions/SecupayTransactionDTO"
+                            "$ref": "#/definitions/SecupayTransactionProductModel"
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -855,7 +1038,9 @@
                 "tags": [
                     "paymentSecupayDebits"
                 ],
+                "summary": "POST Payment/Secupaydebits/{id}/cancel",
                 "description": "Function to cancel the transaction",
+                "operationId": "paymentSecupayDebitsCancelById",
                 "parameters": [
                     {
                         "name": "hash",
@@ -873,7 +1058,7 @@
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -891,25 +1076,27 @@
                 "tags": [
                     "paymentSecupayInvoices"
                 ],
-                "description": "Function to get status for transaction_hash",
+                "summary": "GET Payment/Secupayinvoices/{id}",
+                "description": "Get the details of a payment transaction",
+                "operationId": "paymentSecupayInvoicesGetById",
                 "parameters": [
                     {
                         "name": "hash",
                         "in": "path",
-                        "description": "Transaction hash",
+                        "description": "Payment transaction ID",
                         "required": true,
                         "type": "string"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "WTF??",
+                        "description": "Details of the payment transaction",
                         "schema": {
-                            "$ref": "#/definitions/SecupayTransactionDTO"
+                            "$ref": "#/definitions/SecupayTransactionProductModel"
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -927,21 +1114,30 @@
                 "tags": [
                     "paymentSecupayInvoices"
                 ],
-                "description": "WTF??",
+                "summary": "POST Payment/Secupayinvoices",
+                "description": "Start a invoice payment transaction",
                 "parameters": [
                     {
                         "name": "body",
                         "in": "body",
+                        "description": "Invoice payment transaction input properties",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "$ref": "#/definitions/SecupayTransactionProductDTO"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "WTF??",
+                        "description": "Started invoice payment transaction",
                         "schema": {
-                            "$ref": "#/definitions/SecupayTransactionDTO"
+                            "$ref": "#/definitions/SecupayTransactionProductModel"
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
                 },
@@ -957,7 +1153,9 @@
                 "tags": [
                     "paymentSecupayInvoices"
                 ],
+                "summary": "POST Payment/Secupayinvoices/{id}/cancel",
                 "description": "Function to cancel the transaction",
+                "operationId": "paymentSecupayInvoicesCancelById",
                 "parameters": [
                     {
                         "name": "hash",
@@ -975,7 +1173,7 @@
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -993,25 +1191,27 @@
                 "tags": [
                     "paymentSecupayPrepays"
                 ],
-                "description": "Function to get status for transaction_hash",
+                "summary": "GET Payment/Secupayprepays/{id}",
+                "description": "Get the details of a payment transaction",
+                "operationId": "paymentSecupayPrepaysGetById",
                 "parameters": [
                     {
                         "name": "hash",
                         "in": "path",
-                        "description": "Transaction hash",
+                        "description": "Payment transaction ID",
                         "required": true,
                         "type": "string"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "WTF??",
+                        "description": "Details of the payment transaction",
                         "schema": {
-                            "$ref": "#/definitions/SecupayTransactionDTO"
+                            "$ref": "#/definitions/SecupayTransactionProductModel"
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -1029,21 +1229,24 @@
                 "tags": [
                     "paymentSecupayPrepays"
                 ],
-                "description": "WTF??",
+                "summary": "POST Payment/Secupayprepays",
+                "description": "Start a prepay payment transaction",
                 "parameters": [
                     {
                         "name": "body",
                         "in": "body",
+                        "description": "Prepay payment transaction input properties",
                         "schema": {
-                            "type": "object"
+                            "type": "object",
+                            "$ref": "#/definitions/SecupayTransactionProductDTO"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "WTF??",
+                        "description": "Started prepay payment transaction",
                         "schema": {
-                            "$ref": "#/definitions/SecupayTransactionDTO"
+                            "$ref": "#/definitions/SecupayTransactionProductModel"
                         }
                     }
                 },
@@ -1059,7 +1262,9 @@
                 "tags": [
                     "paymentSecupayPrepays"
                 ],
+                "summary": "POST Payment/Secupayprepays/{id}/cancel",
                 "description": "Function to cancel the transaction",
+                "operationId": "paymentSecupayPrepaysCancelById",
                 "parameters": [
                     {
                         "name": "hash",
@@ -1077,7 +1282,7 @@
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Canceled transaction",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -1095,17 +1300,36 @@
                 "tags": [
                     "paymentTransactions"
                 ],
-                "description": "Get all payment transactions",
+                "summary": "GET Payment/Transactions",
+                "description": "Get a list of payment transactions",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/count"
+                    },
+                    {
+                        "$ref": "#/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/parameters/query"
+                    },
+                    {
+                        "$ref": "#/parameters/sort"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Returns list with all payment transactions",
+                        "description": "Returns a list of payment transactions",
                         "schema": {
                             "properties": {
                                 "count": {
-                                    "description": "Count of returned payment transactions",
+                                    "description": "Number of existing payment transactions",
                                     "type": "integer"
                                 },
                                 "data": {
+                                    "description": "GET Payment/Transactions",
                                     "type": "array",
                                     "items": {
                                         "$ref": "#/definitions/PaymentTransactionsProductModel"
@@ -1123,12 +1347,44 @@
                 ]
             }
         },
+        "Payment/Transactions/{id}": {
+            "get": {
+                "tags": [
+                    "paymentTransactions"
+                ],
+                "summary": "GET Payment/Transactions/{id}",
+                "description": "Get all payment transactions",
+                "operationId": "paymentTransactionsGetById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Search one by provided id",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns list with all payment transactions",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentTransactionsProductModel"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "oauth_token": []
+                    }
+                ]
+            }
+        },
         "Payment/Transactions/{id}/cancel": {
             "post": {
                 "tags": [
                     "paymentTransactions"
                 ],
-                "description": "WTF??",
+                "summary": "POST Payment/Transactions/{id}/cancel",
+                "description": "Cancel a payment transaction",
                 "parameters": [
                     {
                         "name": "id",
@@ -1140,9 +1396,9 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "WTF??",
+                        "description": "Canceled payment transactions",
                         "schema": {
-                            "description": "WTF??",
+                            "description": "list of canceled payment transactions",
                             "type": "array",
                             "items": {
                                 "properties": {
@@ -1151,6 +1407,7 @@
                                         "type": "integer"
                                     },
                                     "data": {
+                                        "description": "POST Payment/Transactions/{id}/cancel",
                                         "type": "array",
                                         "items": {
                                             "$ref": "#/definitions/PaymentTransactionsProductModel"
@@ -1162,7 +1419,7 @@
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -1175,12 +1432,13 @@
                 ]
             }
         },
-        "Payment/Transactions/{id}/shippingUrl": {
+        "Payment/Transactions/{id}/ShippingUrl": {
             "get": {
                 "tags": [
                     "paymentTransactions"
                 ],
-                "description": "WTF??",
+                "summary": "GET Payment/Transactions/{id}/ShippingUrl",
+                "description": "Get the url where you can fill the shipping information",
                 "parameters": [
                     {
                         "name": "id",
@@ -1192,11 +1450,11 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "WTF??",
+                        "description": "The url of the shipping information form",
                         "schema": {
                             "properties": {
                                 "url": {
-                                    "description": "WTF??",
+                                    "description": "The url of the shipping information form",
                                     "type": "string"
                                 }
                             },
@@ -1204,7 +1462,7 @@
                         }
                     },
                     "default": {
-                        "description": "WTF??",
+                        "description": "Response related to the error",
                         "schema": {
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
@@ -1223,7 +1481,7 @@
             "description": "Product name and instance id, uniquely identifying instance of Product",
             "properties": {
                 "object": {
-                    "description": "Product name",
+                    "description": "Object type of instance",
                     "type": "string"
                 },
                 "id": {
@@ -1275,7 +1533,7 @@
                     "type": "string"
                 },
                 "error_user": {
-                    "description": "WTF??",
+                    "description": "Error details in German",
                     "type": "string"
                 },
                 "code": {
@@ -1283,8 +1541,97 @@
                     "type": "string"
                 },
                 "supportId": {
-                    "description": "WTF??",
+                    "description": "ID by which support team can relate error with action(s) that caused it",
                     "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "PaymentContainersProductModel": {
+            "properties": {
+                "object": {
+                    "description": "Object of payment container",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Id of payment container",
+                    "type": "string",
+                    "format": "id"
+                },
+                "contract": {
+                    "description": "Payment container contract",
+                    "$ref": "#/definitions/PaymentContractsProductModel"
+                },
+                "customer": {
+                    "description": "Payment container customer",
+                    "$ref": "#/definitions/PaymentCustomersProductModel"
+                },
+                "assign": {
+                    "description": "Assign to",
+                    "$ref": "#/definitions/ProductInstanceUID"
+                },
+                "type": {
+                    "description": "Type of payment container",
+                    "type": "string"
+                },
+                "public": {
+                    "description": "Public payment instrument data",
+                    "$ref": "#/definitions/BankAccountDescriptor"
+                },
+                "private": {
+                    "description": "Private payment instrument data",
+                    "$ref": "#/definitions/BankAccountDescriptor"
+                },
+                "created": {
+                    "description": "Creation date",
+                    "type": "string",
+                    "format": "date"
+                },
+                "updated": {
+                    "description": "Last update date",
+                    "type": "string",
+                    "format": "date"
+                },
+                "mandate": {
+                    "description": "Payment container mandate",
+                    "$ref": "#/definitions/PaymentContainerMandate"
+                }
+            },
+            "type": "object"
+        },
+        "PaymentContainersDTO": {
+            "properties": {
+                "customer": {
+                    "description": "The customer of this payment container",
+                    "properties": {
+                        "id": {
+                            "description": "Customer identifier",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": {
+                    "description": "Type of Payment Containers",
+                    "type": "string"
+                },
+                "private": {
+                    "description": "",
+                    "properties": {
+                        "owner": {
+                            "description": "PaymentContainersDTO",
+                            "type": "string"
+                        },
+                        "iban": {
+                            "description": "PaymentContainersDTO",
+                            "type": "string"
+                        },
+                        "bic": {
+                            "description": "PaymentContainersDTO",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
                 }
             },
             "type": "object"
@@ -1310,201 +1657,75 @@
                 }
             }
         },
-        "SecupayTransactionDTO": {
+        "PaymentContainerMandate": {
             "properties": {
-                "object": {
-                    "description": "Product name",
+                "sepa_mandate_id": {
+                    "description": "Sepa mandate id",
                     "type": "string"
                 },
-                "id": {
-                    "description": "ID of instance",
+                "iban": {
+                    "description": "IBAN",
                     "type": "string"
                 },
-                "trans_id": {
-                    "description": "Transaction identifier",
+                "bic": {
+                    "description": "BIC",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Type",
                     "type": "string"
                 },
                 "status": {
-                    "description": "Transaction status",
+                    "description": "Status",
                     "type": "string"
                 },
-                "amount": {
-                    "description": "WTF??",
+                "identification": {
+                    "description": "Identification",
                     "type": "string"
-                },
-                "currency": {
-                    "description": "WTF??",
-                    "type": "string"
-                },
-                "purpose": {
-                    "description": "WTF??",
-                    "type": "string"
-                },
-                "order_id": {
-                    "description": "WTF??",
-                    "type": "string"
-                },
-                "basket": {
-                    "description": "WTF??",
-                    "type": "string"
-                },
-                "accrual": {
-                    "description": "WTF??",
-                    "type": "string"
-                },
-                "payment_action": {
-                    "description": "WTF??",
-                    "type": "string"
-                },
-                "transfer_purpose": {
-                    "description": "WTF??",
-                    "type": "string"
-                },
-                "transfer_account": {
-                    "description": "WTF??",
-                    "properties": {
-                        "iban": {
-                            "description": "IBAN",
-                            "type": "string"
-                        },
-                        "bic": {
-                            "description": "BIC",
-                            "type": "string"
-                        },
-                        "accountnumber": {
-                            "description": "Account number",
-                            "type": "string"
-                        },
-                        "bankcode": {
-                            "description": "WTF??",
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
-                "customer": {
-                    "description": "WTF??",
-                    "type": "object",
-                    "$ref": "#/definitions/PaymentCustomersProductModel"
-                },
-                "used_payment_instrument": {
-                    "description": "WTF??",
-                    "properties": {
-                        "type": {
-                            "description": "WTF?",
-                            "type": "string"
-                        },
-                        "data": {
-                            "description": "WTF??",
-                            "type": "object",
-                            "$ref": "#/definitions/BankAccountDescriptor"
-                        }
-                    },
-                    "type": "object"
-                },
-                "redirect_url": {
-                    "description": "WTF??",
-                    "properties": {
-                        "iframe_url": {
-                            "description": "WTF??",
-                            "type": "string"
-                        },
-                        "url_success": {
-                            "description": "WTF??",
-                            "type": "string"
-                        },
-                        "url_failure": {
-                            "description": "WTF??",
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
                 }
             },
             "type": "object"
         },
-        "PaymentContainersDTO": {
-            "properties": {
-                "assign": {
-                    "description": "WTF??",
-                    "type": "boolean"
-                },
-                "customer": {
-                    "description": "WTF??",
-                    "properties": {
-                        "id": {
-                            "description": "Customer identifier",
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
-                "type": {
-                    "description": "Type of Payment Containers",
-                    "type": "string"
-                },
-                "private": {
-                    "description": "",
-                    "properties": {
-                        "owner": {
-                            "type": "string"
-                        },
-                        "iban": {
-                            "type": "string"
-                        },
-                        "bic": {
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                }
-            },
-            "type": "object"
-        },
-        "PaymentContainersProductModel": {
+        "PaymentContractsProductModel": {
             "properties": {
                 "object": {
-                    "description": "Object of payment container",
-                    "type": "string"
+                    "description": "Object of payment contract",
+                    "type": "string",
+                    "example": "payment.contracts"
                 },
                 "id": {
-                    "description": "Id of payment container",
+                    "description": "Id of payment contract",
                     "type": "string",
-                    "format": "id"
+                    "format": "id",
+                    "example": "PCR_W8VVN3QCN2M7690ZR5GQGH5YJNVVAU"
                 },
-                "contract": {
-                    "description": "Payment container contract",
+                "parent": {
+                    "description": "Payment contract",
                     "$ref": "#/definitions/ProductInstanceUID"
                 },
-                "customer": {
-                    "description": "Payment container customer",
-                    "$ref": "#/definitions/ProductInstanceUID"
+                "demo": {
+                    "description": "Is this a demo contract",
+                    "type": "boolean"
                 },
-                "assign": {
-                    "description": "Assign",
-                    "$ref": "#/definitions/ProductInstanceUID"
+                "allow_cloning": {
+                    "description": "Allow to create sub-contracts",
+                    "type": "boolean"
                 },
-                "type": {
-                    "description": "Type of payment container",
-                    "type": "string"
-                },
-                "public": {
-                    "description": "Public bank account data",
-                    "$ref": "#/definitions/BankAccountDescriptor"
-                },
-                "private": {
-                    "description": "Private bank account data",
-                    "$ref": "#/definitions/BankAccountDescriptor"
+                "sepa_mandate_inform": {
+                    "description": "Inform the customer about the created sepa mandate",
+                    "type": "string",
+                    "default": "never",
+                    "example": "never"
                 },
                 "created": {
-                    "description": "Creation date",
+                    "description": "Created at date",
                     "type": "string",
-                    "format": "date"
+                    "format": "date-time"
                 },
                 "updated": {
-                    "description": "Last update date",
+                    "description": "Updated at date",
                     "type": "string",
-                    "format": "date"
+                    "format": "date-time"
                 }
             },
             "type": "object"
@@ -1516,7 +1737,7 @@
                     "type": "string"
                 },
                 "internal_reference": {
-                    "description": "WTF??",
+                    "description": "The internal user id",
                     "type": "string"
                 },
                 "contract_id": {
@@ -1524,7 +1745,7 @@
                     "type": "string"
                 },
                 "demo": {
-                    "description": "WTF??",
+                    "description": "Is this a demo contract",
                     "type": "string"
                 },
                 "debit_product_id": {
@@ -1544,7 +1765,7 @@
                     "type": "string"
                 },
                 "url_push": {
-                    "description": "WTF??",
+                    "description": "An URL where your service listen for push notifications of the secuconnect service",
                     "type": "string"
                 },
                 "allow_transactions": {
@@ -1556,45 +1777,37 @@
                     "type": "boolean"
                 },
                 "unique_order_id": {
-                    "description": "WTF??",
-                    "type": "string"
+                    "description": "Bool, default FALSE. If TRUE, an error message will be thrown if you try to create a new payment transaction with the same order_id of an previous transaction.",
+                    "type": "boolean"
                 },
                 "scoring": {
-                    "description": "WTF??",
-                    "type": "string"
+                    "description": "Bool, default TRUE. If FALSE, the customer scoring is disabled for your payment contract",
+                    "type": "boolean"
                 },
                 "sepa_mandate_inform": {
-                    "description": "WTF??",
-                    "type": "boolean"
+                    "description": "Enum [on_transaction, on_container, never], default \u201cnever\u201d Option to send automatically an information to the customer when a new SEPA-mandate was created.",
+                    "type": "string"
                 }
             }
         },
-        "PaymentContractsProductModel": {
+        "PaymentCustomersProductModel": {
             "properties": {
                 "object": {
-                    "description": "Object of payment container",
+                    "description": "Object of payment customer",
                     "type": "string"
                 },
                 "id": {
-                    "description": "Id of payment container",
+                    "description": "Id of payment customer",
                     "type": "string",
                     "format": "id"
                 },
-                "parent": {
-                    "description": "Payment container contract",
+                "contract": {
+                    "description": "Payment contract",
                     "$ref": "#/definitions/ProductInstanceUID"
                 },
-                "demo": {
-                    "description": "WTF ??",
-                    "type": "boolean"
-                },
-                "allow_cloning": {
-                    "description": "WTF ??",
-                    "type": "boolean"
-                },
-                "sepa_mandate_inform": {
-                    "description": "WTF ??",
-                    "type": "string"
+                "contact": {
+                    "description": "Customer contact info",
+                    "$ref": "#/definitions/PaymentCustomersDTOContact"
                 },
                 "created": {
                     "description": "Created at date",
@@ -1612,6 +1825,7 @@
         "PaymentCustomersDTO": {
             "properties": {
                 "contact": {
+                    "description": "PaymentCustomersDTO",
                     "type": "object",
                     "$ref": "#/definitions/PaymentCustomersDTOContact"
                 }
@@ -1657,11 +1871,11 @@
                     "type": "string"
                 },
                 "dob": {
-                    "description": "WTF??",
+                    "description": "Date of birth '/^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}[+-]\\d{2}:\\d{2})?$/i'",
                     "type": "string"
                 },
                 "picture": {
-                    "description": "WTF??",
+                    "description": "The document id of an user picture (To upload the picture use our document service.)",
                     "type": "string"
                 },
                 "url_website": {
@@ -1684,46 +1898,313 @@
             },
             "type": "object"
         },
-        "PaymentCustomersProductModel": {
+        "SecupayTransactionProductModel": {
             "properties": {
                 "object": {
-                    "description": "Object of payment container",
+                    "description": "Product name",
                     "type": "string"
                 },
                 "id": {
-                    "description": "Id of payment container",
-                    "type": "string",
-                    "format": "id"
+                    "description": "ID of instance",
+                    "type": "string"
                 },
-                "contract": {
-                    "description": "Payment container contract",
-                    "$ref": "#/definitions/ProductInstanceUID"
+                "trans_id": {
+                    "description": "Transaction identifier",
+                    "type": "int"
                 },
-                "contact": {
-                    "description": "Customer contact info",
-                    "$ref": "#/definitions/PaymentCustomersDTOContact"
+                "status": {
+                    "description": "Transaction status",
+                    "type": "string"
                 },
-                "created": {
-                    "description": "Created at date",
-                    "type": "string",
-                    "format": "date-time"
+                "amount": {
+                    "description": "Total amount of payment in cents (or the smallest cash unit of the relevant currency)",
+                    "type": "int"
                 },
-                "updated": {
-                    "description": "Updated at date",
-                    "type": "string",
-                    "format": "date-time"
+                "currency": {
+                    "description": "ISO 4217 code of currency, eg EUR for Euro.",
+                    "type": "string"
+                },
+                "purpose": {
+                    "description": "The purpose of the payment. This is the later assignment of the payment is for example on the account statement of the buyer.",
+                    "type": "string"
+                },
+                "order_id": {
+                    "description": "Specifying an order number. Depending on the contract setting, this must be unique for each payment.",
+                    "type": "int"
+                },
+                "basket": {
+                    "description": "A list of items that are being purchased.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SecupayBasketItem"
+                    }
+                },
+                "transaction_status": {
+                    "description": "Transaction status (number)",
+                    "type": "string"
+                },
+                "accrual": {
+                    "description": "Indicates whether the payment is locked for pay-out (TRUE) or not (FALSE). Standard value here is FALSE.",
+                    "type": "boolean"
+                },
+                "payment_action": {
+                    "description": "Specifies whether a pre-authorization (\"authorization\") or instant payment ( \"sale\") is to be performed. Standard value here is \"sale\". The collection of the pre-authorized payment is made with the \"capture\" command.",
+                    "type": "string"
+                },
+                "transfer_purpose": {
+                    "description": "The purpose the payer needs to use for his transfer",
+                    "type": "string"
+                },
+                "transfer_account": {
+                    "description": "The bank account the payer needs to use for his transfer",
+                    "properties": {
+                        "iban": {
+                            "description": "IBAN",
+                            "type": "string"
+                        },
+                        "bic": {
+                            "description": "BIC",
+                            "type": "string"
+                        },
+                        "accountnumber": {
+                            "description": "Bank account number",
+                            "type": "string"
+                        },
+                        "bankcode": {
+                            "description": "The name of the bank institute",
+                            "type": "string"
+                        },
+                        "account_owner": {
+                            "description": "The owner of bank account",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "customer": {
+                    "description": "The customer object",
+                    "type": "object",
+                    "$ref": "#/definitions/PaymentCustomersProductModel"
+                },
+                "used_payment_instrument": {
+                    "description": "The payment data which has the payer used (like bank account, credit card, ...). This data is always masked.",
+                    "properties": {
+                        "type": {
+                            "description": "The type of the payment instrument data, like: 'bank_account' or 'credit_card'",
+                            "type": "string"
+                        },
+                        "data": {
+                            "description": "Holds the payment instrument data",
+                            "type": "object",
+                            "$ref": "#/definitions/BankAccountDescriptor"
+                        }
+                    },
+                    "type": "object"
+                },
+                "redirect_url": {
+                    "description": "A list of redirect urls used for the payment checkout page",
+                    "properties": {
+                        "iframe_url": {
+                            "description": "The url of the payment checkout iframe",
+                            "type": "string"
+                        },
+                        "url_success": {
+                            "description": "After successfully entering the cash data of the payer is returned to this page.",
+                            "type": "string"
+                        },
+                        "url_failure": {
+                            "description": "After canceling or on errors the payer will be redirected to this page and can select there an another payment method.",
+                            "type": "string"
+                        },
+                        "url_push": {
+                            "description": "The secupay system will be send status change notifications to this URL.",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "iframe_url": {
+                    "description": "The url of the payment checkout iframe",
+                    "type": "string"
+                },
+                "container": {
+                    "description": "The container object",
+                    "type": "object",
+                    "$ref": "#/definitions/PaymentContainersProductModel"
                 }
             },
             "type": "object"
         },
+        "SecupayTransactionProductDTO": {
+            "properties": {
+                "amount": {
+                    "description": "Total amount of payment in cents (or the smallest cash unit of the relevant currency)",
+                    "type": "int"
+                },
+                "currency": {
+                    "description": "ISO 4217 code of currency, eg EUR for Euro.",
+                    "type": "string"
+                },
+                "purpose": {
+                    "description": "The purpose of the payment. This is the later assignment of the payment is for example on the account statement of the buyer.",
+                    "type": "string"
+                },
+                "order_id": {
+                    "description": "Specifying an order number. Depending on the contract setting, this must be unique for each payment.",
+                    "type": "int"
+                },
+                "basket": {
+                    "description": "A list of items that are being purchased.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SecupayBasketItem"
+                    }
+                },
+                "accrual": {
+                    "description": "Indicates whether the payment is locked for pay-out (TRUE) or not (FALSE). Standard value here is FALSE.",
+                    "type": "boolean"
+                },
+                "payment_action": {
+                    "description": "Specifies whether a pre-authorization (\"authorization\") or instant payment (\"sale\") is to be performed. Standard value here is \"sale\". The collection of the pre-authorized payment is made with the \"capture\" command.",
+                    "type": "string"
+                },
+                "customer": {
+                    "description": "The customer object",
+                    "type": "object",
+                    "$ref": "#/definitions/PaymentCustomersDTO"
+                },
+                "redirect_url": {
+                    "description": "A list of redirect urls used for the payment checkout page",
+                    "properties": {
+                        "url_success": {
+                            "description": "After successfully entering the cash data of the payer is returned to this page.",
+                            "type": "string"
+                        },
+                        "url_failure": {
+                            "description": "After canceling or on errors the payer will be redirected to this page and can select there an another payment method.",
+                            "type": "string"
+                        },
+                        "url_push": {
+                            "description": "The secupay system will be send status change notifications to this URL.",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "contract": {
+                    "description": "Contract id",
+                    "type": "string"
+                },
+                "opt_data": {
+                    "description": "Options for customizing the checkout page",
+                    "properties": {
+                        "has_accepted_disclaimer": {
+                            "description": "Customer accepted disclaimer",
+                            "type": "string"
+                        },
+                        "language": {
+                            "description": "Client language",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "subscription": {
+                    "description": "Recurring payments",
+                    "properties": {
+                        "purpose": {
+                            "description": "The purpose of the subscription",
+                            "type": "string"
+                        },
+                        "id": {
+                            "description": "Id of subscription, if exists",
+                            "type": "int"
+                        }
+                    },
+                    "type": "object"
+                },
+                "demo": {
+                    "description": "Demo",
+                    "type": "bool"
+                },
+                "experience": {
+                    "description": "Customer experience score",
+                    "properties": {
+                        "positive": {
+                            "description": "Score of positive experience (paid orders)",
+                            "type": "int"
+                        },
+                        "negative": {
+                            "description": "Score of negative experience (open/unpaid orders)",
+                            "type": "int"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "SecupayBasketItem": {
+            "description": "Item describing single position in basket in transaction",
+            "properties": {
+                "item_type": {
+                    "description": "Category of item",
+                    "type": "string"
+                },
+                "article_number": {
+                    "description": "Article number, if item is of article category",
+                    "type": "string"
+                },
+                "quantity": {
+                    "description": "Quantity of articles in item",
+                    "type": "int"
+                },
+                "name": {
+                    "description": "Descriptive name of item",
+                    "type": "string"
+                },
+                "model": {
+                    "description": "Model of item",
+                    "type": "string"
+                },
+                "ean": {
+                    "description": "EAN, European Article Number",
+                    "type": "string"
+                },
+                "tax": {
+                    "description": "Applicable tax in percentages",
+                    "type": "string"
+                },
+                "total": {
+                    "description": "Total price",
+                    "type": "int"
+                },
+                "price": {
+                    "description": "Price of single article, if item is of article category",
+                    "type": "int"
+                },
+                "apikey": {
+                    "description": "Special param for stakeholder payments",
+                    "type": "string"
+                },
+                "transaction_hash": {
+                    "description": "Special param for payout payments",
+                    "type": "string"
+                },
+                "contract_id": {
+                    "description": "Contract id - Special param for stakeholder payments",
+                    "type": "string"
+                }
+            }
+        },
         "PaymentTransactionsProductModel": {
             "properties": {
                 "object": {
-                    "description": "Object of payment container",
+                    "description": "Object of payment transaction",
                     "type": "string"
                 },
                 "id": {
-                    "description": "Id of payment container",
+                    "description": "Id of payment transaction",
                     "type": "string",
                     "format": "id"
                 },
@@ -1758,11 +2239,11 @@
                     "type": "string"
                 },
                 "product_raw": {
-                    "description": "WTF??",
+                    "description": "the name of the payment product",
                     "type": "string"
                 },
                 "zahlungsmittel_id": {
-                    "description": "WTF??",
+                    "description": "The internal id of the stored payment instrument.",
                     "type": "integer"
                 },
                 "contract_id": {
@@ -1770,11 +2251,11 @@
                     "type": "integer"
                 },
                 "amount": {
-                    "description": "WTF?",
+                    "description": "Total amount of payment in cents (or the smallest cash unit of the relevant currency)",
                     "type": "integer"
                 },
                 "currency": {
-                    "description": "WTF??",
+                    "description": "ISO 4217 code of currency, eg EUR for Euro.",
                     "type": "string"
                 },
                 "created": {
@@ -1792,49 +2273,49 @@
                     "type": "integer"
                 },
                 "status_text": {
-                    "description": "WTF??",
+                    "description": "Transaction status",
                     "type": "string"
                 },
                 "details": {
-                    "description": "WTF??",
+                    "description": "Transaction details",
                     "properties": {
                         "amount": {
-                            "description": "WTF??",
+                            "description": "Total amount of payment in cents (or the smallest cash unit of the relevant currency)",
                             "type": "integer"
                         },
                         "cleared": {
-                            "description": "WTF??",
+                            "description": "Clearing status",
                             "type": "string"
                         },
                         "status": {
-                            "description": "WTF??",
+                            "description": "Transaction status ID",
                             "type": "integer"
                         },
                         "status_text": {
-                            "description": "WTF??",
+                            "description": "Transaction status description",
                             "type": "string"
                         },
                         "status_simple": {
-                            "description": "WTF??",
+                            "description": "Transaction simple-status ID",
                             "type": "integer"
                         },
                         "status_text_simple": {
-                            "description": "WTF??",
+                            "description": "Transaction simple-status description",
                             "type": "string"
                         },
                         "description": {
-                            "description": "WTF??",
+                            "description": "Transaction description",
                             "type": "string"
                         },
                         "description_raw": {
-                            "description": "WTF??",
+                            "description": "Transaction description (plain text)",
                             "type": "string"
                         }
                     },
                     "type": "object"
                 },
                 "customer": {
-                    "description": "Function to return product model public definition",
+                    "description": "PaymentTransactionsProductModel",
                     "properties": {
                         "object": {
                             "description": "Customer type name",
@@ -1870,6 +2351,43 @@
                 }
             },
             "type": "object"
+        }
+    },
+    "parameters": {
+        "count": {
+            "name": "count",
+            "in": "query",
+            "description": "The number of items to return.",
+            "required": false,
+            "type": "integer"
+        },
+        "offset": {
+            "name": "offset",
+            "in": "query",
+            "description": "The position within the whole result set to start returning items (First element is at 0).",
+            "required": false,
+            "type": "integer"
+        },
+        "fields": {
+            "name": "fields",
+            "in": "query",
+            "description": "List of fields to include in the result. Nested properties can be accessed with this notation: prop1.prop2  Example: prop3,prop1.prop2",
+            "required": false,
+            "type": "string"
+        },
+        "sort": {
+            "name": "sort",
+            "in": "query",
+            "description": "String with comma separated pairs of field:order (e.g. contact.surname:asc,contact.comapnyname:desc). Result set will be sorted by included fields, in ascending 'asc', or descending 'dsc' order.",
+            "required": false,
+            "type": "string"
+        },
+        "query": {
+            "name": "q",
+            "in": "query",
+            "description": "A query string to restrict the returned items to given conditions. The query string must consist of any combination of single expressions in the form property:condition.\n *                  A condition may contain:\n *                      - wildcard \"*\" for any number of characters\n *                      - wildcard \"?\" for one character\n *                      - ranges in the form [value TO value]\n *\n *                  Single expressions may combined by 'AND', 'OR', 'NOT' operators and parenthesis '(', ')' for grouping.\n *                  Property names can be nested like \"prop1.prop2\".\n *                  Example: (NOT customer.name:meier*) AND (customer.age:[30 TO 40] OR customer.age:[50 TO 60])\n *                  ",
+            "required": false,
+            "type": "string"
         }
     },
     "securityDefinitions": {
