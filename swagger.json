@@ -38,6 +38,7 @@
                     "200": {
                         "description": "Returns a list of payment containers",
                         "schema": {
+                            "title": "PaymentContainersList",
                             "properties": {
                                 "count": {
                                     "description": "Number of existing payment containers",
@@ -54,12 +55,7 @@
                             "type": "object"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             },
             "post": {
                 "tags": [
@@ -91,12 +87,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Containers/{id}": {
@@ -122,12 +113,7 @@
                             "$ref": "#/definitions/PaymentContainersProductModel"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             },
             "put": {
                 "tags": [
@@ -166,12 +152,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             },
             "delete": {
                 "tags": [
@@ -204,12 +185,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Containers/{id}/assign/{secondary-id}": {
@@ -248,12 +224,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             },
             "delete": {
                 "tags": [
@@ -293,12 +264,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Contracts": {
@@ -329,6 +295,7 @@
                     "200": {
                         "description": "Returns a list of payment contracts",
                         "schema": {
+                            "title": "PaymentContractsList",
                             "properties": {
                                 "count": {
                                     "description": "Number of existing payment contracts",
@@ -345,12 +312,7 @@
                             "type": "object"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             },
             "post": {
                 "tags": [
@@ -382,12 +344,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Contracts/{id}": {
@@ -413,12 +370,7 @@
                             "$ref": "#/definitions/PaymentContractsProductModel"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             },
             "put": {
                 "tags": [
@@ -457,12 +409,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             },
             "delete": {
                 "tags": [
@@ -495,12 +442,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Contracts/{id}/PaymentMethods": {
@@ -535,12 +477,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Contracts/{id}/clone": {
@@ -572,12 +509,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Contracts/{id}/requestId": {
@@ -600,6 +532,7 @@
                     "200": {
                         "description": "Proper response after cloning your payment contract",
                         "schema": {
+                            "title": "PaymentContractsRequestIdResult",
                             "properties": {
                                 "contract": {
                                     "description": "The payment contract object",
@@ -637,12 +570,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Customers": {
@@ -673,6 +601,7 @@
                     "200": {
                         "description": "Returns a list of payment customers",
                         "schema": {
+                            "title": "PaymentCustomersList",
                             "properties": {
                                 "count": {
                                     "description": "Number of existing payment customers",
@@ -689,12 +618,7 @@
                             "type": "object"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             },
             "post": {
                 "tags": [
@@ -726,12 +650,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Customers/{id}": {
@@ -757,12 +676,7 @@
                             "$ref": "#/definitions/PaymentCustomersProductModel"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             },
             "put": {
                 "tags": [
@@ -801,12 +715,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             },
             "delete": {
                 "tags": [
@@ -839,12 +748,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Secupaycreditcards/{hash}": {
@@ -877,12 +781,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Secupaycreditcards": {
@@ -910,12 +809,7 @@
                             "$ref": "#/definitions/SecupayTransactionProductModel"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Secupaycreditcards/{hash}/cancel": {
@@ -948,12 +842,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Secupaydebits/{hash}": {
@@ -986,12 +875,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Secupaydebits": {
@@ -1025,12 +909,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Secupaydebits/{hash}/cancel": {
@@ -1063,12 +942,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Secupayinvoices/{hash}": {
@@ -1101,12 +975,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Secupayinvoices": {
@@ -1140,12 +1009,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Secupayinvoices/{hash}/cancel": {
@@ -1178,12 +1042,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Secupayprepays/{hash}": {
@@ -1216,12 +1075,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Secupayprepays": {
@@ -1249,12 +1103,7 @@
                             "$ref": "#/definitions/SecupayTransactionProductModel"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Secupayprepays/{hash}/cancel": {
@@ -1287,12 +1136,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Transactions": {
@@ -1323,6 +1167,7 @@
                     "200": {
                         "description": "Returns a list of payment transactions",
                         "schema": {
+                            "title": "PaymentTransactionsList",
                             "properties": {
                                 "count": {
                                     "description": "Number of existing payment transactions",
@@ -1339,12 +1184,7 @@
                             "type": "object"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Transactions/{id}": {
@@ -1370,12 +1210,7 @@
                             "$ref": "#/definitions/PaymentTransactionsProductModel"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Transactions/{id}/cancel": {
@@ -1401,6 +1236,7 @@
                             "description": "list of canceled payment transactions",
                             "type": "array",
                             "items": {
+                                "title": "PaymentTransactionsCancelList",
                                 "properties": {
                                     "count": {
                                         "description": "Count of returned payment contracts",
@@ -1424,12 +1260,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         },
         "Payment/Transactions/{id}/ShippingUrl": {
@@ -1452,6 +1283,7 @@
                     "200": {
                         "description": "The url of the shipping information form",
                         "schema": {
+                            "title": "PaymentTransactionsShippingUrl",
                             "properties": {
                                 "url": {
                                     "description": "The url of the shipping information form",
@@ -1467,12 +1299,7 @@
                             "$ref": "#/definitions/ProductExceptionPayload"
                         }
                     }
-                },
-                "security": [
-                    {
-                        "oauth_token": []
-                    }
-                ]
+                }
             }
         }
     },
@@ -1585,12 +1412,12 @@
                 "created": {
                     "description": "Creation date",
                     "type": "string",
-                    "format": "date"
+                    "format": "date-time"
                 },
                 "updated": {
                     "description": "Last update date",
                     "type": "string",
-                    "format": "date"
+                    "format": "date-time"
                 },
                 "mandate": {
                     "description": "Payment container mandate",
@@ -1910,7 +1737,7 @@
                 },
                 "trans_id": {
                     "description": "Transaction identifier",
-                    "type": "int"
+                    "type": "integer"
                 },
                 "status": {
                     "description": "Transaction status",
@@ -1918,7 +1745,7 @@
                 },
                 "amount": {
                     "description": "Total amount of payment in cents (or the smallest cash unit of the relevant currency)",
-                    "type": "int"
+                    "type": "integer"
                 },
                 "currency": {
                     "description": "ISO 4217 code of currency, eg EUR for Euro.",
@@ -1930,7 +1757,7 @@
                 },
                 "order_id": {
                     "description": "Specifying an order number. Depending on the contract setting, this must be unique for each payment.",
-                    "type": "int"
+                    "type": "string"
                 },
                 "basket": {
                     "description": "A list of items that are being purchased.",
@@ -2039,7 +1866,7 @@
             "properties": {
                 "amount": {
                     "description": "Total amount of payment in cents (or the smallest cash unit of the relevant currency)",
-                    "type": "int"
+                    "type": "integer"
                 },
                 "currency": {
                     "description": "ISO 4217 code of currency, eg EUR for Euro.",
@@ -2051,7 +1878,7 @@
                 },
                 "order_id": {
                     "description": "Specifying an order number. Depending on the contract setting, this must be unique for each payment.",
-                    "type": "int"
+                    "type": "string"
                 },
                 "basket": {
                     "description": "A list of items that are being purchased.",
@@ -2095,6 +1922,10 @@
                     "description": "Contract id",
                     "type": "string"
                 },
+                "container": {
+                    "description": "Container id",
+                    "type": "string"
+                },
                 "opt_data": {
                     "description": "Options for customizing the checkout page",
                     "properties": {
@@ -2118,7 +1949,7 @@
                         },
                         "id": {
                             "description": "Id of subscription, if exists",
-                            "type": "int"
+                            "type": "integer"
                         }
                     },
                     "type": "object"
@@ -2132,11 +1963,11 @@
                     "properties": {
                         "positive": {
                             "description": "Score of positive experience (paid orders)",
-                            "type": "int"
+                            "type": "integer"
                         },
                         "negative": {
                             "description": "Score of negative experience (open/unpaid orders)",
-                            "type": "int"
+                            "type": "integer"
                         }
                     },
                     "type": "object"
@@ -2157,7 +1988,7 @@
                 },
                 "quantity": {
                     "description": "Quantity of articles in item",
-                    "type": "int"
+                    "type": "integer"
                 },
                 "name": {
                     "description": "Descriptive name of item",
@@ -2177,11 +2008,11 @@
                 },
                 "total": {
                     "description": "Total price",
-                    "type": "int"
+                    "type": "integer"
                 },
                 "price": {
                     "description": "Price of single article, if item is of article category",
-                    "type": "int"
+                    "type": "integer"
                 },
                 "apikey": {
                     "description": "Special param for stakeholder payments",
@@ -2385,7 +2216,7 @@
         "query": {
             "name": "q",
             "in": "query",
-            "description": "A query string to restrict the returned items to given conditions. The query string must consist of any combination of single expressions in the form property:condition.\n *                  A condition may contain:\n *                      - wildcard \"*\" for any number of characters\n *                      - wildcard \"?\" for one character\n *                      - ranges in the form [value TO value]\n *\n *                  Single expressions may combined by 'AND', 'OR', 'NOT' operators and parenthesis '(', ')' for grouping.\n *                  Property names can be nested like \"prop1.prop2\".\n *                  Example: (NOT customer.name:meier*) AND (customer.age:[30 TO 40] OR customer.age:[50 TO 60])\n *                  ",
+            "description": "A query string to restrict the returned items to given conditions. The query string must consist of any combination of single expressions in the form property:condition.\r\n *                  A condition may contain:\r\n *                      - wildcard \"*\" for any number of characters\r\n *                      - wildcard \"?\" for one character\r\n *                      - ranges in the form [value TO value]\r\n *\r\n *                  Single expressions may combined by 'AND', 'OR', 'NOT' operators and parenthesis '(', ')' for grouping.\r\n *                  Property names can be nested like \"prop1.prop2\".\r\n *                  Example: (NOT customer.name:meier*) AND (customer.age:[30 TO 40] OR customer.age:[50 TO 60])\r\n *                  ",
             "required": false,
             "type": "string"
         }
@@ -2396,5 +2227,10 @@
             "flow": "application",
             "authorizationUrl": "https://connect-testing.secupay-ag.de/oauth/token"
         }
-    }
+    },
+    "security": [
+        {
+            "oauth_token": []
+        }
+    ]
 }
