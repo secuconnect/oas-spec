@@ -4,7 +4,7 @@
         "title": "Secuconnect API",
         "version": "2.0.0"
     },
-    "host": "connect-testing.secupay-ag.de",
+    "host": "connect.secucard.com",
     "basePath": "/api/v2/",
     "schemes": [
         "https"
@@ -1344,6 +1344,24 @@
             },
             "type": "object"
         },
+        "PaymentInformation": {
+            "description": "Payment information",
+            "properties": {
+                "owner": {
+                    "description": "Owner",
+                    "type": "string"
+                },
+                "iban": {
+                    "description": "IBAN",
+                    "type": "string"
+                },
+                "bic": {
+                    "description": "BIC",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
         "ProductExceptionPayload": {
             "description": "Payload of exceptions returned by API",
             "properties": {
@@ -1373,6 +1391,98 @@
                 }
             },
             "type": "object"
+        },
+        "Contact": {
+            "properties": {
+                "forename": {
+                    "description": "Forename",
+                    "type": "string"
+                },
+                "surname": {
+                    "description": "Surname",
+                    "type": "string"
+                },
+                "companyname": {
+                    "description": "Company name",
+                    "type": "string"
+                },
+                "salutation": {
+                    "description": "Salutation",
+                    "type": "string"
+                },
+                "gender": {
+                    "description": "Gender",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Title",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "Email",
+                    "type": "string"
+                },
+                "phone": {
+                    "description": "Phone",
+                    "type": "string"
+                },
+                "mobile": {
+                    "description": "Mobile",
+                    "type": "string"
+                },
+                "fax": {
+                    "description": "Fax",
+                    "type": "string"
+                },
+                "dob": {
+                    "description": "Date of birth",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "picture": {
+                    "description": "The document id of an user picture (To upload the picture use our document service.)",
+                    "type": "string"
+                },
+                "url_website": {
+                    "description": "URL to website",
+                    "type": "string"
+                },
+                "birthplace": {
+                    "description": "Birthplace",
+                    "type": "string"
+                },
+                "nationality": {
+                    "description": "Nationality",
+                    "type": "string"
+                },
+                "address": {
+                    "description": "Address",
+                    "type": "object",
+                    "$ref": "#/definitions/Address"
+                }
+            },
+            "type": "object"
+        },
+        "BankAccountDescriptor": {
+            "description": "Bank account data like owner, iban, bic and bank name",
+            "properties": {
+                "owner": {
+                    "description": "Owner",
+                    "type": "string"
+                },
+                "iban": {
+                    "description": "IBAN",
+                    "type": "string"
+                },
+                "bic": {
+                    "description": "BIC",
+                    "type": "string"
+                },
+                "bankname": {
+                    "description": "Bank name",
+                    "type": "string"
+                }
+            }
         },
         "PaymentContainersProductModel": {
             "properties": {
@@ -1462,27 +1572,6 @@
                 }
             },
             "type": "object"
-        },
-        "BankAccountDescriptor": {
-            "description": "Bank account data like owner, iban, bic and bank name",
-            "properties": {
-                "owner": {
-                    "description": "Owner",
-                    "type": "string"
-                },
-                "iban": {
-                    "description": "IBAN",
-                    "type": "string"
-                },
-                "bic": {
-                    "description": "BIC",
-                    "type": "string"
-                },
-                "bankname": {
-                    "description": "Bank name",
-                    "type": "string"
-                }
-            }
         },
         "PaymentContainerMandate": {
             "properties": {
@@ -1634,7 +1723,7 @@
                 },
                 "contact": {
                     "description": "Customer contact info",
-                    "$ref": "#/definitions/PaymentCustomersDTOContact"
+                    "$ref": "#/definitions/Contact"
                 },
                 "created": {
                     "description": "Created at date",
@@ -1654,73 +1743,7 @@
                 "contact": {
                     "description": "PaymentCustomersDTO",
                     "type": "object",
-                    "$ref": "#/definitions/PaymentCustomersDTOContact"
-                }
-            },
-            "type": "object"
-        },
-        "PaymentCustomersDTOContact": {
-            "properties": {
-                "forename": {
-                    "description": "Customer forename",
-                    "type": "string"
-                },
-                "surname": {
-                    "description": "Customer surname",
-                    "type": "string"
-                },
-                "companyname": {
-                    "description": "Customer company name",
-                    "type": "string"
-                },
-                "salutation": {
-                    "description": "Customer salutation",
-                    "type": "string"
-                },
-                "gender": {
-                    "description": "Customer gender",
-                    "type": "string"
-                },
-                "title": {
-                    "description": "Customer title",
-                    "type": "string"
-                },
-                "email": {
-                    "description": "Customer email",
-                    "type": "string"
-                },
-                "phone": {
-                    "description": "Customer phone",
-                    "type": "string"
-                },
-                "mobile": {
-                    "description": "Customer mobile",
-                    "type": "string"
-                },
-                "dob": {
-                    "description": "Date of birth '/^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}:\\d{2}[+-]\\d{2}:\\d{2})?$/i'",
-                    "type": "string"
-                },
-                "picture": {
-                    "description": "The document id of an user picture (To upload the picture use our document service.)",
-                    "type": "string"
-                },
-                "url_website": {
-                    "description": "URL to customer website",
-                    "type": "string"
-                },
-                "birthplace": {
-                    "description": "Customer birthplace",
-                    "type": "string"
-                },
-                "nationality": {
-                    "description": "Customer nationality",
-                    "type": "string"
-                },
-                "address": {
-                    "description": "Customer address",
-                    "type": "object",
-                    "$ref": "#/definitions/Address"
+                    "$ref": "#/definitions/Contact"
                 }
             },
             "type": "object"
@@ -1898,7 +1921,7 @@
                 "customer": {
                     "description": "The customer object",
                     "type": "object",
-                    "$ref": "#/definitions/PaymentCustomersDTO"
+                    "$ref": "#/definitions/PaymentCustomersProductModel"
                 },
                 "redirect_url": {
                     "description": "A list of redirect urls used for the payment checkout page",
@@ -2216,7 +2239,7 @@
         "query": {
             "name": "q",
             "in": "query",
-            "description": "A query string to restrict the returned items to given conditions. The query string must consist of any combination of single expressions in the form property:condition.\r\n *                  A condition may contain:\r\n *                      - wildcard \"*\" for any number of characters\r\n *                      - wildcard \"?\" for one character\r\n *                      - ranges in the form [value TO value]\r\n *\r\n *                  Single expressions may combined by 'AND', 'OR', 'NOT' operators and parenthesis '(', ')' for grouping.\r\n *                  Property names can be nested like \"prop1.prop2\".\r\n *                  Example: (NOT customer.name:meier*) AND (customer.age:[30 TO 40] OR customer.age:[50 TO 60])\r\n *                  ",
+            "description": "A query string to restrict the returned items to given conditions. The query string must consist of any combination of single expressions in the form property:condition.\n *                  A condition may contain:\n *                      - wildcard \"*\" for any number of characters\n *                      - wildcard \"?\" for one character\n *                      - ranges in the form [value TO value]\n *\n *                  Single expressions may combined by 'AND', 'OR', 'NOT' operators and parenthesis '(', ')' for grouping.\n *                  Property names can be nested like \"prop1.prop2\".\n *                  Example: (NOT customer.name:meier*) AND (customer.age:[30 TO 40] OR customer.age:[50 TO 60])\n *                  ",
             "required": false,
             "type": "string"
         }
@@ -2225,7 +2248,7 @@
         "oauth_token": {
             "type": "oauth2",
             "flow": "application",
-            "authorizationUrl": "https://connect-testing.secupay-ag.de/oauth/token"
+            "authorizationUrl": "https://connect.secucard.com/oauth/token"
         }
     },
     "security": [
