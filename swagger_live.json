@@ -2300,6 +2300,7 @@
                 ],
                 "summary": "PUT Payment/Containers/{paymentContainerId}",
                 "description": "Update payment container",
+                "operationId": "paymentContainersIdPut",
                 "parameters": [
                     {
                         "name": "paymentContainerId",
@@ -2339,6 +2340,7 @@
                 ],
                 "summary": "DELETE Payment/Containers/{paymentContainerId}",
                 "description": "Delete payment container",
+                "operationId": "paymentContainersIdDelete",
                 "parameters": [
                     {
                         "name": "paymentContainerId",
@@ -2374,6 +2376,7 @@
                 ],
                 "summary": "POST Payment/Containers/{paymentContainerId}/assign/{secondaryPaymentContainerId}",
                 "description": "Assign an existing payment container to ...",
+                "operationId": "paymentContainersIdAssignSecondaryIdPost",
                 "parameters": [
                     {
                         "name": "paymentContainerId",
@@ -2411,6 +2414,7 @@
                 ],
                 "summary": "DELETE Payment/Containers/{paymentContainerId}/assign/{secondaryPaymentContainerId}",
                 "description": "Removes an existing payment container assignment",
+                "operationId": "paymentContainersIdAssignSecondaryIdDelete",
                 "parameters": [
                     {
                         "name": "paymentContainerId",
@@ -2877,6 +2881,7 @@
                 ],
                 "summary": "PUT Payment/Customers/{paymentCustomerId}",
                 "description": "Update payment customer",
+                "operationId": "paymentCustomersIdPut",
                 "parameters": [
                     {
                         "name": "paymentCustomerId",
@@ -2916,6 +2921,7 @@
                 ],
                 "summary": "DELETE Payment/Customers/{paymentCustomerId}",
                 "description": "Delete payment customer",
+                "operationId": "paymentCustomersIdDelete",
                 "parameters": [
                     {
                         "name": "paymentCustomerId",
@@ -3733,6 +3739,7 @@
                 ],
                 "summary": "POST Payment/Transactions/{paymentTransactionId}/cancel",
                 "description": "Cancel a payment transaction",
+                "operationId": "paymentTransactionsIdCancelPost",
                 "parameters": [
                     {
                         "name": "paymentTransactionId",
@@ -3783,6 +3790,7 @@
                 ],
                 "summary": "GET Payment/Transactions/{paymentTransactionId}/ShippingUrl",
                 "description": "Get the url where you can fill the shipping information",
+                "operationId": "paymentTransactionsIdShippingUrlGet",
                 "parameters": [
                     {
                         "name": "paymentTransactionId",
@@ -6589,29 +6597,8 @@
                 },
                 "transfer_account": {
                     "description": "The bank account the payer needs to use for his transfer",
-                    "properties": {
-                        "iban": {
-                            "description": "IBAN",
-                            "type": "string"
-                        },
-                        "bic": {
-                            "description": "BIC",
-                            "type": "string"
-                        },
-                        "accountnumber": {
-                            "description": "Bank account number",
-                            "type": "string"
-                        },
-                        "bankcode": {
-                            "description": "The name of the bank institute",
-                            "type": "string"
-                        },
-                        "account_owner": {
-                            "description": "The owner of bank account",
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
+                    "type": "object",
+                    "$ref": "#/definitions/PaymentInformation"
                 },
                 "customer": {
                     "description": "The customer object",
@@ -6663,30 +6650,6 @@
                     "description": "The container object",
                     "type": "object",
                     "$ref": "#/definitions/PaymentContainersProductModel"
-                },
-                "sub_transactions": {
-                    "description": "A list of sub-transactions (for mixed basket)",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/SecupaySubTransactionProductModel"
-                    }
-                }
-            },
-            "type": "object"
-        },
-        "SecupaySubTransactionProductModel": {
-            "properties": {
-                "id": {
-                    "description": "The payment id of the sub-transaction",
-                    "type": "string"
-                },
-                "trans_id": {
-                    "description": "Transaction identifier",
-                    "type": "integer"
-                },
-                "reference_id": {
-                    "description": "Reference id - which was used in the mixed basket",
-                    "type": "string"
                 }
             },
             "type": "object"
@@ -7890,6 +7853,10 @@
                     "items": {
                         "$ref": "#/definitions/SmartTransactionsBasketText"
                     }
+                },
+                "type": {
+                    "description": "Type",
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -7904,6 +7871,10 @@
                     "description": "Parent",
                     "type": "integer"
                 },
+                "item_type": {
+                    "description": "Category of item",
+                    "type": "string"
+                },
                 "desc": {
                     "description": "Desc",
                     "type": "string"
@@ -7913,7 +7884,7 @@
                     "type": "string"
                 },
                 "ean": {
-                    "description": "Ean",
+                    "description": "international article number",
                     "type": "string"
                 },
                 "quantity": {
@@ -7924,9 +7895,80 @@
                     "description": "Price one",
                     "type": "integer"
                 },
+                "sum": {
+                    "description": "it is the value of the sum of the product with all items in sub_basket",
+                    "type": "integer"
+                },
                 "tax": {
                     "description": "Tax",
                     "type": "integer"
+                },
+                "reference_id": {
+                    "description": "The reference_id must be unique, it's a Reference for to the reference_id of SmartTransactionsSubBasketProduct [example: SmartTransactionsBasketProduct->reference_id is 1000 then all SmartTransactionsSubBasketProduct must have unique reference_id like 1000.1, 1000.2 etc.]",
+                    "type": "string"
+                },
+                "group": {
+                    "description": "Group",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SmartTransactionsBasketProductGroup"
+                    }
+                },
+                "sub_basket": {
+                    "description": "sub basket Product",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SmartTransactionsSubBasketProduct"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "SmartTransactionsSubBasketProduct": {
+            "properties": {
+                "id": {
+                    "description": "Product id",
+                    "type": "integer"
+                },
+                "parent": {
+                    "description": "Parent",
+                    "type": "integer"
+                },
+                "item_type": {
+                    "description": "Category of item",
+                    "type": "string"
+                },
+                "desc": {
+                    "description": "Description of the sub-basket product",
+                    "type": "string"
+                },
+                "articleNumber": {
+                    "description": "Article number",
+                    "type": "string"
+                },
+                "ean": {
+                    "description": "international article number",
+                    "type": "string"
+                },
+                "quantity": {
+                    "description": "Quantity",
+                    "type": "integer"
+                },
+                "priceOne": {
+                    "description": "Price one",
+                    "type": "integer"
+                },
+                "sum": {
+                    "description": "",
+                    "type": "integer"
+                },
+                "tax": {
+                    "description": "Tax",
+                    "type": "integer"
+                },
+                "reference_id": {
+                    "description": "The reference_id must be unique, it's Referring to the reference_id of SmartTransactionsBasketProduct [example: SmartTransactionsBasketProduct->reference_id is 1000 then all SmartTransactionsSubBasketProduct must have unique reference_id like 1000.1, 1000.2 etc.]",
+                    "type": "string"
                 },
                 "group": {
                     "description": "Group",
