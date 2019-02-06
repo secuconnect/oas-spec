@@ -3563,6 +3563,67 @@
                 }
             }
         },
+        "/Payment/Secupaypayout/{paymentPayoutId}": {
+            "get": {
+                "tags": [
+                    "paymentSecupayPayout"
+                ],
+                "summary": "GET Payment/Secupaypayout/{paymentPayoutId}",
+                "description": "Get the details of a payment transaction",
+                "operationId": "getSecupaypayout",
+                "parameters": [
+                    {
+                        "name": "paymentPayoutId",
+                        "in": "path",
+                        "description": "Payment payout id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the payment transaction",
+                        "schema": {
+                            "$ref": "#/definitions/SecupayPayoutProductModel"
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                }
+            }
+        },
+        "/Payment/Secupaypayout": {
+            "post": {
+                "tags": [
+                    "paymentSecupayPayout"
+                ],
+                "summary": "POST Payment/Secupaypayout",
+                "description": "Start a payout transaction",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Payout payment transaction input properties",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/SecupayPayoutDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Started prepay payment transaction",
+                        "schema": {
+                            "$ref": "#/definitions/SecupayPayoutProductModel"
+                        }
+                    }
+                }
+            }
+        },
         "/Payment/Secupayprepays/{paymentPrepayId}": {
             "get": {
                 "tags": [
@@ -3823,6 +3884,74 @@
                 }
             }
         },
+        "/Payment/Transactions/{paymentTransactionId}/getPaymentInstructions/{smartTransactionId}": {
+            "get": {
+                "tags": [
+                    "paymentTransactions"
+                ],
+                "summary": "GET Payment/Transactions/{paymentTransactionId}/getPaymentInstructions/{smartTransactionId}",
+                "description": "Get the payment instructions for an invoice transaction",
+                "operationId": "getPaymentInstructions",
+                "parameters": [
+                    {
+                        "name": "paymentTransactionId",
+                        "in": "path",
+                        "description": "Payment transaction id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "smartTransactionId",
+                        "in": "path",
+                        "description": "Smart transaction id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The instructions for an invoice transaction",
+                        "schema": {
+                            "$ref": "#/definitions/PaymentTransactionsInstructions"
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                }
+            }
+        },
+        "/Prepaid/Contracts/me/mappingZvt": {
+            "post": {
+                "tags": [
+                    "prepaidContractsProduct"
+                ],
+                "summary": "POST Prepaid/Contracts/null/mappingZvt",
+                "description": "Gets prepaid item id from product id which is configured in prepaid contracts",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Prepaid transaction input properties",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/PrepaidZvtDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Created new prepaid transaction",
+                        "schema": {
+                            "$ref": "#/definitions/PrepaidMappingZvt"
+                        }
+                    }
+                }
+            }
+        },
         "/Prepaid/Items": {
             "get": {
                 "tags": [
@@ -3894,6 +4023,34 @@
                         "description": "Returns prepaid item for a specific id",
                         "schema": {
                             "$ref": "#/definitions/PrepaidItemsProductModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/Prepaid/Sales": {
+            "post": {
+                "tags": [
+                    "prepaidSalesProduct"
+                ],
+                "summary": "POST Prepaid/Sales",
+                "description": "Create new prepaid transaction",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Prepaid transaction input properties",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/PrepaidSalesProductDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Created new prepaid transaction",
+                        "schema": {
+                            "$ref": "#/definitions/PrepaidSalesProductModel"
                         }
                     }
                 }
@@ -4566,6 +4723,48 @@
                     }
                 }
             }
+        },
+        "/Smart/Transactions/{smartTransactionId}/prepare": {
+            "post": {
+                "tags": [
+                    "smartTransactions"
+                ],
+                "summary": "POST Smart/Transactions/stx_xxx/prepare",
+                "description": "Create and score payment transaction assigned to given smart transaction",
+                "operationId": "prepare",
+                "parameters": [
+                    {
+                        "name": "smartTransactionId",
+                        "in": "path",
+                        "description": "Smart transaction id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Information which customer and container will be used to this operation",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/SmartTransactionsPrepare"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Smart transaction",
+                        "schema": {
+                            "$ref": "#/definitions/SmartTransactionsProductModel"
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "schema": {
+                            "$ref": "#/definitions/ProductExceptionPayload"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -4626,16 +4825,46 @@
         "PaymentInformation": {
             "description": "Payment information",
             "properties": {
-                "owner": {
-                    "description": "Owner",
-                    "type": "string"
-                },
                 "iban": {
                     "description": "IBAN",
                     "type": "string"
                 },
                 "bic": {
                     "description": "BIC",
+                    "type": "string"
+                },
+                "owner": {
+                    "description": "Owner",
+                    "type": "string"
+                },
+                "bankname": {
+                    "description": "Bank name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "BankAccountDescriptor": {
+            "description": "Bank account data like owner, iban, bic and bank name",
+            "properties": {
+                "iban": {
+                    "description": "IBAN",
+                    "type": "string"
+                },
+                "bic": {
+                    "description": "BIC",
+                    "type": "string"
+                },
+                "owner": {
+                    "description": "Owner",
+                    "type": "string"
+                },
+                "bankname": {
+                    "description": "Bank name",
+                    "type": "string"
+                },
+                "purpose": {
+                    "description": "Purpose",
                     "type": "string"
                 }
             },
@@ -4740,27 +4969,6 @@
                 }
             },
             "type": "object"
-        },
-        "BankAccountDescriptor": {
-            "description": "Bank account data like owner, iban, bic and bank name",
-            "properties": {
-                "owner": {
-                    "description": "Owner",
-                    "type": "string"
-                },
-                "iban": {
-                    "description": "IBAN",
-                    "type": "string"
-                },
-                "bic": {
-                    "description": "BIC",
-                    "type": "string"
-                },
-                "bankname": {
-                    "description": "Bank name",
-                    "type": "string"
-                }
-            }
         },
         "GeoAddress": {
             "properties": {
@@ -4965,8 +5173,7 @@
                 },
                 "created": {
                     "description": "Created at date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -5499,8 +5706,7 @@
                 },
                 "created": {
                     "description": "Creation date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -5551,14 +5757,6 @@
                         "$ref": "#/definitions/LoyaltyCustomersPaymentContainerModel"
                     }
                 },
-                "age": {
-                    "description": "Age",
-                    "type": "integer"
-                },
-                "days_until_birthday": {
-                    "description": "Number of days until birthday",
-                    "type": "integer"
-                },
                 "customernumber": {
                     "description": "Customer number",
                     "type": "string"
@@ -5569,8 +5767,7 @@
                 },
                 "created": {
                     "description": "Creation date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -5654,8 +5851,7 @@
                 },
                 "last_usage": {
                     "description": "Last Usage date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -5725,13 +5921,11 @@
                 },
                 "last_usage": {
                     "description": "Loyalty merchant card last usage",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 },
                 "last_charge": {
                     "description": "Loyalty merchant card last charge",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 },
                 "is_base_card": {
                     "description": "Information whether loyalty merchant card is base card",
@@ -6076,13 +6270,11 @@
                 },
                 "created": {
                     "description": "Creation date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 },
                 "updated": {
                     "description": "Update date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -6210,13 +6402,11 @@
                 },
                 "created": {
                     "description": "Creation date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 },
                 "updated": {
                     "description": "Last update date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 },
                 "mandate": {
                     "description": "Payment container mandate",
@@ -6324,13 +6514,11 @@
                 },
                 "created": {
                     "description": "Created at date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 },
                 "updated": {
                     "description": "Updated at date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -6517,13 +6705,11 @@
                 },
                 "created": {
                     "description": "Created at date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 },
                 "updated": {
                     "description": "Updated at date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -6622,25 +6808,8 @@
                 },
                 "redirect_url": {
                     "description": "A list of redirect urls used for the payment checkout page",
-                    "properties": {
-                        "iframe_url": {
-                            "description": "The url of the payment checkout iframe",
-                            "type": "string"
-                        },
-                        "url_success": {
-                            "description": "After successfully entering the cash data of the payer is returned to this page.",
-                            "type": "string"
-                        },
-                        "url_failure": {
-                            "description": "After canceling or on errors the payer will be redirected to this page and can select there an another payment method.",
-                            "type": "string"
-                        },
-                        "url_push": {
-                            "description": "The secupay system will be send status change notifications to this URL.",
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
+                    "type": "object",
+                    "$ref": "#/definitions/SecupayRedirectUrl"
                 },
                 "iframe_url": {
                     "description": "The url of the payment checkout iframe",
@@ -6694,21 +6863,8 @@
                 },
                 "redirect_url": {
                     "description": "A list of redirect urls used for the payment checkout page",
-                    "properties": {
-                        "url_success": {
-                            "description": "After successfully entering the cash data of the payer is returned to this page.",
-                            "type": "string"
-                        },
-                        "url_failure": {
-                            "description": "After canceling or on errors the payer will be redirected to this page and can select there an another payment method.",
-                            "type": "string"
-                        },
-                        "url_push": {
-                            "description": "The secupay system will be send status change notifications to this URL.",
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
+                    "type": "object",
+                    "$ref": "#/definitions/SecupayRedirectUrl"
                 },
                 "contract": {
                     "description": "Contract id",
@@ -6763,6 +6919,27 @@
                         }
                     },
                     "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "SecupayRedirectUrl": {
+            "properties": {
+                "iframe_url": {
+                    "description": "The url of the payment checkout iframe",
+                    "type": "string"
+                },
+                "url_success": {
+                    "description": "After successfully entering the cash data of the payer is returned to this page.",
+                    "type": "string"
+                },
+                "url_failure": {
+                    "description": "After canceling or on errors the payer will be redirected to this page and can select there an another payment method.",
+                    "type": "string"
+                },
+                "url_push": {
+                    "description": "The secupay system will be send status change notifications to this URL.",
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -6943,6 +7120,158 @@
             },
             "type": "object"
         },
+        "SecupayPayoutProductModel": {
+            "properties": {
+                "object": {
+                    "description": "Product name",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "ID of instance",
+                    "type": "string"
+                },
+                "trans_id": {
+                    "description": "ID of transaction",
+                    "type": "integer"
+                },
+                "status": {
+                    "description": "Transaction status",
+                    "type": "string"
+                },
+                "amount": {
+                    "description": "Total amount of transaction lit's items",
+                    "type": "integer"
+                },
+                "currency": {
+                    "description": "ISO 4217 code of currency, eg EUR for Euro.",
+                    "type": "string"
+                },
+                "purpose": {
+                    "description": "The purpose of the payment. This is the later assignment of the payment is for example on the account statement of the buyer.",
+                    "type": "string"
+                },
+                "order_id": {
+                    "description": "Specifying an order number. Depending on the contract setting, this must be unique for each payment.",
+                    "type": "string"
+                },
+                "transaction_status": {
+                    "description": "Transaction status (number)",
+                    "type": "string"
+                },
+                "transaction_list": {
+                    "description": "A list of transaction items",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SecupayTransactionListItem"
+                    }
+                },
+                "transfer_purpose": {
+                    "description": "The purpose the payer needs to use for his transfer",
+                    "type": "string"
+                },
+                "transfer_account": {
+                    "description": "The bank account the payer needs to use for his transfer",
+                    "type": "object",
+                    "$ref": "#/definitions/PaymentInformation"
+                }
+            },
+            "type": "object"
+        },
+        "SecupayTransactionListItem": {
+            "properties": {
+                "item_type": {
+                    "description": "Category of item",
+                    "type": "string",
+                    "default": "transaction_payout"
+                },
+                "reference_id": {
+                    "description": "Reference id - must be unique for the entire basket",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Item name",
+                    "type": "string"
+                },
+                "transaction_hash": {
+                    "description": "Id of transaction",
+                    "type": "string",
+                    "example": [
+                        "pbkacphkbuem2772626"
+                    ]
+                },
+                "transaction_id": {
+                    "description": "Id of transaction",
+                    "type": "string",
+                    "example": [
+                        "PCI_WR67G325XTG2R45JJDNBG048PW4BN4"
+                    ]
+                },
+                "container": {
+                    "description": "Payment Container ID",
+                    "type": "string",
+                    "example": [
+                        "PCT_2BV27QVYR2N26P2S5H3G98G66X9JAJ"
+                    ]
+                },
+                "total": {
+                    "description": "Total price",
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "SecupayPayoutDTO": {
+            "properties": {
+                "demo": {
+                    "description": "demo env value",
+                    "type": "integer"
+                },
+                "redirect_url": {
+                    "description": "A list of redirect urls used for the payment checkout page",
+                    "type": "object",
+                    "$ref": "#/definitions/SecupayRedirectUrl"
+                },
+                "customer": {
+                    "description": "The customer object",
+                    "type": "object",
+                    "$ref": "#/definitions/PaymentCustomersProductModel"
+                },
+                "opt_data": {
+                    "description": "Options for customizing the checkout page",
+                    "properties": {
+                        "language": {
+                            "description": "Client language",
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "amount": {
+                    "description": "Total amount of transaction lit's items",
+                    "type": "integer"
+                },
+                "currency": {
+                    "description": "ISO 4217 code of currency, eg EUR for Euro.",
+                    "type": "string"
+                },
+                "purpose": {
+                    "description": "The purpose of the payment. This is the later assignment of the payment is for example on the account statement of the buyer.",
+                    "type": "string"
+                },
+                "order_id": {
+                    "description": "Specifying an order number. Depending on the contract setting, this must be unique for each payment.",
+                    "type": "string"
+                },
+                "transaction_list": {
+                    "description": "A list of transaction items",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SecupayTransactionListItem"
+                    }
+                }
+            },
+            "type": "object"
+        },
         "PaymentTransactionsProductModel": {
             "properties": {
                 "object": {
@@ -7006,13 +7335,11 @@
                 },
                 "created": {
                     "description": "Created at date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 },
                 "updated": {
                     "description": "Updated at date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 },
                 "status": {
                     "description": "WTF??",
@@ -7098,6 +7425,59 @@
             },
             "type": "object"
         },
+        "PaymentTransactionsInstructions": {
+            "properties": {
+                "lang": {
+                    "description": "Language",
+                    "type": "string"
+                },
+                "amount": {
+                    "description": "Amount",
+                    "type": "integer"
+                },
+                "currency": {
+                    "description": "Currency",
+                    "type": "string"
+                },
+                "payment": {
+                    "description": "Payment data",
+                    "$ref": "#/definitions/BankAccountDescriptor"
+                }
+            },
+            "type": "object"
+        },
+        "PrepaidMappingZvt": {
+            "properties": {
+                "item": {
+                    "description": "Prepaid item",
+                    "properties": {
+                        "id": {
+                            "description": "prepaid item id",
+                            "type": "integer"
+                        }
+                    },
+                    "type": "object"
+                },
+                "vtc_id": {
+                    "description": "Vtc id",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "PrepaidZvtDTO": {
+            "properties": {
+                "amount": {
+                    "description": "amount",
+                    "type": "integer"
+                },
+                "product_id": {
+                    "description": "Product identifier",
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
         "PrepaidItemsProductModel": {
             "properties": {
                 "object": {
@@ -7131,10 +7511,6 @@
                 },
                 "vtc_id": {
                     "description": "Vtc id",
-                    "type": "string"
-                },
-                "ean_intern": {
-                    "description": "Ean intern",
                     "type": "string"
                 },
                 "itemgroup": {
@@ -7205,8 +7581,7 @@
                 },
                 "created": {
                     "description": "Prepaid sale creation date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 },
                 "demo": {
                     "description": "Demo",
@@ -7246,8 +7621,7 @@
                 },
                 "expire_date": {
                     "description": "Expire date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 },
                 "provider_delivery_number": {
                     "description": "Provider delivery number",
@@ -7323,6 +7697,15 @@
             },
             "type": "object"
         },
+        "PrepaidSalesProductDTO": {
+            "properties": {
+                "item": {
+                    "description": "prepaid sales transaction id",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
         "SmartDevicesProductModel": {
             "properties": {
                 "object": {
@@ -7384,8 +7767,7 @@
                 },
                 "created": {
                     "description": "Created at date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 },
                 "online": {
                     "description": "Online",
@@ -7665,13 +8047,11 @@
                 },
                 "created": {
                     "description": "Created at date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 },
                 "updated": {
                     "description": "Updated at date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 },
                 "receipt_number": {
                     "description": "Receipt number",
@@ -7792,6 +8172,10 @@
                     "description": "description",
                     "type": "string"
                 },
+                "serialNumber": {
+                    "description": "The serialnumber of the scanned posa card",
+                    "type": "string"
+                },
                 "articleNumber": {
                     "description": "article Number",
                     "type": "string"
@@ -7907,6 +8291,10 @@
                     "description": "The reference_id must be unique, it's a Reference for to the reference_id of SmartTransactionsSubBasketProduct [example: SmartTransactionsBasketProduct->reference_id is 1000 then all SmartTransactionsSubBasketProduct must have unique reference_id like 1000.1, 1000.2 etc.]",
                     "type": "string"
                 },
+                "contract_id": {
+                    "description": "contract id",
+                    "type": "string"
+                },
                 "group": {
                     "description": "Group",
                     "type": "array",
@@ -7968,6 +8356,10 @@
                 },
                 "reference_id": {
                     "description": "The reference_id must be unique, it's Referring to the reference_id of SmartTransactionsBasketProduct [example: SmartTransactionsBasketProduct->reference_id is 1000 then all SmartTransactionsSubBasketProduct must have unique reference_id like 1000.1, 1000.2 etc.]",
+                    "type": "string"
+                },
+                "contract_id": {
+                    "description": "contract id",
                     "type": "string"
                 },
                 "group": {
@@ -8060,8 +8452,7 @@
                 },
                 "date": {
                     "description": "Date",
-                    "type": "string",
-                    "format": "date-time"
+                    "type": "string"
                 },
                 "store": {
                     "description": "Store",
@@ -8123,6 +8514,19 @@
                 "value": {
                     "description": "Value",
                     "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "SmartTransactionsPrepare": {
+            "properties": {
+                "customer": {
+                    "description": "Customer",
+                    "$ref": "#/definitions/ProductInstanceUID"
+                },
+                "container": {
+                    "description": "Container",
+                    "$ref": "#/definitions/ProductInstanceUID"
                 }
             },
             "type": "object"
