@@ -10,52 +10,12 @@
         }
     ],
     "paths": {
-        "/Document/Uploads": {
-            "post": {
-                "tags": [
-                    "documentUploads"
-                ],
-                "summary": "POST Document/Uploads",
-                "description": "Store uploaded file",
-                "requestBody": {
-                    "description": "Content",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/DocumentUploadsDTOContent"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Document uploaded",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/DocumentUploadsBaseProductModel"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Response related to the error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProductExceptionPayload"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/Document/Uploads?multipart": {
             "post": {
                 "tags": [
                     "documentUploads"
                 ],
+                "summary": "POST Document/Uploads",
                 "description": "Store uploaded file",
                 "operationId": "documentUploadsMultipartPost",
                 "parameters": [
@@ -84,6 +44,48 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/DocumentUploadsProductModel"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Document/Uploads": {
+            "post": {
+                "tags": [
+                    "documentUploads"
+                ],
+                "summary": "POST Document/Uploads",
+                "description": "Store uploaded file",
+                "operationId": "documentUploadsPost",
+                "requestBody": {
+                    "description": "Content",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DocumentUploadsDTOContent"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Document uploaded",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DocumentUploadsBaseProductModel"
                                 }
                             }
                         }
@@ -1296,7 +1298,7 @@
                 ],
                 "summary": "POST Loyalty/Customers/{loyaltyCustomerId}/assignPaymentContainer/{loyaltyPaymentContainerId}",
                 "description": "Assigns LoyaltyPaymentContainer to customer",
-                "operationId": "AssignPaymentContainer",
+                "operationId": "assignPaymentContainer",
                 "parameters": [
                     {
                         "name": "loyaltyCustomerId",
@@ -1641,58 +1643,6 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/LoyaltyMerchantcardsProductModel"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Response related to the error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProductExceptionPayload"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/Loyalty/MerchantCards/{generalMerchantId}/merchantcard/{loyaltyCardId}": {
-            "get": {
-                "tags": [
-                    "loyaltyMerchantcards"
-                ],
-                "summary": "GET Loyalty/MerchantCards/{generalMerchantId}/merchantcard/{loyaltyCardId}",
-                "description": "Get raw merchant card id for merchant id and card id",
-                "operationId": "getRawMerchantCardId",
-                "parameters": [
-                    {
-                        "name": "generalMerchantId",
-                        "in": "path",
-                        "description": "Merchant id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "loyaltyCardId",
-                        "in": "path",
-                        "description": "Card id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Returns raw merchant card id for a specific merchant and card ids",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/raw_merchantcard_id"
                                 }
                             }
                         }
@@ -2505,49 +2455,6 @@
                 }
             }
         },
-        "/Loyalty/Sales/{generalStoresId}/VirtualTerminalIdForStore": {
-            "get": {
-                "tags": [
-                    "loyaltySales"
-                ],
-                "summary": "GET Loyalty/Sales/{generalStoresId}/VirtualTerminalIdForStore",
-                "description": "Get DECODED virtual terminal id by DECODED store id",
-                "operationId": "getVirtualTerminalIdByStoreId",
-                "parameters": [
-                    {
-                        "name": "generalStoresId",
-                        "in": "path",
-                        "description": "DECODED store id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Returns a string containing the DECODED id of a virtual terminal",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/DECODED_virtual_terminal_id_or_false"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Response related to the error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProductExceptionPayload"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/Loyalty/StoreGroups": {
             "get": {
                 "tags": [
@@ -2784,6 +2691,7 @@
                 ],
                 "summary": "GET Payment/Containers",
                 "description": "Get a list of payment containers",
+                "operationId": "paymentContainersGet",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/count"
@@ -2830,7 +2738,7 @@
                 ],
                 "summary": "POST Payment/Containers",
                 "description": "Add new containers",
-                "operationId": "addContainers",
+                "operationId": "paymentContainersPost",
                 "requestBody": {
                     "description": "Payment container properties",
                     "content": {
@@ -3491,6 +3399,7 @@
                 ],
                 "summary": "GET Payment/Customers",
                 "description": "Get a list of payment customers",
+                "operationId": "paymentCustomersGet",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/count"
@@ -3537,7 +3446,7 @@
                 ],
                 "summary": "POST Payment/Customers",
                 "description": "Add new customer",
-                "operationId": "addCustomers",
+                "operationId": "paymentCustomersPost",
                 "requestBody": {
                     "description": "Payment customer properties",
                     "content": {
@@ -3716,7 +3625,8 @@
                     "paymentSecupayCreditcards",
                     "paymentSecupayDebits",
                     "paymentSecupayInvoices",
-                    "paymentSecupayPrepays"
+                    "paymentSecupayPrepays",
+                    "paymentSecupaySofort"
                 ],
                 "summary": "POST Payment/{paymentMethod}/{paymentId}/assignExternalInvoicePdf/{documentId}",
                 "description": "Assign external invoice pdf",
@@ -3790,7 +3700,8 @@
                     "paymentSecupayCreditcards",
                     "paymentSecupayDebits",
                     "paymentSecupayInvoices",
-                    "paymentSecupayPrepays"
+                    "paymentSecupayPrepays",
+                    "paymentSecupaySofort"
                 ],
                 "summary": "POST Payment/{paymentMethod}/{paymentId}/cancel",
                 "description": "Function to cancel the payment transaction",
@@ -3831,7 +3742,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Result"
+                                    "$ref": "#/components/schemas/PaymentCancelResult"
                                 }
                             }
                         }
@@ -3855,7 +3766,8 @@
                     "paymentSecupayCreditcards",
                     "paymentSecupayDebits",
                     "paymentSecupayInvoices",
-                    "paymentSecupayPrepays"
+                    "paymentSecupayPrepays",
+                    "paymentSecupaySofort"
                 ],
                 "summary": "POST Payment/{paymentMethod}/{paymentId}/capture",
                 "description": "Function to cancel the payment transaction",
@@ -3920,7 +3832,8 @@
                     "paymentSecupayCreditcards",
                     "paymentSecupayDebits",
                     "paymentSecupayInvoices",
-                    "paymentSecupayPrepays"
+                    "paymentSecupayPrepays",
+                    "paymentSecupaySofort"
                 ],
                 "summary": "PUT Payment/{paymentMethod}/{paymentId}/basket",
                 "description": "Update a basket of an existing payment transaction",
@@ -3985,7 +3898,8 @@
                     "paymentSecupayCreditcards",
                     "paymentSecupayDebits",
                     "paymentSecupayInvoices",
-                    "paymentSecupayPrepays"
+                    "paymentSecupayPrepays",
+                    "paymentSecupaySofort"
                 ],
                 "summary": "PUT Payment/{paymentMethod}/{paymentId}/accrual",
                 "description": "Update the accrual flag of an existing payment transaction",
@@ -4050,7 +3964,8 @@
                     "paymentSecupayCreditcards",
                     "paymentSecupayDebits",
                     "paymentSecupayInvoices",
-                    "paymentSecupayPrepays"
+                    "paymentSecupayPrepays",
+                    "paymentSecupaySofort"
                 ],
                 "summary": "PUT Payment/{paymentMethod}/{paymentId}/shippingInformation",
                 "description": "Update the accrual flag of an existing payment transaction",
@@ -4159,7 +4074,7 @@
                 ],
                 "summary": "POST Payment/Secupaycreditcards",
                 "description": "Start a credit card payment transaction",
-                "operationId": "addSecupaycreditcards",
+                "operationId": "paymentSecupaycreditcardsPost",
                 "requestBody": {
                     "description": "Credit card payment transaction input properties",
                     "content": {
@@ -4177,49 +4092,6 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/SecupayTransactionProductModel"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Response related to the error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProductExceptionPayload"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/Payment/Secupaycreditcards/{paymentCreditCardsId}/cancel": {
-            "post": {
-                "tags": [
-                    "paymentSecupayCreditcards"
-                ],
-                "summary": "POST Payment/Secupaycreditcards/{paymentCreditCardsId}/cancel",
-                "description": "DEPRECATED: use cancelPaymentTransactionById",
-                "operationId": "paymentSecupayCreditcardsCancelById",
-                "parameters": [
-                    {
-                        "name": "paymentCreditCardsId",
-                        "in": "path",
-                        "description": "Payment credit cards id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Canceled successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/resultBoolean"
                                 }
                             }
                         }
@@ -4287,7 +4159,7 @@
                 ],
                 "summary": "POST Payment/Secupaydebits",
                 "description": "Start a debit payment transaction",
-                "operationId": "addSecupaydebits",
+                "operationId": "paymentSecupaydebitsPost",
                 "requestBody": {
                     "description": "Debit payment transaction input properties",
                     "content": {
@@ -4305,49 +4177,6 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/SecupayTransactionProductModel"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Response related to the error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProductExceptionPayload"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/Payment/Secupaydebits/{paymentDebitId}/cancel": {
-            "post": {
-                "tags": [
-                    "paymentSecupayDebits"
-                ],
-                "summary": "POST Payment/Secupaydebits/{paymentDebitId}/cancel",
-                "description": "DEPRECATED: use cancelPaymentTransactionById",
-                "operationId": "paymentSecupayDebitsCancelById",
-                "parameters": [
-                    {
-                        "name": "paymentDebitId",
-                        "in": "path",
-                        "description": "Payment debit id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Canceled successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/resultBoolean"
                                 }
                             }
                         }
@@ -4415,7 +4244,7 @@
                 ],
                 "summary": "POST Payment/Secupayinvoices",
                 "description": "Start a invoice payment transaction",
-                "operationId": "addSecupayinvoices",
+                "operationId": "paymentSecupayinvoicesPost",
                 "requestBody": {
                     "description": "Invoice payment transaction input properties",
                     "content": {
@@ -4433,49 +4262,6 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/SecupayTransactionProductModel"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Response related to the error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProductExceptionPayload"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/Payment/Secupayinvoices/{paymentInvoiceId}/cancel": {
-            "post": {
-                "tags": [
-                    "paymentSecupayInvoices"
-                ],
-                "summary": "POST Payment/Secupayinvoices/{paymentInvoiceId}/cancel",
-                "description": "DEPRECATED: use cancelPaymentTransactionById",
-                "operationId": "paymentSecupayInvoicesCancelById",
-                "parameters": [
-                    {
-                        "name": "paymentInvoiceId",
-                        "in": "path",
-                        "description": "Payment invoice id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Canceled successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/resultBoolean"
                                 }
                             }
                         }
@@ -4543,7 +4329,7 @@
                 ],
                 "summary": "POST Payment/Secupaypayout",
                 "description": "Start a payout transaction",
-                "operationId": "addSecupaypayout",
+                "operationId": "paymentSecupaypayoutPost",
                 "requestBody": {
                     "description": "Payout payment transaction input properties",
                     "content": {
@@ -4628,7 +4414,7 @@
                 ],
                 "summary": "POST Payment/Secupayprepays",
                 "description": "Start a prepay payment transaction",
-                "operationId": "addSecupayprepays",
+                "operationId": "paymentSecupayprepaysPost",
                 "requestBody": {
                     "description": "Prepay payment transaction input properties",
                     "content": {
@@ -4663,14 +4449,14 @@
                 }
             }
         },
-        "/Payment/Secupayprepays/{paymentPrepayId}/cancel": {
-            "post": {
+        "/Payment/Secupaysofort/{paymentPrepayId}": {
+            "get": {
                 "tags": [
-                    "paymentSecupayPrepays"
+                    "paymentSecupaySofort"
                 ],
-                "summary": "POST Payment/Secupayprepays/{paymentPrepayId}/cancel",
-                "description": "DEPRECATED: use cancelPaymentTransactionById",
-                "operationId": "paymentSecupayPrepaysCancelById",
+                "summary": "GET Payment/Secupaysofort/{paymentPrepayId}",
+                "description": "Get the details of a payment transaction",
+                "operationId": "paymentSecupaySofortGetById",
                 "parameters": [
                     {
                         "name": "paymentPrepayId",
@@ -4684,17 +4470,59 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Canceled successfully",
+                        "description": "Details of the payment transaction",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/resultBoolean"
+                                    "$ref": "#/components/schemas/SecupayTransactionProductModel"
                                 }
                             }
                         }
                     },
                     "default": {
-                        "description": "Canceled transaction",
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Payment/Secupaysofort": {
+            "post": {
+                "tags": [
+                    "paymentSecupaySofort"
+                ],
+                "summary": "POST Payment/Secupaysofort",
+                "description": "Start a prepay payment transaction",
+                "operationId": "paymentSecupaysofortPost",
+                "requestBody": {
+                    "description": "Prepay payment transaction input properties",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SecupayTransactionProductDTO"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Started prepay payment transaction",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SecupayTransactionProductModel"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -6351,12 +6179,12 @@
                 }
             }
         },
-        "/Smart/Transactions/{smartTransactionId}/prepare": {
+        "/Smart/Transactions/{smartTransactionId}/prepare/{paymentMethod}": {
             "post": {
                 "tags": [
                     "smartTransactions"
                 ],
-                "summary": "POST Smart/Transactions/stx_xxx/prepare",
+                "summary": "POST Smart/Transactions/stx_xxx/prepare/{paymentMethod}",
                 "description": "Create and score payment transaction assigned to given smart transaction",
                 "operationId": "prepare",
                 "parameters": [
@@ -6364,6 +6192,15 @@
                         "name": "smartTransactionId",
                         "in": "path",
                         "description": "Smart transaction id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "paymentMethod",
+                        "in": "path",
+                        "description": "Payment method",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -6893,7 +6730,8 @@
                 "properties": {
                     "file": {
                         "type": "string",
-                        "format": "binary"
+                        "format": "binary",
+                        "example": "/path/to/file.txt"
                     }
                 },
                 "type": "object"
@@ -7156,30 +6994,6 @@
                 },
                 "type": "object"
             },
-            "GeneralMerchantsDTO2": {
-                "properties": {
-                    "legal_details": {
-                        "description": "Legal details",
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/GeneralMerchantsLegalDetails"
-                        }
-                    },
-                    "checkout_options": {
-                        "description": "Checkout options",
-                        "type": "object",
-                        "$ref": "#/components/schemas/GeneralMerchantsCheckoutOptions"
-                    },
-                    "urls": {
-                        "description": "Urls",
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/GeneralMerchantsUrls"
-                        }
-                    }
-                },
-                "type": "object"
-            },
             "GeneralMerchantsList": {
                 "properties": {
                     "count": {
@@ -7346,6 +7160,14 @@
             },
             "GeneralStoresDTO": {
                 "properties": {
+                    "name": {
+                        "description": "Name",
+                        "type": "string"
+                    },
+                    "merchant": {
+                        "description": "Merchant",
+                        "type": "string"
+                    },
                     "address": {
                         "description": "New address",
                         "type": "object",
@@ -8159,15 +7981,6 @@
                 },
                 "type": "object"
             },
-            "DECODED_virtual_terminal_id_or_false": {
-                "properties": {
-                    "result": {
-                        "description": "DECODED virtual terminal id or false",
-                        "type": "string"
-                    }
-                },
-                "type": "object"
-            },
             "LoyaltyStoregroupsProductModel": {
                 "type": "object",
                 "allOf": [
@@ -8540,6 +8353,15 @@
                         "description": "Pay in account",
                         "type": "boolean",
                         "default": "false"
+                    },
+                    "create_first_store": {
+                        "description": "Create first store",
+                        "type": "boolean",
+                        "default": "false"
+                    },
+                    "store_name": {
+                        "description": "Store name",
+                        "type": "string"
                     }
                 },
                 "type": "object"
@@ -8592,7 +8414,15 @@
                 "properties": {
                     "contract": {
                         "description": "The payment contract object",
-                        "$ref": "#/components/schemas/PaymentContractsProductModel"
+                        "$ref": "#/components/schemas/ProductInstanceUID"
+                    },
+                    "merchant": {
+                        "description": "Merchant",
+                        "$ref": "#/components/schemas/ProductInstanceUID"
+                    },
+                    "store": {
+                        "description": "Store",
+                        "$ref": "#/components/schemas/ProductInstanceUID"
                     },
                     "apikey": {
                         "description": "Returns the apikey of the created merchant",
@@ -9069,7 +8899,27 @@
                 },
                 "type": "object"
             },
-            "Result": {
+            "PaymentCancelResult": {
+                "description": "Refund information",
+                "properties": {
+                    "new_trans_id": {
+                        "description": "The transaction ID of the refund transaction",
+                        "type": "integer",
+                        "default": "0"
+                    },
+                    "demo": {
+                        "description": "Demo",
+                        "type": "boolean",
+                        "default": "false"
+                    },
+                    "result": {
+                        "description": "Refund information",
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "PaymentCancelResultDetails": {
                 "description": "Refund information",
                 "properties": {
                     "new_trans_id": {
@@ -9793,6 +9643,10 @@
                                 "description": "Merchant",
                                 "$ref": "#/components/schemas/ProductInstanceUID"
                             },
+                            "contract": {
+                                "description": "Contract",
+                                "$ref": "#/components/schemas/ProductInstanceUID"
+                            },
                             "store": {
                                 "description": "Store",
                                 "$ref": "#/components/schemas/Store"
@@ -9940,6 +9794,10 @@
             },
             "SmartDevicesDTO": {
                 "properties": {
+                    "contract": {
+                        "description": "Contract",
+                        "type": "string"
+                    },
                     "merchant": {
                         "description": "Merchant",
                         "type": "string"
@@ -10361,6 +10219,10 @@
                             "checkout_links": {
                                 "description": "Checkout Links",
                                 "$ref": "#/components/schemas/SmartTransactionsCheckoutLinks"
+                            },
+                            "iframe_url": {
+                                "description": "IFrame URL",
+                                "type": "string"
                             }
                         },
                         "type": "object"
@@ -10837,6 +10699,43 @@
                     "container": {
                         "description": "Container",
                         "$ref": "#/components/schemas/ProductInstanceUID"
+                    },
+                    "method": {
+                        "description": "Method",
+                        "type": "string"
+                    },
+                    "callback_urls": {
+                        "description": "Callback URLs",
+                        "$ref": "#/components/schemas/SmartTransactionsPrepareCallbackUrls"
+                    },
+                    "email": {
+                        "description": "Email",
+                        "type": "string"
+                    },
+                    "mode": {
+                        "description": "Mode",
+                        "type": "string"
+                    },
+                    "is_paypal_basic": {
+                        "description": "Is paypal basic or not",
+                        "type": "boolean"
+                    },
+                    "is_demo": {
+                        "description": "Is demo or not",
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "SmartTransactionsPrepareCallbackUrls": {
+                "properties": {
+                    "success_url": {
+                        "description": "Success URL",
+                        "type": "string"
+                    },
+                    "failure_url": {
+                        "description": "Failure URL",
+                        "type": "string"
                     }
                 },
                 "type": "object"
@@ -11061,7 +10960,12 @@
                 "flows": {
                     "clientCredentials": {
                         "tokenUrl": "https://connect.secucard.com/oauth/token",
-                        "scopes": []
+                        "scopes": {
+                            "https://scope.secucard.com/e/smartdevice": "smart devices",
+                            "https://scope.secucard.com/e/api": "shops and marketplaces",
+                            "https://scope.secucard.com/e/app.main/secucard": "secuoffice",
+                            "https://scope.secucard.com/e/app.mobile/secucard/user": "secucard mobile app"
+                        }
                     }
                 }
             }
