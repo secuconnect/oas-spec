@@ -17,7 +17,7 @@
                 ],
                 "summary": "POST Document/Uploads",
                 "description": "Store uploaded file",
-                "operationId": "documentUploadsMultipartPost",
+                "operationId": "Document/Uploads/documentUploadsMultipartPost",
                 "parameters": [
                     {
                         "name": "multipart",
@@ -68,7 +68,7 @@
                 ],
                 "summary": "POST Document/Uploads",
                 "description": "Store uploaded file",
-                "operationId": "documentUploadsPost",
+                "operationId": "Document/Uploads/documentUploadsPost",
                 "requestBody": {
                     "description": "Content",
                     "content": {
@@ -103,6 +103,151 @@
                 }
             }
         },
+        "/General/Contracts": {
+            "get": {
+                "tags": [
+                    "generalContracts"
+                ],
+                "summary": "GET General/Contracts",
+                "description": "Get a list of general contracts",
+                "operationId": "General/Contracts/getAll",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/count"
+                    },
+                    {
+                        "$ref": "#/components/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/query"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns a list of general contracts",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GeneralContractsList"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/General/Contracts/{generalContractId}": {
+            "get": {
+                "tags": [
+                    "generalContracts"
+                ],
+                "summary": "GET General/Contracts/{generalContractId}",
+                "description": "Get one general contract for a specific id",
+                "operationId": "General/Contracts/getOne",
+                "parameters": [
+                    {
+                        "name": "generalContractId",
+                        "in": "path",
+                        "description": "General contract id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns general contract for a specific id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GeneralContractsProductModel"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/General/Contracts/{generalContractId}/getAvailablePaymentMethods": {
+            "post": {
+                "tags": [
+                    "generalContracts"
+                ],
+                "summary": "POST General/Contracts/{generalContractId}/getAvailablePaymentMethods",
+                "description": "Get available payment methods for given contract",
+                "operationId": "General/Contracts/getAvailablePaymentMethods",
+                "parameters": [
+                    {
+                        "name": "generalContractId",
+                        "in": "path",
+                        "description": "Contract identifier",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "options",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GetAvailablePaymentMethodsDTO"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "General methods possible for given contract",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StringList"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/General/Merchants": {
             "get": {
                 "tags": [
@@ -110,7 +255,7 @@
                 ],
                 "summary": "GET General/Merchants",
                 "description": "Get a list of general merchants",
-                "operationId": "getAll",
+                "operationId": "General/Merchants/getAll",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/count"
@@ -157,7 +302,7 @@
                 ],
                 "summary": "POST General/Merchants",
                 "description": "Add a new merchant",
-                "operationId": "addMerchants",
+                "operationId": "General/Merchants/addMerchants",
                 "requestBody": {
                     "description": "general Merchant container properties",
                     "content": {
@@ -199,7 +344,7 @@
                 ],
                 "summary": "GET General/Merchants/{generalMerchantId}",
                 "description": "Get one general merchant for a specific id",
-                "operationId": "getOne",
+                "operationId": "General/Merchants/getOne",
                 "parameters": [
                     {
                         "name": "generalMerchantId",
@@ -240,7 +385,7 @@
                 ],
                 "summary": "PUT General/Merchants/{generalMerchantId}",
                 "description": "Update general merchant",
-                "operationId": "updateMerchant",
+                "operationId": "General/Merchants/updateMerchant",
                 "parameters": [
                     {
                         "name": "generalMerchantId",
@@ -293,7 +438,7 @@
                 ],
                 "summary": "GET General/Stores",
                 "description": "Get a list of general stores",
-                "operationId": "getAll",
+                "operationId": "General/Stores/getAll",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/count"
@@ -340,7 +485,7 @@
                 ],
                 "summary": "POST General/Stores",
                 "description": "Create general store",
-                "operationId": "addStore",
+                "operationId": "General/Stores/addStore",
                 "requestBody": {
                     "description": "General store properties",
                     "content": {
@@ -382,7 +527,7 @@
                 ],
                 "summary": "GET General/Stores/{generalStoreId}",
                 "description": "Get one general store for a specific id",
-                "operationId": "getOne",
+                "operationId": "General/Stores/getOne",
                 "parameters": [
                     {
                         "name": "generalStoreId",
@@ -423,7 +568,7 @@
                 ],
                 "summary": "PUT General/Stores/{generalStoreId}",
                 "description": "Update general store",
-                "operationId": "updateStore",
+                "operationId": "General/Stores/updateStore",
                 "parameters": [
                     {
                         "name": "generalStoreId",
@@ -476,7 +621,7 @@
                 ],
                 "summary": "POST General/Stores/{generalStoreId}/checkin",
                 "description": "Check in",
-                "operationId": "checkIn",
+                "operationId": "General/Stores/checkIn",
                 "parameters": [
                     {
                         "name": "generalStoreId",
@@ -529,7 +674,7 @@
                 ],
                 "summary": "POST General/Stores/{generalStoreId}/assign/{googleKey}",
                 "description": "Assign some object to general store",
-                "operationId": "assignGoogleKey",
+                "operationId": "General/Stores/assignGoogleKey",
                 "parameters": [
                     {
                         "name": "generalStoreId",
@@ -581,7 +726,7 @@
                 ],
                 "summary": "POST General/Stores/{generalStoreId}/setDefault",
                 "description": "Set default flag on general store",
-                "operationId": "setDefault",
+                "operationId": "General/Stores/setDefault",
                 "parameters": [
                     {
                         "name": "generalStoreId",
@@ -634,7 +779,7 @@
                 ],
                 "summary": "GET Loyalty/Cardgroups",
                 "description": "Get a list of loyalty card groups",
-                "operationId": "getAll",
+                "operationId": "Loyalty/Cardgroups/getAll",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/count"
@@ -681,7 +826,7 @@
                 ],
                 "summary": "POST Loyalty/Cardgroups",
                 "description": "Add loyalty card group",
-                "operationId": "addCardGroup",
+                "operationId": "Loyalty/Cardgroups/addCardGroup",
                 "requestBody": {
                     "description": "Loyalty card group properties",
                     "content": {
@@ -723,7 +868,7 @@
                 ],
                 "summary": "GET Loyalty/Cardgroups/{loyaltyCardGroupId}",
                 "description": "Get loyalty card group for a specific id",
-                "operationId": "getOne",
+                "operationId": "Loyalty/Cardgroups/getOne",
                 "parameters": [
                     {
                         "name": "loyaltyCardGroupId",
@@ -764,7 +909,7 @@
                 ],
                 "summary": "PUT Loyalty/Cardgroups/{loyaltyCardGroupId}",
                 "description": "Update loyalty card group",
-                "operationId": "updateCardGroup",
+                "operationId": "Loyalty/Cardgroups/updateCardGroup",
                 "parameters": [
                     {
                         "name": "loyaltyCardGroupId",
@@ -817,7 +962,7 @@
                 ],
                 "summary": "POST Loyalty/Cardgroups/{loyaltyCardGroupId}/checkPasscodeEnabled",
                 "description": "Check whether passcode check is enabled",
-                "operationId": "checkPassCodeEnabled",
+                "operationId": "Loyalty/Cardgroups/checkPassCodeEnabled",
                 "parameters": [
                     {
                         "name": "loyaltyCardGroupId",
@@ -870,7 +1015,7 @@
                 ],
                 "summary": "GET Loyalty/Cards",
                 "description": "Get a list of loyalty cards",
-                "operationId": "getAll",
+                "operationId": "Loyalty/Cards/getAll",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/count"
@@ -919,7 +1064,7 @@
                 ],
                 "summary": "GET Loyalty/Cards/{loyaltyCardId}",
                 "description": "Get loyalty card for a specific id",
-                "operationId": "getOne",
+                "operationId": "Loyalty/Cards/getOne",
                 "parameters": [
                     {
                         "name": "loyaltyCardId",
@@ -962,7 +1107,7 @@
                 ],
                 "summary": "POST Loyalty/Cards/{loyaltyCardId}/assignUser/{generalAccountId}",
                 "description": "Assign loyalty card to specific user account",
-                "operationId": "assignUser",
+                "operationId": "Loyalty/Cards/assignUser",
                 "parameters": [
                     {
                         "name": "loyaltyCardId",
@@ -1022,7 +1167,7 @@
                 ],
                 "summary": "DELETE Loyalty/Cards/{loyaltyCardId}/assignUser/{generalAccountId}",
                 "description": "Remove assigned loyalty card from specific user account",
-                "operationId": "removeAssignedUser",
+                "operationId": "Loyalty/Cards/removeAssignedUser",
                 "parameters": [
                     {
                         "name": "loyaltyCardId",
@@ -1074,7 +1219,7 @@
                 ],
                 "summary": "GET Loyalty/Customers",
                 "description": "Get a list of loyalty customers",
-                "operationId": "getAll",
+                "operationId": "Loyalty/Customers/getAll",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/count"
@@ -1121,7 +1266,7 @@
                 ],
                 "summary": "POST Loyalty/Customers",
                 "description": "Add loyalty customer",
-                "operationId": "addCustomer",
+                "operationId": "Loyalty/Customers/addCustomer",
                 "requestBody": {
                     "description": "loyalty Customer container properties",
                     "content": {
@@ -1163,7 +1308,7 @@
                 ],
                 "summary": "GET Loyalty/Customers/{loyaltyCustomerId}",
                 "description": "Get loyalty customer for a specific id",
-                "operationId": "getOne",
+                "operationId": "Loyalty/Customers/getOne",
                 "parameters": [
                     {
                         "name": "loyaltyCustomerId",
@@ -1204,7 +1349,7 @@
                 ],
                 "summary": "PUT Loyalty/Customers/{loyaltyCustomerId}",
                 "description": "Function to update customer's data",
-                "operationId": "updateCustomer",
+                "operationId": "Loyalty/Customers/updateCustomer",
                 "parameters": [
                     {
                         "name": "loyaltyCustomerId",
@@ -1255,7 +1400,7 @@
                 ],
                 "summary": "DELETE Loyalty/Customers/{loyaltyCustomerId}",
                 "description": "Remove assigned loyalty customer",
-                "operationId": "removeCustomer",
+                "operationId": "Loyalty/Customers/removeCustomer",
                 "parameters": [
                     {
                         "name": "loyaltyCustomerId",
@@ -1298,7 +1443,7 @@
                 ],
                 "summary": "POST Loyalty/Customers/{loyaltyCustomerId}/assignPaymentContainer/{loyaltyPaymentContainerId}",
                 "description": "Assigns LoyaltyPaymentContainer to customer",
-                "operationId": "assignPaymentContainer",
+                "operationId": "Loyalty/Customers/assignPaymentContainer",
                 "parameters": [
                     {
                         "name": "loyaltyCustomerId",
@@ -1348,7 +1493,7 @@
                 ],
                 "summary": "DELETE Loyalty/Customers/{loyaltyCustomerId}/assignPaymentContainer/{loyaltyPaymentContainerId}",
                 "description": "Removes an assigned LoyaltyPaymentContainer from customer",
-                "operationId": "removeAssignedPaymentContainer",
+                "operationId": "Loyalty/Customers/removeAssignedPaymentContainer",
                 "parameters": [
                     {
                         "name": "loyaltyCustomerId",
@@ -1400,7 +1545,7 @@
                 ],
                 "summary": "POST Loyalty/Customers/{loyaltyCustomerId}/checkDuplicated/",
                 "description": "check if there are duplicated customers for a given merchant",
-                "operationId": "checkForDuplicates",
+                "operationId": "Loyalty/Customers/checkForDuplicates",
                 "parameters": [
                     {
                         "name": "loyaltyCustomerId",
@@ -1443,7 +1588,7 @@
                 ],
                 "summary": "GET Loyalty/MerchantCards",
                 "description": "Get a list of loyalty merchant cards",
-                "operationId": "getAll",
+                "operationId": "Loyalty/MerchantCards/getAll",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/count"
@@ -1490,7 +1635,7 @@
                 ],
                 "summary": "POST Loyalty/MerchantCards",
                 "description": "Add new loyalty merchant card",
-                "operationId": "addMerchantCard",
+                "operationId": "Loyalty/MerchantCards/addMerchantCard",
                 "requestBody": {
                     "description": "Loyalty merchant card properties",
                     "content": {
@@ -1532,7 +1677,7 @@
                 ],
                 "summary": "GET Loyalty/MerchantCards/{loyaltyMerchantCardId}",
                 "description": "Get loyalty merchant card for a specific id",
-                "operationId": "getOne",
+                "operationId": "Loyalty/MerchantCards/getOne",
                 "parameters": [
                     {
                         "name": "loyaltyMerchantCardId",
@@ -1573,7 +1718,7 @@
                 ],
                 "summary": "PUT Loyalty/MerchantCards/{loyaltyMerchantCardId}",
                 "description": "Update loyalty merchant card",
-                "operationId": "updateMerchantCard",
+                "operationId": "Loyalty/MerchantCards/updateMerchantCard",
                 "parameters": [
                     {
                         "name": "loyaltyMerchantCardId",
@@ -1624,7 +1769,7 @@
                 ],
                 "summary": "DELETE Loyalty/MerchantCards/{loyaltyMerchantCardId}",
                 "description": "Delete loyalty merchant card",
-                "operationId": "removeMerchantCard",
+                "operationId": "Loyalty/MerchantCards/removeMerchantCard",
                 "parameters": [
                     {
                         "name": "loyaltyMerchantCardId",
@@ -1667,7 +1812,7 @@
                 ],
                 "summary": "PUT Loyalty/MerchantCards/{loyaltyMerchantCardId}/cardgroup/{loyaltyCardGroupId}",
                 "description": "Update loyalty card group",
-                "operationId": "updateCardGroupOfMerchantCard",
+                "operationId": "Loyalty/MerchantCards/updateCardGroupOfMerchantCard",
                 "parameters": [
                     {
                         "name": "loyaltyMerchantCardId",
@@ -1719,7 +1864,7 @@
                 ],
                 "summary": "POST Loyalty/MerchantCards/{loyaltyMerchantCardId}/registerCustomer",
                 "description": "Register new customer for a card",
-                "operationId": "registerCustomer",
+                "operationId": "Loyalty/MerchantCards/registerCustomer",
                 "parameters": [
                     {
                         "name": "loyaltyMerchantCardId",
@@ -1772,7 +1917,7 @@
                 ],
                 "summary": "POST Loyalty/MerchantCards/{loyaltyMerchantCardId}/setCustomer/{loyaltyCustomerId}",
                 "description": "Set loyalty customer for a loyalty merchant card",
-                "operationId": "setCustomer",
+                "operationId": "Loyalty/MerchantCards/setCustomer",
                 "parameters": [
                     {
                         "name": "loyaltyMerchantCardId",
@@ -1824,7 +1969,7 @@
                 ],
                 "summary": "GET Loyalty/MerchantCards/{loyaltyMerchantCardId}/lock",
                 "description": "Get loyalty merchant card lock information for a specific id",
-                "operationId": "getLock",
+                "operationId": "Loyalty/MerchantCards/getLock",
                 "parameters": [
                     {
                         "name": "loyaltyMerchantCardId",
@@ -1865,7 +2010,7 @@
                 ],
                 "summary": "POST Loyalty/MerchantCards/{loyaltyMerchantCardId}/lock",
                 "description": "Lock merchant card",
-                "operationId": "lock",
+                "operationId": "Loyalty/MerchantCards/lock",
                 "parameters": [
                     {
                         "name": "loyaltyMerchantCardId",
@@ -1918,7 +2063,7 @@
                 ],
                 "summary": "POST Loyalty/MerchantCards/{loyaltyMerchantCardId}/unlock",
                 "description": "Unlock merchant card",
-                "operationId": "unlock",
+                "operationId": "Loyalty/MerchantCards/unlock",
                 "parameters": [
                     {
                         "name": "loyaltyMerchantCardId",
@@ -1971,7 +2116,7 @@
                 ],
                 "summary": "GET Loyalty/MerchantCards/{loyaltyMerchantCardId}/virtualTerminalData/{loyaltyMerchantId}",
                 "description": "Get virtual terminal data for merchant",
-                "operationId": "getVirtualTerminalData",
+                "operationId": "Loyalty/MerchantCards/getVirtualTerminalData",
                 "parameters": [
                     {
                         "name": "loyaltyMerchantCardId",
@@ -2033,7 +2178,7 @@
                 ],
                 "summary": "POST Loyalty/MerchantCards/{loyaltyMerchantCardId}/transaction",
                 "description": "Execute transaction from SDK",
-                "operationId": "executeTransaction",
+                "operationId": "Loyalty/MerchantCards/executeTransaction",
                 "parameters": [
                     {
                         "name": "loyaltyMerchantCardId",
@@ -2086,7 +2231,7 @@
                 ],
                 "summary": "POST Loyalty/MerchantCards/{loyaltyMerchantCardId}/checkCsc",
                 "description": "Check CSC",
-                "operationId": "checkCsc",
+                "operationId": "Loyalty/MerchantCards/checkCsc",
                 "parameters": [
                     {
                         "name": "loyaltyMerchantCardId",
@@ -2139,7 +2284,7 @@
                 ],
                 "summary": "POST Loyalty/MerchantCards/{loyaltyMerchantCardId}/validateMerchantcard",
                 "description": "Function to check the merchant card",
-                "operationId": "validateMerchantCard",
+                "operationId": "Loyalty/MerchantCards/validateMerchantCard",
                 "parameters": [
                     {
                         "name": "loyaltyMerchantCardId",
@@ -2192,7 +2337,7 @@
                 ],
                 "summary": "POST Loyalty/MerchantCards/{loyaltyMerchantCardId}/newPasscode",
                 "description": "Function to save new given passcode for given merchantcard identified by cardnumber",
-                "operationId": "newPassCode",
+                "operationId": "Loyalty/MerchantCards/newPassCode",
                 "parameters": [
                     {
                         "name": "loyaltyMerchantCardId",
@@ -2245,7 +2390,7 @@
                 ],
                 "summary": "POST Loyalty/MerchantCards/{loyaltyMerchantCardId}/resetPasscode",
                 "description": "Function to reset a passcode for given merchantcard",
-                "operationId": "resetPassCode",
+                "operationId": "Loyalty/MerchantCards/resetPassCode",
                 "parameters": [
                     {
                         "name": "loyaltyMerchantCardId",
@@ -2298,7 +2443,7 @@
                 ],
                 "summary": "POST Loyalty/MerchantCards/{loyaltyMerchantCardId}/checkPasscode",
                 "description": "Function to check the Passcode card with cardnumber",
-                "operationId": "checkPassCode",
+                "operationId": "Loyalty/MerchantCards/checkPassCode",
                 "parameters": [
                     {
                         "name": "loyaltyMerchantCardId",
@@ -2351,7 +2496,7 @@
                 ],
                 "summary": "POST Loyalty/MerchantCards/{generalMerchantId}/createMerchantcards/{loyaltyCardgroupId}",
                 "description": "Function to create multiple merchantcards for given merchant with given cardgroup",
-                "operationId": "createMerchantcards",
+                "operationId": "Loyalty/MerchantCards/createMerchantcards",
                 "parameters": [
                     {
                         "name": "generalMerchantId",
@@ -2416,7 +2561,7 @@
                 ],
                 "summary": "GET Loyalty/Sales/{generalMerchantId}/CardGroupsByMerchantID",
                 "description": "Get cardgroups by merchant id",
-                "operationId": "getCardgroupsByMerchantId",
+                "operationId": "Loyalty/Sales/getCardgroupsByMerchantId",
                 "parameters": [
                     {
                         "name": "generalMerchantId",
@@ -2462,7 +2607,7 @@
                 ],
                 "summary": "GET Loyalty/StoreGroups",
                 "description": "Get a list of loyalty store groups",
-                "operationId": "getAll",
+                "operationId": "Loyalty/StoreGroups/getAll",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/count"
@@ -2511,7 +2656,7 @@
                 ],
                 "summary": "GET Loyalty/StoreGroups/{loyaltyStoreGroupId}",
                 "description": "Get loyalty store group for a specific id",
-                "operationId": "getOne",
+                "operationId": "Loyalty/StoreGroups/getOne",
                 "parameters": [
                     {
                         "name": "loyaltyStoreGroupId",
@@ -2552,7 +2697,7 @@
                 ],
                 "summary": "PUT Loyalty/StoreGroups/{loyaltyStoreGroupId}",
                 "description": "Update loyalty store group",
-                "operationId": "updateStoreGroup",
+                "operationId": "Loyalty/StoreGroups/updateStoreGroup",
                 "parameters": [
                     {
                         "name": "loyaltyStoreGroupId",
@@ -2603,7 +2748,7 @@
                 ],
                 "summary": "DELETE Loyalty/StoreGroups/{loyaltyStoreGroupId}",
                 "description": "Remove loyalty store group",
-                "operationId": "removeStoreGroup",
+                "operationId": "Loyalty/StoreGroups/removeStoreGroup",
                 "parameters": [
                     {
                         "name": "loyaltyStoreGroupId",
@@ -2649,7 +2794,7 @@
                 ],
                 "summary": "POST Loyalty/Storegroups",
                 "description": "Add new loyalty store group",
-                "operationId": "addStoreGroup",
+                "operationId": "Loyalty/StoreGroups/addStoreGroup",
                 "requestBody": {
                     "description": "Loyalty store group properties",
                     "content": {
@@ -2691,7 +2836,7 @@
                 ],
                 "summary": "GET Payment/Containers",
                 "description": "Get a list of payment containers",
-                "operationId": "paymentContainersGet",
+                "operationId": "Payment/Containers/paymentContainersGet",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/count"
@@ -2738,7 +2883,7 @@
                 ],
                 "summary": "POST Payment/Containers",
                 "description": "Add new containers",
-                "operationId": "paymentContainersPost",
+                "operationId": "Payment/Containers/paymentContainersPost",
                 "requestBody": {
                     "description": "Payment container properties",
                     "content": {
@@ -2780,7 +2925,7 @@
                 ],
                 "summary": "GET Payment/Containers/{paymentContainerId}",
                 "description": "Get all payment containers",
-                "operationId": "paymentContainersGetById",
+                "operationId": "Payment/Containers/paymentContainersGetById",
                 "parameters": [
                     {
                         "name": "paymentContainerId",
@@ -2821,7 +2966,7 @@
                 ],
                 "summary": "PUT Payment/Containers/{paymentContainerId}",
                 "description": "Update payment container",
-                "operationId": "paymentContainersIdPut",
+                "operationId": "Payment/Containers/paymentContainersIdPut",
                 "parameters": [
                     {
                         "name": "paymentContainerId",
@@ -2872,7 +3017,7 @@
                 ],
                 "summary": "DELETE Payment/Containers/{paymentContainerId}",
                 "description": "Delete payment container",
-                "operationId": "paymentContainersIdDelete",
+                "operationId": "Payment/Containers/paymentContainersIdDelete",
                 "parameters": [
                     {
                         "name": "paymentContainerId",
@@ -2918,7 +3063,7 @@
                 ],
                 "summary": "POST Payment/Containers/{paymentContainerId}/assign/{secondaryPaymentContainerId}",
                 "description": "Assign an existing payment container to ...",
-                "operationId": "paymentContainersIdAssignSecondaryIdPost",
+                "operationId": "Payment/Containers/paymentContainersIdAssignSecondaryIdPost",
                 "parameters": [
                     {
                         "name": "paymentContainerId",
@@ -2968,7 +3113,7 @@
                 ],
                 "summary": "DELETE Payment/Containers/{paymentContainerId}/assign/{secondaryPaymentContainerId}",
                 "description": "Removes an existing payment container assignment",
-                "operationId": "paymentContainersIdAssignSecondaryIdDelete",
+                "operationId": "Payment/Containers/paymentContainersIdAssignSecondaryIdDelete",
                 "parameters": [
                     {
                         "name": "paymentContainerId",
@@ -3023,7 +3168,7 @@
                 ],
                 "summary": "GET Payment/Contracts",
                 "description": "Get a list of payment contracts",
-                "operationId": "paymentContractsGet",
+                "operationId": "Payment/Contracts/paymentContractsGet",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/count"
@@ -3070,7 +3215,7 @@
                 ],
                 "summary": "POST Payment/Contracts",
                 "description": "Add new contract",
-                "operationId": "paymentContractsPost",
+                "operationId": "Payment/Contracts/paymentContractsPost",
                 "requestBody": {
                     "description": "Payment contracts properties",
                     "content": {
@@ -3112,7 +3257,7 @@
                 ],
                 "summary": "GET Payment/Contracts/{paymentContractId}",
                 "description": "Get all payment contracts",
-                "operationId": "paymentContractsGetById",
+                "operationId": "Payment/Contracts/paymentContractsGetById",
                 "parameters": [
                     {
                         "name": "paymentContractId",
@@ -3153,7 +3298,7 @@
                 ],
                 "summary": "PUT Payment/Contracts/{paymentContractId}",
                 "description": "Update payment contract",
-                "operationId": "paymentContractsIdPut",
+                "operationId": "Payment/Contracts/paymentContractsIdPut",
                 "parameters": [
                     {
                         "name": "paymentContractId",
@@ -3204,7 +3349,7 @@
                 ],
                 "summary": "DELETE Payment/Contracts/{paymentContractId}",
                 "description": "Delete payment contract",
-                "operationId": "paymentContractsIdDelete",
+                "operationId": "Payment/Contracts/paymentContractsIdDelete",
                 "parameters": [
                     {
                         "name": "paymentContractId",
@@ -3250,7 +3395,7 @@
                 ],
                 "summary": "GET Payment/Contracts/{paymentContractId}/paymentMethods",
                 "description": "Get available payment methods for given contract",
-                "operationId": "paymentContractsIdPaymentMethodsGet",
+                "operationId": "Payment/Contracts/paymentContractsIdPaymentMethodsGet",
                 "parameters": [
                     {
                         "name": "paymentContractId",
@@ -3293,7 +3438,7 @@
                 ],
                 "summary": "POST Payment/Contracts/{paymentContractId}/clone",
                 "description": "Clone an existing payment contract",
-                "operationId": "clone",
+                "operationId": "Payment/Contracts/clone",
                 "parameters": [
                     {
                         "name": "paymentContractId",
@@ -3346,7 +3491,7 @@
                 ],
                 "summary": "POST Payment/Contracts/{paymentContractId}/requestId",
                 "description": "This method clones your payment contract, so that you can use this to separate the merchants of your marketplace. (Needs to be activated))",
-                "operationId": "requestId",
+                "operationId": "Payment/Contracts/requestId",
                 "parameters": [
                     {
                         "name": "paymentContractId",
@@ -3399,7 +3544,7 @@
                 ],
                 "summary": "GET Payment/Customers",
                 "description": "Get a list of payment customers",
-                "operationId": "paymentCustomersGet",
+                "operationId": "Payment/Containers/paymentCustomersGet",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/count"
@@ -3446,7 +3591,7 @@
                 ],
                 "summary": "POST Payment/Customers",
                 "description": "Add new customer",
-                "operationId": "paymentCustomersPost",
+                "operationId": "Payment/Containers/paymentCustomersPost",
                 "requestBody": {
                     "description": "Payment customer properties",
                     "content": {
@@ -3488,7 +3633,7 @@
                 ],
                 "summary": "GET Payment/Customers/{paymentCustomerId}",
                 "description": "Get all payment customers",
-                "operationId": "paymentCustomersGetById",
+                "operationId": "Payment/Customers/paymentCustomersGetById",
                 "parameters": [
                     {
                         "name": "paymentCustomerId",
@@ -3529,7 +3674,7 @@
                 ],
                 "summary": "PUT Payment/Customers/{paymentCustomerId}",
                 "description": "Update payment customer",
-                "operationId": "paymentCustomersIdPut",
+                "operationId": "Payment/Customers/paymentCustomersIdPut",
                 "parameters": [
                     {
                         "name": "paymentCustomerId",
@@ -3580,7 +3725,7 @@
                 ],
                 "summary": "DELETE Payment/Customers/{paymentCustomerId}",
                 "description": "Delete payment customer",
-                "operationId": "paymentCustomersIdDelete",
+                "operationId": "Payment/Customers/paymentCustomersIdDelete",
                 "parameters": [
                     {
                         "name": "paymentCustomerId",
@@ -4031,7 +4176,7 @@
                 ],
                 "summary": "GET Payment/Secupaycreditcards/{paymentCreditCardsId}",
                 "description": "Get the details of a payment transaction",
-                "operationId": "paymentSecupayCreditcardsGetById",
+                "operationId": "Payment/Secupaycreditcards/paymentSecupayCreditcardsGetById",
                 "parameters": [
                     {
                         "name": "paymentCreditCardsId",
@@ -4074,7 +4219,7 @@
                 ],
                 "summary": "POST Payment/Secupaycreditcards",
                 "description": "Start a credit card payment transaction",
-                "operationId": "paymentSecupaycreditcardsPost",
+                "operationId": "Payment/Secupaycreditcards/paymentSecupaycreditcardsPost",
                 "requestBody": {
                     "description": "Credit card payment transaction input properties",
                     "content": {
@@ -4116,7 +4261,7 @@
                 ],
                 "summary": "GET Payment/Secupaydebits/{paymentDebitId}",
                 "description": "Get the details of a payment transaction",
-                "operationId": "paymentSecupayDebitsGetById",
+                "operationId": "Payment/Secupaydebits/paymentSecupayDebitsGetById",
                 "parameters": [
                     {
                         "name": "paymentDebitId",
@@ -4159,7 +4304,7 @@
                 ],
                 "summary": "POST Payment/Secupaydebits",
                 "description": "Start a debit payment transaction",
-                "operationId": "paymentSecupaydebitsPost",
+                "operationId": "Payment/Secupaydebits/paymentSecupaydebitsPost",
                 "requestBody": {
                     "description": "Debit payment transaction input properties",
                     "content": {
@@ -4201,7 +4346,7 @@
                 ],
                 "summary": "GET Payment/Secupayinvoices/{paymentInvoiceId}",
                 "description": "Get the details of a payment transaction",
-                "operationId": "paymentSecupayInvoicesGetById",
+                "operationId": "Payment/Secupayinvoices/paymentSecupayInvoicesGetById",
                 "parameters": [
                     {
                         "name": "paymentInvoiceId",
@@ -4244,7 +4389,7 @@
                 ],
                 "summary": "POST Payment/Secupayinvoices",
                 "description": "Start a invoice payment transaction",
-                "operationId": "paymentSecupayinvoicesPost",
+                "operationId": "Payment/Secupayinvoices/paymentSecupayinvoicesPost",
                 "requestBody": {
                     "description": "Invoice payment transaction input properties",
                     "content": {
@@ -4286,7 +4431,7 @@
                 ],
                 "summary": "GET Payment/Secupaypayout/{paymentPayoutId}",
                 "description": "Get the details of a payment transaction",
-                "operationId": "getSecupaypayout",
+                "operationId": "Payment/Secupaypayout/getSecupaypayout",
                 "parameters": [
                     {
                         "name": "paymentPayoutId",
@@ -4329,7 +4474,7 @@
                 ],
                 "summary": "POST Payment/Secupaypayout",
                 "description": "Start a payout transaction",
-                "operationId": "paymentSecupaypayoutPost",
+                "operationId": "Payment/Secupaypayout/paymentSecupaypayoutPost",
                 "requestBody": {
                     "description": "Payout payment transaction input properties",
                     "content": {
@@ -4371,7 +4516,7 @@
                 ],
                 "summary": "GET Payment/Secupayprepays/{paymentPrepayId}",
                 "description": "Get the details of a payment transaction",
-                "operationId": "paymentSecupayPrepaysGetById",
+                "operationId": "Payment/Secupayprepays/paymentSecupayPrepaysGetById",
                 "parameters": [
                     {
                         "name": "paymentPrepayId",
@@ -4414,7 +4559,7 @@
                 ],
                 "summary": "POST Payment/Secupayprepays",
                 "description": "Start a prepay payment transaction",
-                "operationId": "paymentSecupayprepaysPost",
+                "operationId": "Payment/Secupayprepays/paymentSecupayprepaysPost",
                 "requestBody": {
                     "description": "Prepay payment transaction input properties",
                     "content": {
@@ -4456,7 +4601,7 @@
                 ],
                 "summary": "GET Payment/Secupaysofort/{paymentPrepayId}",
                 "description": "Get the details of a payment transaction",
-                "operationId": "paymentSecupaySofortGetById",
+                "operationId": "Payment/Secupaysofort/paymentSecupaySofortGetById",
                 "parameters": [
                     {
                         "name": "paymentPrepayId",
@@ -4499,7 +4644,7 @@
                 ],
                 "summary": "POST Payment/Secupaysofort",
                 "description": "Start a prepay payment transaction",
-                "operationId": "paymentSecupaysofortPost",
+                "operationId": "Payment/Secupaysofort/paymentSecupaysofortPost",
                 "requestBody": {
                     "description": "Prepay payment transaction input properties",
                     "content": {
@@ -4541,7 +4686,7 @@
                 ],
                 "summary": "GET Payment/Transactions",
                 "description": "Get a list of payment transactions",
-                "operationId": "getAll",
+                "operationId": "Payment/Transactions/getAll",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/count"
@@ -4590,7 +4735,7 @@
                 ],
                 "summary": "GET Payment/Transactions/{paymentTransactionId}",
                 "description": "Get all payment transactions",
-                "operationId": "getOne",
+                "operationId": "Payment/Transactions/getOne",
                 "parameters": [
                     {
                         "name": "paymentTransactionId",
@@ -4633,7 +4778,7 @@
                 ],
                 "summary": "POST Payment/Transactions/{paymentTransactionId}/cancel",
                 "description": "Cancel a payment transaction",
-                "operationId": "cancel",
+                "operationId": "Payment/Transactions/cancel",
                 "parameters": [
                     {
                         "name": "paymentTransactionId",
@@ -4686,7 +4831,7 @@
                 ],
                 "summary": "GET Payment/Transactions/{paymentTransactionId}/shippingUrl",
                 "description": "Get the url where you can fill the shipping information",
-                "operationId": "getShippingUrl",
+                "operationId": "Payment/Transactions/getShippingUrl",
                 "parameters": [
                     {
                         "name": "paymentTransactionId",
@@ -4729,7 +4874,7 @@
                 ],
                 "summary": "POST Payment/Transactions/{paymentTransactionId}/revokeAccrual",
                 "description": "Revoke the accrual flag of a payment transaction",
-                "operationId": "revokeAccrual",
+                "operationId": "Payment/Transactions/revokeAccrual",
                 "parameters": [
                     {
                         "name": "paymentTransactionId",
@@ -4772,7 +4917,7 @@
                 ],
                 "summary": "POST Prepaid/Contracts/me/mappingZvt",
                 "description": "Gets prepaid item id from product id which is configured in prepaid contracts",
-                "operationId": "mappingZvt",
+                "operationId": "Prepaid/Contracts/mappingZvt",
                 "parameters": [
                     {
                         "name": "prepaidContractId",
@@ -4826,7 +4971,7 @@
                 ],
                 "summary": "GET Prepaid/Items",
                 "description": "Get a list of prepaid items",
-                "operationId": "getAll",
+                "operationId": "Prepaid/Items/getAll",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/count"
@@ -4875,7 +5020,7 @@
                 ],
                 "summary": "GET Prepaid/Items/{prepaidItemId}",
                 "description": "Get one prepaid item for a specific id",
-                "operationId": "getOne",
+                "operationId": "Prepaid/Items/getOne",
                 "parameters": [
                     {
                         "name": "prepaidItemId",
@@ -4918,7 +5063,7 @@
                 ],
                 "summary": "POST Prepaid/Sales",
                 "description": "Create new prepaid transaction",
-                "operationId": "addSale",
+                "operationId": "Prepaid/Sales/addSale",
                 "requestBody": {
                     "description": "Prepaid transaction input properties",
                     "content": {
@@ -4960,7 +5105,7 @@
                 ],
                 "summary": "GET Smart/Devices",
                 "description": "Get a list of smart devices",
-                "operationId": "getAll",
+                "operationId": "Smart/Devices/getAll",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/count"
@@ -5007,7 +5152,7 @@
                 ],
                 "summary": "POST Smart/Devices",
                 "description": "Create new smart device",
-                "operationId": "addDevice",
+                "operationId": "Smart/Devices/addDevice",
                 "requestBody": {
                     "description": "Smart device properties",
                     "content": {
@@ -5049,7 +5194,7 @@
                 ],
                 "summary": "GET Smart/Devices/{smartDeviceId}",
                 "description": "Get one smart device for a specific id",
-                "operationId": "getOne",
+                "operationId": "Smart/Devices/getOne",
                 "parameters": [
                     {
                         "name": "smartDeviceId",
@@ -5090,7 +5235,7 @@
                 ],
                 "summary": "PUT Smart/Devices/{smartDeviceId}",
                 "description": "Update smart device",
-                "operationId": "updateDevice",
+                "operationId": "Smart/Devices/updateDevice",
                 "parameters": [
                     {
                         "name": "smartDeviceId",
@@ -5143,7 +5288,7 @@
                 ],
                 "summary": "GET Smart/Devices/{smartDeviceId}/routing/type/{type}",
                 "description": "Get single routing",
-                "operationId": "getRouting",
+                "operationId": "Smart/Devices/getRouting",
                 "parameters": [
                     {
                         "name": "smartDeviceId",
@@ -5195,7 +5340,7 @@
                 ],
                 "summary": "PUT /Smart/Devices/{smartDeviceId}/pin",
                 "description": "Create new smart device",
-                "operationId": "updatePin",
+                "operationId": "Smart/Devices/updatePin",
                 "parameters": [
                     {
                         "name": "smartDeviceId",
@@ -5248,7 +5393,7 @@
                 ],
                 "summary": "POST Smart/Devices/{smartDeviceId}/createVirtualDevice",
                 "description": "Create virtual device",
-                "operationId": "createVirtualDevice",
+                "operationId": "Smart/Devices/createVirtualDevice",
                 "parameters": [
                     {
                         "name": "smartDeviceId",
@@ -5291,7 +5436,7 @@
                 ],
                 "summary": "POST Smart/Devices/{smartDeviceId}/createPrepaidTid",
                 "description": "Create prepaid tid",
-                "operationId": "createPrepaidTid",
+                "operationId": "Smart/Devices/createPrepaidTid",
                 "parameters": [
                     {
                         "name": "smartDeviceId",
@@ -5344,7 +5489,7 @@
                 ],
                 "summary": "POST Smart/Devices/{smartDeviceId}/getSecubaseConfig",
                 "description": "Get secubase config",
-                "operationId": "getSecubaseConfig",
+                "operationId": "Smart/Devices/getSecubaseConfig",
                 "parameters": [
                     {
                         "name": "smartDeviceId",
@@ -5397,7 +5542,7 @@
                 ],
                 "summary": "GET Smart/Routings",
                 "description": "Get a list of smart routings",
-                "operationId": "getAll",
+                "operationId": "Smart/Routings/getAll",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/count"
@@ -5444,7 +5589,7 @@
                 ],
                 "summary": "POST Smart/Routings",
                 "description": "Create new smart routing",
-                "operationId": "addRouting",
+                "operationId": "Smart/Routings/addRouting",
                 "requestBody": {
                     "description": "Smart routing properties",
                     "content": {
@@ -5486,7 +5631,7 @@
                 ],
                 "summary": "GET Smart/Routings/{smartRoutingId}",
                 "description": "Get one smart routing for a specific id",
-                "operationId": "getOne",
+                "operationId": "Smart/Routings/getOne",
                 "parameters": [
                     {
                         "name": "smartRoutingId",
@@ -5527,7 +5672,7 @@
                 ],
                 "summary": "PUT Smart/Routings/{smartRoutingId}",
                 "description": "Update specific smart routing",
-                "operationId": "updateRouting",
+                "operationId": "Smart/Routings/updateRouting",
                 "parameters": [
                     {
                         "name": "smartRoutingId",
@@ -5578,7 +5723,7 @@
                 ],
                 "summary": "DELETE Smart/Routings/{smartRoutingId}",
                 "description": "Remove specific smart roting",
-                "operationId": "removeRouting",
+                "operationId": "Smart/Routings/removeRouting",
                 "parameters": [
                     {
                         "name": "smartRoutingId",
@@ -5624,7 +5769,7 @@
                 ],
                 "summary": "POST Smart/Routings/{smartRoutingId}/assign/{smartDeviceId}",
                 "description": "Assign the specific smart device to the specific smart routing",
-                "operationId": "assignDeviceToRouting",
+                "operationId": "Smart/Routings/assignDeviceToRouting",
                 "parameters": [
                     {
                         "name": "smartRoutingId",
@@ -5684,7 +5829,7 @@
                 ],
                 "summary": "DELETE Smart/Routings/{smartRoutingId}/assign/{smartDeviceId}",
                 "description": "Remove smart routing assignment",
-                "operationId": "removeSmartRoutingAssignment",
+                "operationId": "Smart/Routings/removeSmartRoutingAssignment",
                 "parameters": [
                     {
                         "name": "smartRoutingId",
@@ -5736,7 +5881,7 @@
                 ],
                 "summary": "GET Smart/Transactions",
                 "description": "Get a list of smart transactions",
-                "operationId": "getAll",
+                "operationId": "Smart/Transactions/getAll",
                 "parameters": [
                     {
                         "$ref": "#/components/parameters/count"
@@ -5783,7 +5928,7 @@
                 ],
                 "summary": "POST Smart/Transactions",
                 "description": "Create new smart transaction",
-                "operationId": "addTransaction",
+                "operationId": "Smart/Transactions/addTransaction",
                 "requestBody": {
                     "description": "Smart transaction properties",
                     "content": {
@@ -5825,7 +5970,7 @@
                 ],
                 "summary": "GET Smart/Transactions/{smartTransactionId}",
                 "description": "Get one smart transaction for a specific id",
-                "operationId": "getOne",
+                "operationId": "Smart/Transactions/getOne",
                 "parameters": [
                     {
                         "name": "smartTransactionId",
@@ -5866,7 +6011,7 @@
                 ],
                 "summary": "PUT Smart/Transactions/{smartTransactionId}",
                 "description": "Update smart transaction",
-                "operationId": "updateTransaction",
+                "operationId": "Smart/Transactions/updateTransaction",
                 "parameters": [
                     {
                         "name": "smartTransactionId",
@@ -5919,7 +6064,7 @@
                 ],
                 "summary": "POST Smart/Transactions/{smartTransactionId}/cancel",
                 "description": "Method to cancel the transaction with given idn",
-                "operationId": "cancelTransaction",
+                "operationId": "Smart/Transactions/cancelTransaction",
                 "parameters": [
                     {
                         "name": "smartTransactionId",
@@ -5962,7 +6107,7 @@
                 ],
                 "summary": "POST Smart/Transactions/{smartTransactionId}/start/{paymentMethod}",
                 "description": "Start smart transaction with given payment method",
-                "operationId": "startTransaction",
+                "operationId": "Smart/Transactions/startTransaction",
                 "parameters": [
                     {
                         "name": "smartTransactionId",
@@ -6014,7 +6159,7 @@
                 ],
                 "summary": "POST Smart/Transactions/{smartTransactionId}/canceltrx",
                 "description": "Starts Cancel 'Cash' transaction on Terminal with 'receipt_number' ('Beleg-Nr.')",
-                "operationId": "cancelTrx",
+                "operationId": "Smart/Transactions/cancelTrx",
                 "parameters": [
                     {
                         "name": "smartTransactionId",
@@ -6057,7 +6202,7 @@
                 ],
                 "summary": "POST Smart/Transactions/{smartDeviceId}/diagnosis",
                 "description": "Starts extended Diagnose on Terminal, this method is normally called by SDK's from cash register",
-                "operationId": "diagnose",
+                "operationId": "Smart/Transactions/diagnose",
                 "parameters": [
                     {
                         "name": "smartDeviceId",
@@ -6100,7 +6245,7 @@
                 ],
                 "summary": "POST Smart/Transactions/{smartDeviceId}/endOfDay",
                 "description": "Starts End of Day Report on Terminal, this method is normally called by SDK's from cash register",
-                "operationId": "startEndOfDayReport",
+                "operationId": "Smart/Transactions/startEndOfDayReport",
                 "parameters": [
                     {
                         "name": "smartDeviceId",
@@ -6143,7 +6288,7 @@
                 ],
                 "summary": "POST Smart/Transactions/{smartTransactionId}/preTransaction",
                 "description": "Function that checks balance of merchantcard from ident and if possible creates bonus product items for basket",
-                "operationId": "preTransaction",
+                "operationId": "Smart/Transactions/preTransaction",
                 "parameters": [
                     {
                         "name": "smartTransactionId",
@@ -6186,7 +6331,7 @@
                 ],
                 "summary": "POST Smart/Transactions/stx_xxx/prepare/{paymentMethod}",
                 "description": "Create and score payment transaction assigned to given smart transaction",
-                "operationId": "prepare",
+                "operationId": "Smart/Transactions/prepare",
                 "parameters": [
                     {
                         "name": "smartTransactionId",
@@ -6311,6 +6456,10 @@
                     },
                     "country": {
                         "description": "Country",
+                        "type": "string"
+                    },
+                    "additional_address_data": {
+                        "description": "Additional address data",
                         "type": "string"
                     }
                 },
@@ -6674,6 +6823,32 @@
                 },
                 "type": "object"
             },
+            "ParentObj": {
+                "properties": {
+                    "object": {
+                        "description": "Object of parent",
+                        "type": "string"
+                    },
+                    "id": {
+                        "description": "Id of parent",
+                        "type": "string",
+                        "format": "id"
+                    },
+                    "trans_id": {
+                        "description": "Transaction ID",
+                        "type": "integer"
+                    },
+                    "ref_type_id": {
+                        "description": "Ref type ID",
+                        "type": "integer"
+                    },
+                    "relation_type": {
+                        "description": "Relation type",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
             "DocumentUploadsDTOContent": {
                 "properties": {
                     "content": {
@@ -6732,6 +6907,69 @@
                         "type": "string",
                         "format": "binary",
                         "example": "/path/to/file.txt"
+                    }
+                },
+                "type": "object"
+            },
+            "GeneralContractsProductModel": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/BaseProductModel"
+                    },
+                    {
+                        "properties": {
+                            "parent": {
+                                "description": "Parent of general contract user",
+                                "type": "object",
+                                "$ref": "#/components/schemas/ParentModel"
+                            },
+                            "merchant": {
+                                "description": "General merchant of general store",
+                                "type": "object",
+                                "$ref": "#/components/schemas/ProductInstanceUID"
+                            },
+                            "pay_in_advance_account": {
+                                "description": "Bank account data like owner, iban, bic and bank name",
+                                "type": "object",
+                                "$ref": "#/components/schemas/BankAccountDescriptor"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "GetAvailablePaymentMethodsDTO": {
+                "required": [
+                    "currency",
+                    "is_demo"
+                ],
+                "properties": {
+                    "currency": {
+                        "description": "Currency-Code",
+                        "type": "string",
+                        "example": "EUR"
+                    },
+                    "is_demo": {
+                        "description": "Demo",
+                        "type": "boolean",
+                        "example": "false"
+                    }
+                },
+                "type": "object"
+            },
+            "GeneralContractsList": {
+                "properties": {
+                    "count": {
+                        "description": "Number of existing general contracts",
+                        "type": "integer"
+                    },
+                    "data": {
+                        "description": "GeneralContractsList",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/GeneralContractsProductModel"
+                        }
                     }
                 },
                 "type": "object"
@@ -7552,6 +7790,7 @@
                 "type": "object"
             },
             "LoyaltyMerchantcardsProductModel": {
+                "description": "Loyalty merchant card",
                 "type": "object",
                 "allOf": [
                     {
@@ -8574,6 +8813,11 @@
                                 "type": "object",
                                 "$ref": "#/components/schemas/SecupayRedirectUrl"
                             },
+                            "subscription": {
+                                "description": "Recurring payments information",
+                                "type": "object",
+                                "$ref": "#/components/schemas/SecupayTransactionProductDTOSubscription"
+                            },
                             "iframe_url": {
                                 "description": "The url of the payment checkout iframe",
                                 "type": "string"
@@ -8582,6 +8826,13 @@
                                 "description": "The container object",
                                 "type": "object",
                                 "$ref": "#/components/schemas/PaymentContainersProductModel"
+                            },
+                            "sub_transactions": {
+                                "description": "A list of sub transactions (for mixed basket)",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/SecupaySubTransactionProductModel"
+                                }
                             }
                         },
                         "type": "object"
@@ -8655,17 +8906,8 @@
                     },
                     "subscription": {
                         "description": "Recurring payments",
-                        "properties": {
-                            "purpose": {
-                                "description": "The purpose of the subscription",
-                                "type": "string"
-                            },
-                            "id": {
-                                "description": "Id of subscription, if exists",
-                                "type": "integer"
-                            }
-                        },
-                        "type": "object"
+                        "type": "object",
+                        "$ref": "#/components/schemas/SecupayTransactionProductDTOSubscription"
                     },
                     "demo": {
                         "description": "Demo",
@@ -8684,6 +8926,38 @@
                             }
                         },
                         "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "SecupayTransactionProductDTOSubscription": {
+                "description": "Recurring payments",
+                "properties": {
+                    "purpose": {
+                        "description": "The purpose of the subscription",
+                        "type": "string"
+                    },
+                    "id": {
+                        "description": "Id of subscription, if exists",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "SecupaySubTransactionProductModel": {
+                "description": "SecupaySubTransactionProductModel",
+                "properties": {
+                    "id": {
+                        "description": "id",
+                        "type": "string"
+                    },
+                    "trans_id": {
+                        "description": "trans_id",
+                        "type": "integer"
+                    },
+                    "reference_id": {
+                        "description": "reference_id",
+                        "type": "string"
                     }
                 },
                 "type": "object"
@@ -9026,7 +9300,7 @@
                             "PCI_WR67G325XTG2R45JJDNBG048PW4BN4"
                         ]
                     },
-                    "container": {
+                    "container_id": {
                         "description": "Payment Container ID",
                         "type": "string",
                         "example": [
@@ -9042,14 +9316,14 @@
             },
             "SecupayPayoutDTO": {
                 "properties": {
-                    "demo": {
-                        "description": "demo env value",
-                        "type": "integer"
-                    },
                     "redirect_url": {
                         "description": "A list of redirect urls used for the payment checkout page",
                         "type": "object",
                         "$ref": "#/components/schemas/SecupayRedirectUrl"
+                    },
+                    "contract": {
+                        "description": "The contract ID",
+                        "type": "string"
                     },
                     "customer": {
                         "description": "The customer object",
@@ -9115,6 +9389,10 @@
                                     "PCI_..."
                                 ]
                             },
+                            "platform": {
+                                "description": "Platform",
+                                "$ref": "#/components/schemas/ProductInstanceUID"
+                            },
                             "merchant": {
                                 "description": "Merchant information",
                                 "$ref": "#/components/schemas/GeneralMerchantsProductModel"
@@ -9126,6 +9404,13 @@
                             "trans_id": {
                                 "description": "Transaction identifier",
                                 "type": "integer"
+                            },
+                            "parents": {
+                                "description": "Parents",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/ParentObj"
+                                }
                             },
                             "product_id": {
                                 "description": "Product identifier",
@@ -9269,6 +9554,14 @@
                             "reference_id": {
                                 "description": "Reference ID",
                                 "type": "string"
+                            },
+                            "account_owner": {
+                                "description": "Name of the bank account owner",
+                                "type": "string"
+                            },
+                            "accrual": {
+                                "description": "Accrual Flag",
+                                "type": "boolean"
                             }
                         },
                         "type": "object"
@@ -9894,11 +10187,11 @@
                 "properties": {
                     "secubase": {
                         "description": "Secubase",
-                        "$ref": "SmartDevicesSecubaseConfigLoggingFileNet"
+                        "$ref": "#/components/schemas/SmartDevicesSecubaseConfigLoggingFileNet"
                     },
                     "app": {
                         "description": "App",
-                        "$ref": "SmartDevicesSecubaseConfigLoggingFileNet"
+                        "$ref": "#/components/schemas/SmartDevicesSecubaseConfigLoggingFileNet"
                     }
                 },
                 "type": "object"
@@ -10400,149 +10693,139 @@
                 "type": "object"
             },
             "SmartTransactionsBasketProduct": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "properties": {
-                            "id": {
-                                "description": "Product id",
-                                "type": "integer"
-                            },
-                            "parent": {
-                                "description": "Parent",
-                                "type": "integer"
-                            },
-                            "item_type": {
-                                "description": "Category of item",
-                                "type": "string"
-                            },
-                            "desc": {
-                                "description": "Desc",
-                                "type": "string"
-                            },
-                            "articleNumber": {
-                                "description": "Article number",
-                                "type": "string"
-                            },
-                            "serialNumber": {
-                                "description": "The serialnumber of the scanned posa card",
-                                "type": "string"
-                            },
-                            "ean": {
-                                "description": "international article number",
-                                "type": "string"
-                            },
-                            "quantity": {
-                                "description": "Quantity",
-                                "type": "integer"
-                            },
-                            "priceOne": {
-                                "description": "Price one",
-                                "type": "integer"
-                            },
-                            "sum": {
-                                "description": "it is the value of the sum of the product with all items in sub_basket",
-                                "type": "integer"
-                            },
-                            "tax": {
-                                "description": "Tax",
-                                "type": "integer"
-                            },
-                            "reference_id": {
-                                "description": "The reference_id must be unique, it's a Reference for to the reference_id of SmartTransactionsSubBasketProduct [example: SmartTransactionsBasketProduct->reference_id is 1000 then all SmartTransactionsSubBasketProduct must have unique reference_id like 1000.1, 1000.2 etc.]",
-                                "type": "string"
-                            },
-                            "contract_id": {
-                                "description": "contract id",
-                                "type": "string"
-                            },
-                            "group": {
-                                "description": "Group",
-                                "type": "array",
-                                "items": {
-                                    "$ref": "#/components/schemas/SmartTransactionsBasketProductGroup"
-                                }
-                            },
-                            "sub_basket": {
-                                "description": "sub basket Product",
-                                "type": "array",
-                                "items": {
-                                    "$ref": "#/components/schemas/SmartTransactionsSubBasketProduct"
-                                }
-                            }
-                        },
-                        "type": "object"
+                "properties": {
+                    "id": {
+                        "description": "Product id",
+                        "type": "integer"
+                    },
+                    "parent": {
+                        "description": "Parent",
+                        "type": "integer"
+                    },
+                    "item_type": {
+                        "description": "Category of item",
+                        "type": "string"
+                    },
+                    "desc": {
+                        "description": "Desc",
+                        "type": "string"
+                    },
+                    "articleNumber": {
+                        "description": "Article number",
+                        "type": "string"
+                    },
+                    "serialNumber": {
+                        "description": "The serialnumber of the scanned posa card",
+                        "type": "string"
+                    },
+                    "ean": {
+                        "description": "international article number",
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "description": "Quantity",
+                        "type": "integer"
+                    },
+                    "priceOne": {
+                        "description": "Price one",
+                        "type": "integer"
+                    },
+                    "sum": {
+                        "description": "it is the value of the sum of the product with all items in sub_basket",
+                        "type": "integer"
+                    },
+                    "tax": {
+                        "description": "Tax",
+                        "type": "integer"
+                    },
+                    "reference_id": {
+                        "description": "The reference_id must be unique, it's a Reference for to the reference_id of SmartTransactionsSubBasketProduct [example: SmartTransactionsBasketProduct->reference_id is 1000 then all SmartTransactionsSubBasketProduct must have unique reference_id like 1000.1, 1000.2 etc.]",
+                        "type": "string"
+                    },
+                    "contract_id": {
+                        "description": "contract id",
+                        "type": "string"
+                    },
+                    "group": {
+                        "description": "Group",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SmartTransactionsBasketProductGroup"
+                        }
+                    },
+                    "sub_basket": {
+                        "description": "sub basket Product",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SmartTransactionsSubBasketProduct"
+                        }
                     }
-                ]
+                },
+                "type": "object"
             },
             "SmartTransactionsSubBasketProduct": {
-                "type": "object",
-                "allOf": [
-                    {
-                        "properties": {
-                            "id": {
-                                "description": "Product id",
-                                "type": "integer"
-                            },
-                            "parent": {
-                                "description": "Parent",
-                                "type": "integer"
-                            },
-                            "item_type": {
-                                "description": "Category of item",
-                                "type": "string"
-                            },
-                            "desc": {
-                                "description": "Description of the sub-basket product",
-                                "type": "string"
-                            },
-                            "articleNumber": {
-                                "description": "Article number",
-                                "type": "string"
-                            },
-                            "serialNumber": {
-                                "description": "The serialnumber of the scanned posa card",
-                                "type": "string"
-                            },
-                            "ean": {
-                                "description": "international article number",
-                                "type": "string"
-                            },
-                            "quantity": {
-                                "description": "Quantity",
-                                "type": "integer"
-                            },
-                            "priceOne": {
-                                "description": "Price one",
-                                "type": "integer"
-                            },
-                            "sum": {
-                                "description": "",
-                                "type": "integer"
-                            },
-                            "tax": {
-                                "description": "Tax",
-                                "type": "integer"
-                            },
-                            "reference_id": {
-                                "description": "The reference_id must be unique, it's Referring to the reference_id of SmartTransactionsBasketProduct [example: SmartTransactionsBasketProduct->reference_id is 1000 then all SmartTransactionsSubBasketProduct must have unique reference_id like 1000.1, 1000.2 etc.]",
-                                "type": "string"
-                            },
-                            "contract_id": {
-                                "description": "contract id",
-                                "type": "string"
-                            },
-                            "group": {
-                                "description": "Group",
-                                "type": "array",
-                                "items": {
-                                    "$ref": "#/components/schemas/SmartTransactionsBasketProductGroup"
-                                }
-                            }
-                        },
-                        "type": "object"
+                "properties": {
+                    "id": {
+                        "description": "Product id",
+                        "type": "integer"
+                    },
+                    "parent": {
+                        "description": "Parent",
+                        "type": "integer"
+                    },
+                    "item_type": {
+                        "description": "Category of item",
+                        "type": "string"
+                    },
+                    "desc": {
+                        "description": "Description of the sub-basket product",
+                        "type": "string"
+                    },
+                    "articleNumber": {
+                        "description": "Article number",
+                        "type": "string"
+                    },
+                    "serialNumber": {
+                        "description": "The serialnumber of the scanned posa card",
+                        "type": "string"
+                    },
+                    "ean": {
+                        "description": "international article number",
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "description": "Quantity",
+                        "type": "integer"
+                    },
+                    "priceOne": {
+                        "description": "Price one",
+                        "type": "integer"
+                    },
+                    "sum": {
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "tax": {
+                        "description": "Tax",
+                        "type": "integer"
+                    },
+                    "reference_id": {
+                        "description": "The reference_id must be unique, it's Referring to the reference_id of SmartTransactionsBasketProduct [example: SmartTransactionsBasketProduct->reference_id is 1000 then all SmartTransactionsSubBasketProduct must have unique reference_id like 1000.1, 1000.2 etc.]",
+                        "type": "string"
+                    },
+                    "contract_id": {
+                        "description": "contract id",
+                        "type": "string"
+                    },
+                    "group": {
+                        "description": "Group",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SmartTransactionsBasketProductGroup"
+                        }
                     }
-                ]
+                },
+                "type": "object"
             },
             "SmartTransactionsBasketProductGroup": {
                 "properties": {
