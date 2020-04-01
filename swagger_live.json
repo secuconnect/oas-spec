@@ -7962,11 +7962,11 @@
             "properties": {
                 "secubase": {
                     "description": "Secubase",
-                    "$ref": "SmartDevicesSecubaseConfigLoggingFileNet"
+                    "$ref": "#/definitions/SmartDevicesSecubaseConfigLoggingFileNet"
                 },
                 "app": {
                     "description": "App",
-                    "$ref": "SmartDevicesSecubaseConfigLoggingFileNet"
+                    "$ref": "#/definitions/SmartDevicesSecubaseConfigLoggingFileNet"
                 }
             },
             "type": "object"
