@@ -295,46 +295,6 @@
                         }
                     }
                 }
-            },
-            "post": {
-                "tags": [
-                    "generalMerchants"
-                ],
-                "summary": "POST General/Merchants",
-                "description": "Add a new merchant",
-                "operationId": "General/Merchants/addMerchants",
-                "requestBody": {
-                    "description": "general Merchant container properties",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/GeneralMerchantsDTO"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Returns general merchant for a specific id",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/GeneralMerchantsProductModel"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Response related to the error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProductExceptionPayload"
-                                }
-                            }
-                        }
-                    }
-                }
             }
         },
         "/General/Merchants/{generalMerchantId}": {
@@ -359,57 +319,6 @@
                 "responses": {
                     "200": {
                         "description": "Returns general merchant for a specific id",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/GeneralMerchantsProductModel"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Response related to the error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProductExceptionPayload"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "generalMerchants"
-                ],
-                "summary": "PUT General/Merchants/{generalMerchantId}",
-                "description": "Update general merchant",
-                "operationId": "General/Merchants/updateMerchant",
-                "parameters": [
-                    {
-                        "name": "generalMerchantId",
-                        "in": "path",
-                        "description": "General merchant id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "General merchant properties",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/GeneralMerchantsDTO"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Updated general merchant",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2554,6 +2463,59 @@
                 }
             }
         },
+        "/Loyalty/MerchantCards/{loyaltyMerchantCardId}/getCardBalanceReceipt": {
+            "post": {
+                "tags": [
+                    "loyaltyMerchantcards"
+                ],
+                "summary": "POST Loyalty/MerchantCards/{loyaltyMerchantCardId}/getCardBalanceReceipt",
+                "description": "Get card balance receipt and information about limit data and passcode protection",
+                "operationId": "Loyalty/MerchantCards/CardBalanceReceipt",
+                "parameters": [
+                    {
+                        "name": "loyaltyMerchantCardId",
+                        "in": "path",
+                        "description": "Loyalty merchant card id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Information about card & current terminal",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoyaltyMerchantcardsDTOCardBalanceReceipt"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The receipt and additional information about the card",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LoyaltyMerchantcardsCardBalanceReceipt"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/Loyalty/Sales/{generalMerchantId}/CardGroupsByMerchantID": {
             "get": {
                 "tags": [
@@ -2812,6 +2774,98 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/LoyaltyStoregroupsProductModel"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Loyalty/Transactions": {
+            "get": {
+                "tags": [
+                    "loyaltyTransactions"
+                ],
+                "summary": "GET Loyalty/Transactions",
+                "description": "Get a list of loyalty transactions",
+                "operationId": "Loyalty/Transactions/getAll",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/count"
+                    },
+                    {
+                        "$ref": "#/components/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/query"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns a list of loyalty card groups",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LoyaltyTransactionsList"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Loyalty/Transactions/{loyaltyTransactionId}": {
+            "get": {
+                "tags": [
+                    "loyaltyTransactions"
+                ],
+                "summary": "GET Loyalty/Transactions/{loyaltyTransactionId}",
+                "description": "Get loyalty transaction for a specific id",
+                "operationId": "Loyalty/Transactions/getOne",
+                "parameters": [
+                    {
+                        "name": "loyaltyTransactionId",
+                        "in": "path",
+                        "description": "Search one by provided id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns loyalty card group for a specific id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LoyaltyTransactionsProductModel"
                                 }
                             }
                         }
@@ -4806,7 +4860,10 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/PaymentTransactionsCancelList"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PaymentTransactionsProductModel"
+                                    }
                                 }
                             }
                         }
@@ -5081,6 +5138,48 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/PrepaidSalesProductModel"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Services/Uploadidents": {
+            "post": {
+                "tags": [
+                    "ServicesUploadidentsProduct"
+                ],
+                "summary": "POST Services/Uploadidents",
+                "description": "Create new upload ident",
+                "operationId": "Services/Uploadidents/addUploadidents",
+                "requestBody": {
+                    "description": "Upload idents input properties",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UploadidentsProductDTO"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Created new upload ident",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UploadidentsProductModel"
                                 }
                             }
                         }
@@ -6128,6 +6227,16 @@
                         }
                     }
                 ],
+                "requestBody": {
+                    "description": "Information which customer and container will be used to this operation",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SmartTransactionsPrepare"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Smart transaction",
@@ -6507,7 +6616,46 @@
                         "type": "string"
                     },
                     "purpose": {
-                        "description": "Purpose",
+                        "description": "Purpose for the bank statement",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "CreditCardDescriptor": {
+                "description": "Credit card data like owner, iban, bic and bank name",
+                "properties": {
+                    "owner": {
+                        "description": "Owner",
+                        "type": "string"
+                    },
+                    "pan": {
+                        "description": "truncated Primary Account Number (PAN)",
+                        "type": "string"
+                    },
+                    "expiration_date": {
+                        "description": "Expiration date",
+                        "type": "string",
+                        "example": "2032-06"
+                    },
+                    "issuer": {
+                        "description": "Card issuer",
+                        "type": "string"
+                    },
+                    "transact_container": {
+                        "description": "transact container",
+                        "type": "string"
+                    },
+                    "transact_skey_pubkey": {
+                        "description": "transact public key",
+                        "type": "string"
+                    },
+                    "transact_skey_keyname": {
+                        "description": "transact keyname",
+                        "type": "string"
+                    },
+                    "transact_hash": {
+                        "description": "transact hash",
                         "type": "string"
                     }
                 },
@@ -6630,17 +6778,22 @@
                     },
                     "geometry": {
                         "description": "Geometry",
-                        "properties": {
-                            "lat": {
-                                "description": "latitude",
-                                "type": "string"
-                            },
-                            "lon": {
-                                "description": "longitude",
-                                "type": "string"
-                            }
-                        },
-                        "type": "object"
+                        "type": "object",
+                        "$ref": "#/components/schemas/GeoAddressGeometry"
+                    }
+                },
+                "type": "object"
+            },
+            "GeoAddressGeometry": {
+                "description": "Geometry",
+                "properties": {
+                    "lat": {
+                        "description": "latitude",
+                        "type": "string"
+                    },
+                    "lon": {
+                        "description": "longitude",
+                        "type": "string"
                     }
                 },
                 "type": "object"
@@ -7266,6 +7419,10 @@
                                 "type": "object",
                                 "$ref": "#/components/schemas/ProductInstanceUID"
                             },
+                            "store_name": {
+                                "description": "Store Name",
+                                "type": "string"
+                            },
                             "facebook_id": {
                                 "description": "Facebook id",
                                 "type": "string"
@@ -7299,7 +7456,8 @@
                             },
                             "geometry": {
                                 "description": "General store geometry",
-                                "type": "string"
+                                "type": "object",
+                                "$ref": "#/components/schemas/GeoAddressGeometry"
                             },
                             "name": {
                                 "description": "General store name",
@@ -7326,7 +7484,10 @@
                             },
                             "category": {
                                 "description": "General store category",
-                                "type": "string"
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
                             },
                             "url_googleplus": {
                                 "description": "Url to general store google plus",
@@ -7770,12 +7931,16 @@
                     "customers_without_merchantcard": {
                         "description": "customers without merchantcard",
                         "type": "array",
-                        "items": {}
+                        "items": {
+                            "type": "string"
+                        }
                     },
                     "duplicated_customers": {
                         "description": "duplicated customers",
                         "type": "array",
-                        "items": {}
+                        "items": {
+                            "type": "string"
+                        }
                     }
                 },
                 "type": "object"
@@ -7892,6 +8057,14 @@
                                 "items": {
                                     "$ref": "#/components/schemas/ReceiptTypeValue"
                                 }
+                            },
+                            "trans_id": {
+                                "description": "Created TransactionId",
+                                "type": "integer"
+                            },
+                            "amount": {
+                                "description": "Amount",
+                                "type": "integer"
                             }
                         },
                         "type": "object"
@@ -7966,6 +8139,57 @@
                     "isLocked": {
                         "description": "Result has true or false value",
                         "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "LoyaltyMerchantcardsCardBalanceReceipt": {
+                "properties": {
+                    "valid": {
+                        "description": "Result has true or false value",
+                        "type": "boolean"
+                    },
+                    "balance": {
+                        "description": "The total cash balance of the card",
+                        "type": "integer"
+                    },
+                    "points": {
+                        "description": "The total points balance of the card",
+                        "type": "integer"
+                    },
+                    "new_passcode": {
+                        "description": "Result has true or false value",
+                        "type": "boolean"
+                    },
+                    "receipt_header": {
+                        "description": "Receipt header",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ReceiptType"
+                        }
+                    },
+                    "receipt": {
+                        "description": "Receipt",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ReceiptTypeValue"
+                        }
+                    },
+                    "amount_split_enabled": {
+                        "description": "Result has true or false value",
+                        "type": "boolean"
+                    },
+                    "limit_allowed": {
+                        "description": "Result has true or false value",
+                        "type": "boolean"
+                    },
+                    "limit_str": {
+                        "description": "A formatted string of the limit in euro with currency code",
+                        "type": "string"
+                    },
+                    "limit": {
+                        "description": "How much the card balance can be negative, zero means unlimited in case limit_allowed is true",
+                        "type": "integer"
                     }
                 },
                 "type": "object"
@@ -8187,6 +8411,19 @@
                 },
                 "type": "object"
             },
+            "LoyaltyMerchantcardsDTOCardBalanceReceipt": {
+                "properties": {
+                    "cardnumber": {
+                        "description": "Loyalty Card number",
+                        "type": "integer"
+                    },
+                    "terminal_id": {
+                        "description": "Terminal id",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
             "LoyaltyMerchantcardsList": {
                 "properties": {
                     "count": {
@@ -8228,6 +8465,13 @@
                     },
                     {
                         "properties": {
+                            "merchant": {
+                                "description": "LoyaltyStoregroupsProductModel",
+                                "type": "object",
+                                "items": {
+                                    "$ref": "#/components/schemas/LoyaltyDTOMerchant"
+                                }
+                            },
                             "stores": {
                                 "description": "LoyaltyStoregroupsProductModel",
                                 "type": "array",
@@ -8349,6 +8593,189 @@
                 },
                 "type": "object"
             },
+            "LoyaltyTransactionsProductModel": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/BaseProductModel"
+                    },
+                    {
+                        "properties": {
+                            "merchant": {
+                                "description": "Loyalty transaction merchant",
+                                "$ref": "#/components/schemas/LoyaltyTransactionsDTOMerchant"
+                            },
+                            "cardgroup": {
+                                "description": "Loyalty transaction card group",
+                                "$ref": "#/components/schemas/LoyaltyTransactionsDTOCardgroup"
+                            },
+                            "store": {
+                                "description": "Loyalty transaction store",
+                                "$ref": "#/components/schemas/LoyaltyTransactionsDTOStore"
+                            },
+                            "merchantcard": {
+                                "description": "Loyalty transaction merchantcard",
+                                "$ref": "#/components/schemas/LoyaltyTransactionsDTOMerchantcard"
+                            },
+                            "card": {
+                                "description": "Loyalty transaction card",
+                                "$ref": "#/components/schemas/LoyaltyTransactionsDTOCard"
+                            },
+                            "parents": {
+                                "description": "LoyaltyTransactionsProductModel",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/LoyaltyTransactionsDTORelatedTransactions"
+                                }
+                            },
+                            "children": {
+                                "description": "LoyaltyTransactionsProductModel",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/LoyaltyTransactionsDTORelatedTransactions"
+                                }
+                            },
+                            "tid": {
+                                "description": "The TID of the processed Smart Device",
+                                "type": "string"
+                            },
+                            "status": {
+                                "description": "The status text of the Loyalty Transaction",
+                                "type": "string"
+                            },
+                            "amount": {
+                                "description": "Loyalty Transaction amount",
+                                "type": "integer"
+                            },
+                            "currency": {
+                                "description": "The currency of the Loyalty Transaction",
+                                "type": "string"
+                            },
+                            "balance": {
+                                "description": "The balance of the merchantcard after this Loyalty Transaction",
+                                "type": "integer"
+                            },
+                            "description": {
+                                "description": "Loyalty Transaction type",
+                                "type": "string"
+                            },
+                            "created": {
+                                "description": "Created at date",
+                                "type": "string"
+                            },
+                            "last_changee": {
+                                "description": "Last change oif this transaction, most like a status change",
+                                "type": "string"
+                            },
+                            "receipt": {
+                                "description": "Receipt",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/ReceiptTypeValue"
+                                }
+                            },
+                            "is_cancelling": {
+                                "description": "Indicator for a cancelling transaction (1 = full-cancel, 3 = partial-cancel)",
+                                "type": "integer"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "LoyaltyTransactionsDTOMerchant": {
+                "properties": {
+                    "id": {
+                        "description": "Merchant id",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "LoyaltyTransactionsDTOCardgroup": {
+                "properties": {
+                    "id": {
+                        "description": "Cardgroup id",
+                        "type": "string"
+                    },
+                    "display_name": {
+                        "description": "Cardgroup Name",
+                        "type": "string"
+                    },
+                    "stock_warn_limit": {
+                        "description": "Warn limit for Cardgroup stock",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "LoyaltyTransactionsDTOStore": {
+                "properties": {
+                    "id": {
+                        "description": "General Store id",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "General Store Name",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "LoyaltyTransactionsDTOMerchantcard": {
+                "properties": {
+                    "id": {
+                        "description": "Merchantcard id",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "LoyaltyTransactionsDTOCard": {
+                "properties": {
+                    "id": {
+                        "description": "Loyalty Card id",
+                        "type": "string"
+                    },
+                    "cardnumber": {
+                        "description": "Loyalty Card Cardnumber",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "LoyaltyTransactionsDTORelatedTransactions": {
+                "properties": {
+                    "id": {
+                        "description": "Loyalty Transaction id",
+                        "type": "string"
+                    },
+                    "trans_id": {
+                        "description": "Loyalty Transaction trans_id",
+                        "type": "integer"
+                    },
+                    "ref_type_id": {
+                        "description": "Indicator for relation type of Loyalty Transactions",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "LoyaltyTransactionsList": {
+                "properties": {
+                    "count": {
+                        "description": "Number of existing loyalty transactions",
+                        "type": "integer"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LoyaltyTransactionsProductModel"
+                        }
+                    }
+                },
+                "type": "object"
+            },
             "PaymentContainersProductModel": {
                 "type": "object",
                 "allOf": [
@@ -8375,11 +8802,11 @@
                             },
                             "public": {
                                 "description": "Public payment instrument data",
-                                "$ref": "#/components/schemas/BankAccountDescriptor"
+                                "$ref": "#/components/schemas/OneOfPaymentContainersDTOModelPrivate"
                             },
                             "private": {
                                 "description": "Private payment instrument data",
-                                "$ref": "#/components/schemas/BankAccountDescriptor"
+                                "$ref": "#/components/schemas/OneOfPaymentContainersDTOModelPrivate"
                             },
                             "created": {
                                 "description": "Creation date",
@@ -8408,29 +8835,20 @@
                                 "type": "string"
                             }
                         },
-                        "type": "object"
+                        "type": "object",
+                        "deprecated": true
+                    },
+                    "customer_id": {
+                        "description": "Payment-Customer-ID",
+                        "type": "string"
                     },
                     "type": {
                         "description": "Type of Payment Containers",
                         "type": "string"
                     },
                     "private": {
-                        "description": "",
-                        "properties": {
-                            "owner": {
-                                "description": "PaymentContainersDTO",
-                                "type": "string"
-                            },
-                            "iban": {
-                                "description": "PaymentContainersDTO",
-                                "type": "string"
-                            },
-                            "bic": {
-                                "description": "PaymentContainersDTO",
-                                "type": "string"
-                            }
-                        },
-                        "type": "object"
+                        "description": "Private payment instrument data",
+                        "$ref": "#/components/schemas/OneOfPaymentContainersDTOModelPrivate"
                     }
                 },
                 "type": "object"
@@ -8460,6 +8878,10 @@
                     "identification": {
                         "description": "Identification",
                         "type": "string"
+                    },
+                    "creditor_id": {
+                        "description": "Creditor ID",
+                        "type": "string"
                     }
                 },
                 "type": "object"
@@ -8471,6 +8893,7 @@
                         "type": "integer"
                     },
                     "data": {
+                        "description": "PaymentContainersList",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/PaymentContainersProductModel"
@@ -8478,6 +8901,25 @@
                     }
                 },
                 "type": "object"
+            },
+            "OneOfPaymentContainersDTOModelPrivate": {
+                "description": "Payment instrument data",
+                "type": "object",
+                "discriminator": {
+                    "propertyName": "type",
+                    "mapping": {
+                        "bank_account": "#/components/schemas/BankAccountDescriptor",
+                        "credit_card": "#/components/schemas/CreditCardDescriptor"
+                    }
+                },
+                "oneOf": [
+                    {
+                        "$ref": "#/components/schemas/BankAccountDescriptor"
+                    },
+                    {
+                        "$ref": "#/components/schemas/CreditCardDescriptor"
+                    }
+                ]
             },
             "PaymentContractsProductModel": {
                 "type": "object",
@@ -8801,9 +9243,8 @@
                                         "type": "string"
                                     },
                                     "data": {
-                                        "description": "Holds the payment instrument data",
-                                        "type": "object",
-                                        "$ref": "#/components/schemas/BankAccountDescriptor"
+                                        "description": "Used payment instrument data",
+                                        "$ref": "#/components/schemas/OneOfPaymentContainersDTOModelPrivate"
                                     }
                                 },
                                 "type": "object"
@@ -8833,6 +9274,10 @@
                                 "items": {
                                     "$ref": "#/components/schemas/SecupaySubTransactionProductModel"
                                 }
+                            },
+                            "mandate": {
+                                "description": "SEPA mandate infromation",
+                                "$ref": "#/components/schemas/PaymentContainerMandate"
                             }
                         },
                         "type": "object"
@@ -9374,21 +9819,6 @@
                     },
                     {
                         "properties": {
-                            "object": {
-                                "description": "Object of payment transaction",
-                                "type": "string",
-                                "example": [
-                                    "payment.transactions"
-                                ]
-                            },
-                            "id": {
-                                "description": "Id of payment transaction",
-                                "type": "string",
-                                "format": "id",
-                                "example": [
-                                    "PCI_..."
-                                ]
-                            },
                             "platform": {
                                 "description": "Platform",
                                 "$ref": "#/components/schemas/ProductInstanceUID"
@@ -9604,6 +10034,10 @@
                         "description": "Mixed-Basket: (percentage) reduce the stakeholder amount too",
                         "type": "boolean",
                         "default": "false"
+                    },
+                    "container_id": {
+                        "description": "Payment Container ID",
+                        "type": "string"
                     }
                 },
                 "type": "object"
@@ -9626,20 +10060,7 @@
             "PaymentTransactionsCancelList": {
                 "type": "array",
                 "items": {
-                    "title": "PaymentTransactionsCancelList",
-                    "properties": {
-                        "count": {
-                            "description": "Count of returned payment contracts",
-                            "type": "integer"
-                        },
-                        "data": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/components/schemas/PaymentTransactionsProductModel"
-                            }
-                        }
-                    },
-                    "type": "object"
+                    "$ref": "#/components/schemas/PaymentTransactionsProductModel"
                 }
             },
             "PaymentTransactionsShippingUrl": {
@@ -9920,6 +10341,47 @@
                     "item": {
                         "description": "prepaid sales transaction id",
                         "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UploadidentsProductModel": {
+                "properties": {
+                    "service_issue_id": {
+                        "description": "Service issue id",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "UploadidentsProductDTO": {
+                "properties": {
+                    "merchant_id": {
+                        "description": "Merchant ID",
+                        "type": "string"
+                    },
+                    "payment_id": {
+                        "description": "Payment ID",
+                        "type": "string"
+                    },
+                    "contract_id": {
+                        "description": "Contract ID",
+                        "type": "string"
+                    },
+                    "apikey": {
+                        "description": "Api Key",
+                        "type": "string"
+                    },
+                    "service_issue_id": {
+                        "description": "Service issue id",
+                        "type": "integer"
+                    },
+                    "document_ids": {
+                        "description": "List of documents ids",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
                     }
                 },
                 "type": "object"
