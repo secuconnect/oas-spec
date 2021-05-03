@@ -4,7 +4,7 @@ info:
   version: 2.0.0
 servers:
   -
-    url: 'https://connect-testing.secupay-ag.de/api/v2'
+    url: 'https://connect.secucard.com/api/v2'
 paths:
   '/Document/Uploads?multipart':
     post:
@@ -8362,7 +8362,7 @@ components:
       type: oauth2
       flows:
         clientCredentials:
-          tokenUrl: 'https://connect-testing.secupay-ag.de/oauth/token'
+          tokenUrl: 'https://connect.secucard.com/oauth/token'
           scopes:
             'https://scope.secucard.com/e/smartdevice': 'smart devices'
             'https://scope.secucard.com/e/api': 'shops and marketplaces'
