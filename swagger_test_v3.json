@@ -3929,8 +3929,8 @@
                     "Payment Plans"
                 ],
                 "summary": "PUT Payment/Plans/{paymentPlanId}",
-                "description": "Get payment plan by id",
-                "operationId": "47d4fa16e345d61a6c46ac30fa0c0598",
+                "description": "Updates an existing plan",
+                "operationId": "Payment/Containers/updatePlans",
                 "parameters": [
                     {
                         "name": "paymentPlanId",
