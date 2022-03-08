@@ -251,6 +251,95 @@
                 }
             }
         },
+        "/General/Contracts/{generalContractId}/revokeAccrual": {
+            "post": {
+                "tags": [
+                    "General Contracts"
+                ],
+                "summary": "POST General/Contracts/{generalContractId}/revokeAccrual",
+                "description": "Revoke accrual flag for all transactions of given contract",
+                "operationId": "General/Contracts/revokeAccrual",
+                "parameters": [
+                    {
+                        "name": "generalContractId",
+                        "in": "path",
+                        "description": "Contract identifier",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Payload accepted, revoke accrual flag is done in background"
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/General/Contracts/{generalContractId}/updateBankAccount": {
+            "post": {
+                "tags": [
+                    "General Contracts"
+                ],
+                "summary": "POST General/Contracts/{generalContractId}/updateBankAccount",
+                "description": "Change the payout bank account of a contract",
+                "operationId": "General/Contracts/updateBankAccount",
+                "parameters": [
+                    {
+                        "name": "generalContractId",
+                        "in": "path",
+                        "description": "Contract identifier",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "options",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BankAccountDescriptor"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Returns that the request was successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/resultBoolean"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/General/Merchants": {
             "get": {
                 "tags": [
@@ -610,58 +699,6 @@
                 "responses": {
                     "200": {
                         "description": "Returned value is true or false",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/resultBoolean"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Response related to the error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProductExceptionPayload"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/General/Stores/{generalStoreId}/assign/{googleKey}": {
-            "post": {
-                "tags": [
-                    "General Stores"
-                ],
-                "summary": "POST General/Stores/{generalStoreId}/assign/{googleKey}",
-                "description": "Assign some object to general store",
-                "operationId": "General/Stores/assignGoogleKey",
-                "parameters": [
-                    {
-                        "name": "generalStoreId",
-                        "in": "path",
-                        "description": "General store id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "googleKey",
-                        "in": "path",
-                        "description": "Google key",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "If a general store hasn't assigned earlier, the returned value is true",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1357,47 +1394,6 @@
                         }
                     }
                 }
-            },
-            "delete": {
-                "tags": [
-                    "Loyalty Customers"
-                ],
-                "summary": "DELETE Loyalty/Customers/{loyaltyCustomerId}",
-                "description": "Remove assigned loyalty customer",
-                "operationId": "Loyalty/Customers/removeCustomer",
-                "parameters": [
-                    {
-                        "name": "loyaltyCustomerId",
-                        "in": "path",
-                        "description": "Loyalty customer id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Returns true if loyalty customer was removed",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/LoyaltyCustomersRemoved"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Response related to the error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProductExceptionPayload"
-                                }
-                            }
-                        }
-                    }
-                }
             }
         },
         "/Loyalty/Customers/{loyaltyCustomerId}/assignPaymentContainer/{loyaltyPaymentContainerId}": {
@@ -1502,49 +1498,6 @@
                 }
             }
         },
-        "/Loyalty/Customers/{loyaltyCustomerId}/checkDuplicated/": {
-            "post": {
-                "tags": [
-                    "Loyalty Customers"
-                ],
-                "summary": "POST Loyalty/Customers/{loyaltyCustomerId}/checkDuplicated/",
-                "description": "check if there are duplicated customers for a given merchant",
-                "operationId": "Loyalty/Customers/checkForDuplicates",
-                "parameters": [
-                    {
-                        "name": "loyaltyCustomerId",
-                        "in": "path",
-                        "description": "Loyalty customer id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Returns duplicated customers and customers without merchantcard",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/customers_without_merchantcard_and_duplicated_customers"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Response related to the error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProductExceptionPayload"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/Loyalty/MerchantCards": {
             "get": {
                 "tags": [
@@ -1577,46 +1530,6 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/LoyaltyMerchantcardsList"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Response related to the error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProductExceptionPayload"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Loyalty Merchantcards"
-                ],
-                "summary": "POST Loyalty/MerchantCards",
-                "description": "Add new loyalty merchant card",
-                "operationId": "Loyalty/MerchantCards/addMerchantCard",
-                "requestBody": {
-                    "description": "Loyalty merchant card properties",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/LoyaltyMerchantcardsDTO"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Newly created loyalty merchant card",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/LoyaltyMerchantcardsProductModel"
                                 }
                             }
                         }
@@ -1707,47 +1620,6 @@
                 "responses": {
                     "200": {
                         "description": "Updated loyalty merchant card",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/LoyaltyMerchantcardsProductModel"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Response related to the error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProductExceptionPayload"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Loyalty Merchantcards"
-                ],
-                "summary": "DELETE Loyalty/MerchantCards/{loyaltyMerchantCardId}",
-                "description": "Delete loyalty merchant card",
-                "operationId": "Loyalty/MerchantCards/removeMerchantCard",
-                "parameters": [
-                    {
-                        "name": "loyaltyMerchantCardId",
-                        "in": "path",
-                        "description": "Loyalty merchant card id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Deleted loyalty merchant card",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -3194,46 +3066,6 @@
                         }
                     }
                 }
-            },
-            "post": {
-                "tags": [
-                    "Payment Contracts"
-                ],
-                "summary": "POST Payment/Contracts",
-                "description": "Add new contract",
-                "operationId": "Payment/Contracts/paymentContractsPost",
-                "requestBody": {
-                    "description": "Payment contracts properties",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/PaymentContractsDTO"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Newly created payment contract",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/PaymentContractsProductModel"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Response related to the error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProductExceptionPayload"
-                                }
-                            }
-                        }
-                    }
-                }
             }
         },
         "/Payment/Contracts/{paymentContractId}": {
@@ -3262,101 +3094,6 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/PaymentContractsProductModel"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Response related to the error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProductExceptionPayload"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "Payment Contracts"
-                ],
-                "summary": "PUT Payment/Contracts/{paymentContractId}",
-                "description": "Update payment contract",
-                "operationId": "Payment/Contracts/paymentContractsIdPut",
-                "parameters": [
-                    {
-                        "name": "paymentContractId",
-                        "in": "path",
-                        "description": "Payment contract id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "Payment contracts properties",
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/PaymentContractsDTO"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Updated payment contract",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/PaymentContractsProductModel"
-                                }
-                            }
-                        }
-                    },
-                    "default": {
-                        "description": "Response related to the error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ProductExceptionPayload"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "Payment Contracts"
-                ],
-                "summary": "DELETE Payment/Contracts/{paymentContractId}",
-                "description": "Delete payment contract",
-                "operationId": "Payment/Contracts/paymentContractsIdDelete",
-                "parameters": [
-                    {
-                        "name": "paymentContractId",
-                        "in": "path",
-                        "description": "Payment contract id",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Deleted payment contract",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/PaymentContractsProductModel"
-                                    }
                                 }
                             }
                         }
@@ -3506,6 +3243,95 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/PaymentContractsRequestIdResult"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Payment/Contracts/{paymentContractId}/revokeAccrual": {
+            "post": {
+                "tags": [
+                    "Payment Contracts"
+                ],
+                "summary": "POST Payment/Contracts/{paymentContractId}/revokeAccrual",
+                "description": "Revoke accrual flag for all transactions of given contract",
+                "operationId": "Payment/Contracts/revokeAccrual",
+                "parameters": [
+                    {
+                        "name": "paymentContractId",
+                        "in": "path",
+                        "description": "Contract identifier",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Payload accepted, revoke accrual flag is done in background"
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Payment/Contracts/{paymentContractId}/updateBankAccount": {
+            "post": {
+                "tags": [
+                    "Payment Contracts"
+                ],
+                "summary": "POST Payment/Contracts/{paymentContractId}/updateBankAccount",
+                "description": "Change the payout bank account of a contract",
+                "operationId": "Payment/Contracts/updateBankAccount",
+                "parameters": [
+                    {
+                        "name": "paymentContractId",
+                        "in": "path",
+                        "description": "Contract identifier",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "options",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BankAccountDescriptor"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Returns that the request was successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/resultBoolean"
                                 }
                             }
                         }
@@ -3886,8 +3712,8 @@
                     "Payment Plans"
                 ],
                 "summary": "PUT Payment/Plans/{paymentPlanId}",
-                "description": "Get payment plan by id",
-                "operationId": "PaymentPlansApiInterface::updatePlans",
+                "description": "Updates an existing plan",
+                "operationId": "Payment/Containers/paymentPlansPut",
                 "parameters": [
                     {
                         "name": "paymentPlanId",
@@ -3937,8 +3763,8 @@
                     "Payment Plans"
                 ],
                 "summary": "PATCH Payment/Plans/{paymentPlanId}",
-                "description": "Get payment plan by id",
-                "operationId": "PaymentPlansApiInterface::patchPlans",
+                "description": "Updates an existing plan (partial)",
+                "operationId": "Payment/Containers/paymentPlansPatch",
                 "parameters": [
                     {
                         "name": "paymentPlanId",
@@ -5308,6 +5134,145 @@
                 }
             }
         },
+        "/Payment/Transactions/me/CrowdFundingData/{generalMerchantId}": {
+            "get": {
+                "tags": [
+                    "Payment Transactions"
+                ],
+                "summary": "GET Payment/Transactions/me/CrowdFundingData/{generalMerchantId}",
+                "description": "Get the transaction amounts, count and payout data per product",
+                "operationId": "Payment/Transaction/getCrowdFundingData",
+                "parameters": [
+                    {
+                        "name": "generalMerchantId",
+                        "in": "path",
+                        "description": "Merchant ID (MRC_...)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return transaction summary of a merchant",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaymentCrowdFundingData"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Payment/Transactions/{paymentTransactionId}/ShippingInformation": {
+            "put": {
+                "tags": [
+                    "Payment Transactions"
+                ],
+                "summary": "PUT Payment/Transactions/{paymentTransactionId}/ShippingInformation",
+                "description": "Update the shipping information for a transaction",
+                "operationId": "Payment/Transaction/updateShippingInformation",
+                "parameters": [
+                    {
+                        "name": "paymentTransactionId",
+                        "in": "path",
+                        "description": "Payment ID (PCI_...) or hash",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns that the request was successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/resultBoolean"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Payment/Transactions/{paymentTransactionId}/IncreaseAmount": {
+            "post": {
+                "tags": [
+                    "Payment Transactions"
+                ],
+                "summary": "POST Payment/Transactions/{paymentTransactionId}/IncreaseAmount",
+                "description": "Increase the amount of a prepaid transaction which is not yet completed",
+                "operationId": "Payment/Transaction/increaseAmount",
+                "parameters": [
+                    {
+                        "name": "paymentTransactionId",
+                        "in": "path",
+                        "description": "Payment ID (PCI_...)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "increase amount input params",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PaymentTransactionsIncreaseAmountDTO"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Returns payment transaction with updated amount",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaymentTransactionsProductModel"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/Prepaid/Contracts/{prepaidContractId}/mappingZvt": {
             "post": {
                 "tags": [
@@ -5479,6 +5444,265 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/PrepaidSalesProductModel"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Public/Website/me/availableCountries": {
+            "get": {
+                "tags": [
+                    "Public Website"
+                ],
+                "summary": "GET Public/Website/me/availableCountries",
+                "description": "Get a list of available Countries",
+                "operationId": "Public/Website/availableCountries",
+                "responses": {
+                    "200": {
+                        "description": "Returns a list of available Countries",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AvailableCountry"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Services/Identrequests": {
+            "get": {
+                "tags": [
+                    "Services Identrequests"
+                ],
+                "summary": "GET Services/Identrequests",
+                "description": "Get a list of Identrequests",
+                "operationId": "Services/Identrequests/getAll",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/count"
+                    },
+                    {
+                        "$ref": "#/components/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/query"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns a list of Identrequests",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServicesIdentrequestsList"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Services Identrequests"
+                ],
+                "summary": "POST Services/Identrequests",
+                "description": "Create new ident request",
+                "operationId": "Services/Identrequests/addIdentrequests",
+                "requestBody": {
+                    "description": "Create ident request input properties",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ServicesIdentrequestsProductDTO"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Created new ident request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServicesIdentrequestsProductModel"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Services/Identrequests/{identrequestId}": {
+            "get": {
+                "tags": [
+                    "Services Identrequests"
+                ],
+                "summary": "GET Services/Identrequests/{identrequestId}",
+                "description": "Get one Identrequest for a specific id",
+                "operationId": "Services/Identrequests/getOne",
+                "parameters": [
+                    {
+                        "name": "identrequestId",
+                        "in": "path",
+                        "description": "Identrequest Id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns ident request for a specific id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServicesIdentrequestsProductModel"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Services/Identresults": {
+            "get": {
+                "tags": [
+                    "Services Identresults"
+                ],
+                "summary": "GET Services/Identresults",
+                "description": "Get a list of Identresults",
+                "operationId": "Services/Identresults/getAll",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/count"
+                    },
+                    {
+                        "$ref": "#/components/parameters/offset"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    },
+                    {
+                        "$ref": "#/components/parameters/query"
+                    },
+                    {
+                        "$ref": "#/components/parameters/sort"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns a list of Identresults",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServicesIdentresultsList"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Response related to the error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductExceptionPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Services/Identresults/{identrequestId}": {
+            "get": {
+                "tags": [
+                    "Services Identresults"
+                ],
+                "summary": "GET Services/Identresults/{identresultId}",
+                "description": "Get one Identresult for a specific id",
+                "operationId": "Services/Identresults/getOne",
+                "parameters": [
+                    {
+                        "name": "identrequestId",
+                        "in": "path",
+                        "description": "Identresult Id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns ident result for a specific id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServicesIdentresultsProductModel"
                                 }
                             }
                         }
@@ -6833,6 +7057,7 @@
     "components": {
         "schemas": {
             "ResultTrueOrFalse": {
+                "description": "ResultTrueOrFalse",
                 "properties": {
                     "result": {
                         "description": "Result has true or false value",
@@ -6842,6 +7067,7 @@
                 "type": "object"
             },
             "ResultAlwaysTrue": {
+                "description": "ResultAlwaysTrue",
                 "properties": {
                     "result": {
                         "description": "Result (will always be equal to true)",
@@ -7036,6 +7262,7 @@
                 "type": "object"
             },
             "Contact": {
+                "description": "Contact",
                 "properties": {
                     "forename": {
                         "description": "First name",
@@ -7117,6 +7344,7 @@
                 "type": "object"
             },
             "GeoAddress": {
+                "description": "GeoAddress",
                 "properties": {
                     "type": {
                         "description": "Address type",
@@ -7175,6 +7403,7 @@
                 "type": "object"
             },
             "ParentModel": {
+                "description": "ParentModel",
                 "properties": {
                     "object": {
                         "$ref": "#/components/schemas/ObjectType"
@@ -7191,6 +7420,7 @@
                 "type": "object"
             },
             "AssignedBy": {
+                "description": "AssignedBy",
                 "properties": {
                     "object": {
                         "$ref": "#/components/schemas/ObjectType"
@@ -7207,6 +7437,7 @@
                 "type": "object"
             },
             "InvitedBy": {
+                "description": "InvitedBy",
                 "properties": {
                     "object": {
                         "$ref": "#/components/schemas/ObjectType"
@@ -7223,6 +7454,7 @@
                 "type": "object"
             },
             "Store": {
+                "description": "Store",
                 "properties": {
                     "object": {
                         "description": "Store object type",
@@ -7324,6 +7556,7 @@
                 "example": "OBJ_MNTPQ9IFD3V482Y6VMHJXERBYS4J1G"
             },
             "BaseProductModel": {
+                "description": "BaseProductModel",
                 "properties": {
                     "object": {
                         "$ref": "#/components/schemas/ObjectType"
@@ -7335,6 +7568,7 @@
                 "type": "object"
             },
             "ParentObj": {
+                "description": "ParentObj",
                 "properties": {
                     "object": {
                         "description": "Parent object type",
@@ -7412,6 +7646,7 @@
                 "example": "DE"
             },
             "DocumentUploadsDTOContent": {
+                "description": "DocumentUploadsDTOContent",
                 "properties": {
                     "content": {
                         "description": "Content",
@@ -7421,6 +7656,7 @@
                 "type": "object"
             },
             "DocumentUploadsBaseProductModel": {
+                "description": "DocumentUploadsBaseProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -7432,6 +7668,7 @@
                 ]
             },
             "DocumentUploadsProductModel": {
+                "description": "DocumentUploadsProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -7468,6 +7705,7 @@
                 "type": "object"
             },
             "GeneralContractsProductModel": {
+                "description": "GeneralContractsProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -7475,6 +7713,13 @@
                     },
                     {
                         "properties": {
+                            "id_old": {
+                                "description": "ID in secupay Frontend",
+                                "type": "integer",
+                                "format": "id",
+                                "readOnly": true,
+                                "example": "2345678"
+                            },
                             "parent": {
                                 "$ref": "#/components/schemas/ParentModel"
                             },
@@ -7486,6 +7731,10 @@
                             },
                             "payment_link_options": {
                                 "$ref": "#/components/schemas/PaymentLinkOptions"
+                            },
+                            "approved": {
+                                "description": "Indicates if the payout lock was removed",
+                                "type": "boolean"
                             }
                         },
                         "type": "object"
@@ -7493,6 +7742,7 @@
                 ]
             },
             "GetAvailablePaymentMethodsDTO": {
+                "description": "GetAvailablePaymentMethodsDTO",
                 "required": [
                     "currency",
                     "is_demo"
@@ -7510,13 +7760,14 @@
                 "type": "object"
             },
             "GeneralContractsList": {
+                "description": "GeneralContractsList",
                 "properties": {
                     "count": {
                         "description": "Number of matching General Contracts",
                         "type": "integer"
                     },
                     "data": {
-                        "description": "GeneralContractsList",
+                        "description": "List of GeneralContracts",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/GeneralContractsProductModel"
@@ -7526,6 +7777,7 @@
                 "type": "object"
             },
             "PaymentLinkOptions": {
+                "description": "PaymentLinkOptions",
                 "properties": {
                     "background": {
                         "$ref": "#/components/schemas/BackgroundImageOption"
@@ -7534,6 +7786,7 @@
                 "type": "object"
             },
             "BackgroundImageOption": {
+                "description": "BackgroundImageOption",
                 "properties": {
                     "enabled": {
                         "description": "Indicator if background image for Payment Link is enabled",
@@ -7547,6 +7800,7 @@
                 "type": "object"
             },
             "GeneralMerchantsProductModel": {
+                "description": "GeneralMerchantsProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -7588,14 +7842,14 @@
                             },
                             "legal_details": {
                                 "description": "Legal details like terms of use, privacy policy, or imprint",
-                                "type": "object",
+                                "type": "array",
                                 "items": {
                                     "$ref": "#/components/schemas/GeneralMerchantsLegalDetails"
                                 }
                             },
                             "urls": {
                                 "description": "URLs",
-                                "type": "object",
+                                "type": "array",
                                 "items": {
                                     "$ref": "#/components/schemas/GeneralMerchantsUrls"
                                 }
@@ -7610,6 +7864,7 @@
                 ]
             },
             "GeneralMerchantsDTO": {
+                "description": "GeneralMerchantsDTO",
                 "properties": {
                     "salutation": {
                         "description": "Salutation {'Frau', 'Herr', 'Firma', 'Divers'}",
@@ -7674,6 +7929,7 @@
                 "type": "object"
             },
             "GeneralMerchantsUser": {
+                "description": "GeneralMerchantsUser",
                 "properties": {
                     "object": {
                         "description": "Object of General Merchant user",
@@ -7706,6 +7962,7 @@
                 "type": "object"
             },
             "GeneralMerchantsLegalDetails": {
+                "description": "GeneralMerchantsLegalDetails",
                 "properties": {
                     "url": {
                         "description": "URL",
@@ -7731,6 +7988,7 @@
                 "type": "object"
             },
             "GeneralMerchantsUrls": {
+                "description": "GeneralMerchantsUrls",
                 "properties": {
                     "type": {
                         "description": "Type of URL - {'url_success', 'url_failure', 'url_abort', 'url_error', 'url_checkout'}",
@@ -7746,6 +8004,7 @@
                 "type": "object"
             },
             "GeneralMerchantsList": {
+                "description": "GeneralMerchantsList",
                 "properties": {
                     "count": {
                         "description": "Number of existing General Merchants",
@@ -7753,7 +8012,7 @@
                         "example": 1
                     },
                     "data": {
-                        "description": "GeneralMerchantsList",
+                        "description": "List of GeneralMerchants",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/GeneralMerchantsProductModel"
@@ -7763,6 +8022,7 @@
                 "type": "object"
             },
             "GeneralMerchantsPublicDataModel": {
+                "description": "GeneralMerchantsPublicDataModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -7772,7 +8032,7 @@
                         "properties": {
                             "legal_details": {
                                 "description": "Legal details like terms of use, privacy policy, or imprint",
-                                "type": "object",
+                                "type": "array",
                                 "items": {
                                     "$ref": "#/components/schemas/GeneralMerchantsLegalDetails"
                                 }
@@ -7782,7 +8042,7 @@
                             },
                             "merchant_urls": {
                                 "description": "URLs",
-                                "type": "object",
+                                "type": "array",
                                 "items": {
                                     "$ref": "#/components/schemas/GeneralMerchantsUrls"
                                 }
@@ -7793,6 +8053,7 @@
                 ]
             },
             "GeneralMerchantsPublicDataCompany": {
+                "description": "GeneralMerchantsPublicDataCompany",
                 "properties": {
                     "companyname": {
                         "description": "Company name of General Merchant user",
@@ -7806,6 +8067,7 @@
                 "type": "object"
             },
             "GeneralStoresProductModel": {
+                "description": "GeneralStoresProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -7944,6 +8206,7 @@
                 ]
             },
             "GeneralStoresDTOReason": {
+                "description": "GeneralStoresDTOReason",
                 "properties": {
                     "reason": {
                         "description": "Reason",
@@ -7953,6 +8216,7 @@
                 "type": "object"
             },
             "GeneralStoresDTOType": {
+                "description": "GeneralStoresDTOType",
                 "properties": {
                     "type": {
                         "description": "Type",
@@ -7962,6 +8226,7 @@
                 "type": "object"
             },
             "GeneralStoresDTO": {
+                "description": "GeneralStoresDTO",
                 "properties": {
                     "name": {
                         "description": "Name",
@@ -8008,13 +8273,14 @@
                 "type": "object"
             },
             "GeneralStoresList": {
+                "description": "GeneralStoresList",
                 "properties": {
                     "count": {
                         "description": "Number of existing general stores",
                         "type": "integer"
                     },
                     "data": {
-                        "description": "GeneralStoresList",
+                        "description": "List of GeneralStores",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/GeneralStoresProductModel"
@@ -8024,6 +8290,7 @@
                 "type": "object"
             },
             "LoyaltyCardgroupsProductModel": {
+                "description": "LoyaltyCardgroupsProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -8056,6 +8323,7 @@
                 ]
             },
             "LoyaltyCardgroupsDTO": {
+                "description": "LoyaltyCardgroupsDTO",
                 "properties": {
                     "display_name": {
                         "description": "Display name",
@@ -8080,6 +8348,7 @@
                 "type": "object"
             },
             "LoyaltyCardgroupsDTOMerchant": {
+                "description": "LoyaltyCardgroupsDTOMerchant",
                 "properties": {
                     "id": {
                         "description": "Merchant id",
@@ -8089,6 +8358,7 @@
                 "type": "object"
             },
             "LoyaltyCardgroupsDTOCheckPasscodeEnabled": {
+                "description": "LoyaltyCardgroupsDTOCheckPasscodeEnabled",
                 "properties": {
                     "action": {
                         "description": "Action type",
@@ -8108,6 +8378,7 @@
                         "type": "integer"
                     },
                     "data": {
+                        "description": "List of LoyaltyCardgroups",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/LoyaltyCardgroupsProductModel"
@@ -8117,6 +8388,7 @@
                 "type": "object"
             },
             "LoyaltyCardsProductModel": {
+                "description": "LoyaltyCardsProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -8140,13 +8412,12 @@
                 ]
             },
             "LoyaltyCardsDTOAccount": {
+                "description": "LoyaltyCardsDTOAccount",
                 "properties": {
                     "object": {
-                        "description": "LoyaltyCardsDTOAccount",
                         "type": "string"
                     },
                     "id": {
-                        "description": "LoyaltyCardsDTOAccount",
                         "type": "string"
                     }
                 },
@@ -8168,6 +8439,7 @@
                         "type": "integer"
                     },
                     "data": {
+                        "description": "List of LoyaltyCards",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/LoyaltyCardsProductModel"
@@ -8177,6 +8449,7 @@
                 "type": "object"
             },
             "LoyaltyCustomersProductModel": {
+                "description": "LoyaltyCustomersProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -8220,6 +8493,7 @@
                 ]
             },
             "LoyaltyCustomersContactDTO": {
+                "description": "LoyaltyCustomersContactDTO",
                 "properties": {
                     "forename": {
                         "description": "Forename",
@@ -8244,6 +8518,7 @@
                 "type": "object"
             },
             "LoyaltyCustomersDTO": {
+                "description": "LoyaltyCustomersDTO",
                 "properties": {
                     "merchant": {
                         "description": "merchant",
@@ -8276,17 +8551,15 @@
                 "type": "object"
             },
             "LoyaltyCustomersPaymentContainerModel": {
+                "description": "LoyaltyCustomersPaymentContainerModel",
                 "properties": {
                     "object": {
-                        "description": "LoyaltyCustomersPaymentContainerModel",
                         "type": "string"
                     },
                     "id": {
-                        "description": "LoyaltyCustomersPaymentContainerModel",
                         "type": "string"
                     },
                     "type": {
-                        "description": "LoyaltyCustomersPaymentContainerModel",
                         "type": "string"
                     },
                     "payment_information": {
@@ -8300,45 +8573,18 @@
                 "type": "object"
             },
             "LoyaltyCustomersList": {
+                "description": "LoyaltyCustomersList",
                 "properties": {
                     "count": {
                         "description": "Number of existing loyalty customers",
                         "type": "integer"
                     },
                     "data": {
-                        "description": "LoyaltyCustomersList",
+                        "description": "List of LoyaltyCustomers",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/LoyaltyCustomersProductModel"
                         }
-                    }
-                },
-                "type": "object"
-            },
-            "customers_without_merchantcard_and_duplicated_customers": {
-                "properties": {
-                    "customers_without_merchantcard": {
-                        "description": "customers without merchantcard",
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "duplicated_customers": {
-                        "description": "duplicated customers",
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "type": "object"
-            },
-            "LoyaltyCustomersRemoved": {
-                "properties": {
-                    "deleted": {
-                        "description": "Result is true or false",
-                        "type": "boolean"
                     }
                 },
                 "type": "object"
@@ -8419,6 +8665,7 @@
                 ]
             },
             "LoyaltyMerchantcardsProductWithReceiptModel": {
+                "description": "LoyaltyMerchantcardsProductWithReceiptModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -8453,6 +8700,7 @@
                 ]
             },
             "ReceiptTypeValue": {
+                "description": "ReceiptTypeValue",
                 "type": "object",
                 "allOf": [
                     {
@@ -8469,6 +8717,7 @@
                 ]
             },
             "ReceiptType": {
+                "description": "ReceiptType",
                 "properties": {
                     "type": {
                         "description": "Type",
@@ -8478,6 +8727,7 @@
                 "type": "object"
             },
             "ReceiptValue": {
+                "description": "ReceiptValue",
                 "properties": {
                     "caption": {
                         "description": "Caption",
@@ -8506,6 +8756,7 @@
                 "type": "object"
             },
             "LoyaltyMerchantcardsValidateMerchantCard": {
+                "description": "LoyaltyMerchantcardsValidateMerchantCard",
                 "properties": {
                     "isValid": {
                         "description": "Result has true or false value",
@@ -8523,6 +8774,7 @@
                 "type": "object"
             },
             "LoyaltyMerchantcardsCardBalanceReceipt": {
+                "description": "LoyaltyMerchantcardsCardBalanceReceipt",
                 "properties": {
                     "valid": {
                         "description": "Result has true or false value",
@@ -8574,6 +8826,7 @@
                 "type": "object"
             },
             "LoyaltyMerchantcardsDTOPaymentContainer": {
+                "description": "LoyaltyMerchantcardsDTOPaymentContainer",
                 "properties": {
                     "object": {
                         "description": "Object of payment container",
@@ -8595,6 +8848,7 @@
                 "type": "object"
             },
             "LoyaltyMerchantcardsDTO": {
+                "description": "LoyaltyMerchantcardsDTO",
                 "properties": {
                     "merchant": {
                         "description": "General merchant id",
@@ -8620,6 +8874,7 @@
                 "type": "object"
             },
             "LoyaltyMerchantcardsDTOLock": {
+                "description": "LoyaltyMerchantcardsDTOLock",
                 "properties": {
                     "lock_status": {
                         "description": "Lock status",
@@ -8637,6 +8892,7 @@
                 "type": "object"
             },
             "VirtualTerminalDataModel": {
+                "description": "VirtualTerminalDataModel",
                 "properties": {
                     "store": {
                         "description": "Store",
@@ -8670,6 +8926,7 @@
                 "type": "object"
             },
             "LoyaltyMerchantcardsDTOCsc": {
+                "description": "LoyaltyMerchantcardsDTOCsc",
                 "properties": {
                     "cardnumber": {
                         "description": "Card number",
@@ -8683,6 +8940,7 @@
                 "type": "object"
             },
             "LoyaltyMerchantcardsDTOTransaction": {
+                "description": "LoyaltyMerchantcardsDTOTransaction",
                 "properties": {
                     "action": {
                         "description": "Action",
@@ -8723,6 +8981,7 @@
                 "type": "object"
             },
             "LoyaltyMerchantcardsDTOValidateMerchantCard": {
+                "description": "LoyaltyMerchantcardsDTOValidateMerchantCard",
                 "properties": {
                     "merchant": {
                         "description": "General Merchant id",
@@ -8736,6 +8995,7 @@
                 "type": "object"
             },
             "LoyaltyMerchantcardsDTONewPasscode": {
+                "description": "LoyaltyMerchantcardsDTONewPasscode",
                 "type": "object",
                 "allOf": [
                     {
@@ -8753,6 +9013,7 @@
                 ]
             },
             "LoyaltyMerchantcardsDTOCheckPasscode": {
+                "description": "LoyaltyMerchantcardsDTOCheckPasscode",
                 "properties": {
                     "cardnumber": {
                         "description": "Loyalty Card number",
@@ -8766,6 +9027,7 @@
                 "type": "object"
             },
             "LoyaltyMerchantcardsDTOResetPasscode": {
+                "description": "LoyaltyMerchantcardsDTOResetPasscode",
                 "properties": {
                     "cardnumber": {
                         "description": "Loyalty Card number",
@@ -8779,6 +9041,7 @@
                 "type": "object"
             },
             "LoyaltyMerchantcardsDTOCardsAmount": {
+                "description": "LoyaltyMerchantcardsDTOCardsAmount",
                 "properties": {
                     "cards_amount": {
                         "description": "Cards amount",
@@ -8788,6 +9051,7 @@
                 "type": "object"
             },
             "LoyaltyMerchantcardsDTOCardBalanceReceipt": {
+                "description": "LoyaltyMerchantcardsDTOCardBalanceReceipt",
                 "properties": {
                     "cardnumber": {
                         "description": "Loyalty Card number",
@@ -8807,6 +9071,7 @@
                         "type": "integer"
                     },
                     "data": {
+                        "description": "List of LoyaltyMerchantcards",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/LoyaltyMerchantcardsProductModel"
@@ -8834,6 +9099,7 @@
                 "type": "object"
             },
             "LoyaltyTransactionsProductModel": {
+                "description": "LoyaltyTransactionsProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -8860,14 +9126,12 @@
                                 "$ref": "#/components/schemas/LoyaltyTransactionsDTOCard"
                             },
                             "parents": {
-                                "description": "LoyaltyTransactionsProductModel",
                                 "type": "array",
                                 "items": {
                                     "$ref": "#/components/schemas/LoyaltyTransactionsDTORelatedTransactions"
                                 }
                             },
                             "children": {
-                                "description": "LoyaltyTransactionsProductModel",
                                 "type": "array",
                                 "items": {
                                     "$ref": "#/components/schemas/LoyaltyTransactionsDTORelatedTransactions"
@@ -8916,6 +9180,7 @@
                 ]
             },
             "LoyaltyTransactionsDTOMerchant": {
+                "description": "LoyaltyTransactionsDTOMerchant",
                 "properties": {
                     "id": {
                         "description": "Merchant id",
@@ -8925,6 +9190,7 @@
                 "type": "object"
             },
             "LoyaltyTransactionsDTOCardgroup": {
+                "description": "LoyaltyTransactionsDTOCardgroup",
                 "properties": {
                     "id": {
                         "description": "Cardgroup id",
@@ -8942,6 +9208,7 @@
                 "type": "object"
             },
             "LoyaltyTransactionsDTOStore": {
+                "description": "LoyaltyTransactionsDTOStore",
                 "properties": {
                     "id": {
                         "description": "General Store id",
@@ -8955,6 +9222,7 @@
                 "type": "object"
             },
             "LoyaltyTransactionsDTOMerchantcard": {
+                "description": "LoyaltyTransactionsDTOMerchantcard",
                 "properties": {
                     "id": {
                         "description": "Merchantcard id",
@@ -8964,6 +9232,7 @@
                 "type": "object"
             },
             "LoyaltyTransactionsDTOCard": {
+                "description": "LoyaltyTransactionsDTOCard",
                 "properties": {
                     "id": {
                         "description": "Loyalty Card id",
@@ -8977,6 +9246,7 @@
                 "type": "object"
             },
             "LoyaltyTransactionsDTORelatedTransactions": {
+                "description": "LoyaltyTransactionsDTORelatedTransactions",
                 "properties": {
                     "id": {
                         "description": "Loyalty Transaction id",
@@ -9000,6 +9270,7 @@
                         "type": "integer"
                     },
                     "data": {
+                        "description": "List of LoyaltyTransactions",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/LoyaltyTransactionsProductModel"
@@ -9009,6 +9280,7 @@
                 "type": "object"
             },
             "PaymentContainersProductModel": {
+                "description": "PaymentContainersProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -9050,6 +9322,7 @@
                 ]
             },
             "PaymentContainersDTO": {
+                "description": "PaymentContainersDTO",
                 "properties": {
                     "customer": {
                         "description": "The customer of this payment container",
@@ -9077,6 +9350,7 @@
                 "type": "object"
             },
             "UploadMandateProductModel": {
+                "description": "UploadMandateProductModel",
                 "properties": {
                     "service_issue_id": {
                         "description": "Newly created issue id",
@@ -9086,6 +9360,7 @@
                 "type": "object"
             },
             "UploadMandateDTO": {
+                "description": "UploadMandateDTO",
                 "properties": {
                     "document_id": {
                         "description": "Document id for assign",
@@ -9095,6 +9370,7 @@
                 "type": "object"
             },
             "MandateProductModel": {
+                "description": "MandateProductModel",
                 "properties": {
                     "mandate_url": {
                         "description": "Link to sepamandate B2B doc",
@@ -9104,6 +9380,7 @@
                 "type": "object"
             },
             "MandateDTO": {
+                "description": "MandateDTO",
                 "properties": {
                     "customer_id": {
                         "description": "Customer id",
@@ -9117,6 +9394,7 @@
                 "type": "object"
             },
             "PaymentContainerMandate": {
+                "description": "PaymentContainerMandate",
                 "properties": {
                     "sepa_mandate_id": {
                         "description": "Sepa mandate id",
@@ -9150,13 +9428,14 @@
                 "type": "object"
             },
             "PaymentContainersList": {
+                "description": "PaymentContainersList",
                 "properties": {
                     "count": {
                         "description": "Number of existing payment containers",
                         "type": "integer"
                     },
                     "data": {
-                        "description": "PaymentContainersList",
+                        "description": "List of PaymentContainers",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/PaymentContainersProductModel"
@@ -9185,6 +9464,7 @@
                 ]
             },
             "PaymentContractsProductModel": {
+                "description": "PaymentContractsProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -9207,46 +9487,18 @@
                             "demo": {
                                 "description": "Is this a demo contract",
                                 "type": "boolean"
+                            },
+                            "approved": {
+                                "description": "Indicates if the payout lock was removed",
+                                "type": "boolean"
                             }
                         },
                         "type": "object"
                     }
                 ]
             },
-            "PaymentContractsDTO": {
-                "properties": {
-                    "merchant": {
-                        "description": "Contracts Merchant",
-                        "type": "string"
-                    },
-                    "internal_reference": {
-                        "description": "The internal user id",
-                        "type": "string"
-                    },
-                    "contract_id": {
-                        "description": "Contracts id",
-                        "type": "string"
-                    },
-                    "demo": {
-                        "description": "Is this a demo contract",
-                        "type": "string"
-                    },
-                    "url_push": {
-                        "description": "An URL where your service listen for push notifications of the secuconnect service",
-                        "type": "string"
-                    },
-                    "unique_order_id": {
-                        "description": "Bool, default FALSE. If TRUE, an error message will be thrown if you try to create a new payment transaction with the same order_id of an previous transaction.",
-                        "type": "boolean"
-                    },
-                    "scoring": {
-                        "description": "Bool, default TRUE. If FALSE, the customer scoring is disabled for your payment contract",
-                        "type": "boolean"
-                    }
-                },
-                "type": "object"
-            },
             "PaymentContractsDTOClone": {
+                "description": "PaymentContractsDTOClone",
                 "properties": {
                     "project": {
                         "description": "Name of the project (must be unique)",
@@ -9270,6 +9522,7 @@
                 "type": "object"
             },
             "PaymentContractsDTORequestId": {
+                "description": "PaymentContractsDTORequestId",
                 "properties": {
                     "contact": {
                         "$ref": "#/components/schemas/Contact"
@@ -9303,11 +9556,22 @@
                         "description": "Payout purpose",
                         "type": "string",
                         "example": "payout_purpose_example"
+                    },
+                    "identrequest": {
+                        "description": "Object ID of Services Identrequest",
+                        "type": "string",
+                        "example": "SIR_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                    },
+                    "signed_contract": {
+                        "description": "The document ID of of uploaded signed contract; s. Document service",
+                        "type": "string",
+                        "example": "DUP_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
                     }
                 },
                 "type": "object"
             },
             "PaymentContractsDTOIFrameOpts": {
+                "description": "PaymentContractsDTOIFrameOpts",
                 "properties": {
                     "show_basket": {
                         "description": "Display the basket items to the customer during the checkout",
@@ -9343,6 +9607,7 @@
                         "type": "integer"
                     },
                     "data": {
+                        "description": "List of PaymentContracts",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/PaymentContractsProductModel"
@@ -9373,6 +9638,7 @@
                 "type": "object"
             },
             "PaymentCustomersProductModel": {
+                "description": "PaymentCustomersProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -9398,6 +9664,7 @@
                 ]
             },
             "PaymentCustomersDTO": {
+                "description": "PaymentCustomersDTO",
                 "properties": {
                     "contact": {
                         "$ref": "#/components/schemas/Contact"
@@ -9412,6 +9679,7 @@
                         "type": "integer"
                     },
                     "data": {
+                        "description": "List of PaymentCustomers",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/PaymentCustomersProductModel"
@@ -9421,6 +9689,7 @@
                 "type": "object"
             },
             "PaymentPlansProductModel": {
+                "description": "PaymentPlansProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -9474,6 +9743,7 @@
                 ]
             },
             "BillingCyclesItem": {
+                "description": "BillingCyclesItem",
                 "properties": {
                     "sequence": {
                         "description": "sequence",
@@ -9498,6 +9768,7 @@
                 "type": "object"
             },
             "PaymentPlanInterval": {
+                "description": "PaymentPlanInterval",
                 "properties": {
                     "unit": {
                         "description": "Unit",
@@ -9511,6 +9782,7 @@
                 "type": "object"
             },
             "PaymentPlansDTO": {
+                "description": "PaymentPlansDTO",
                 "properties": {
                     "description": {
                         "description": "Description of payment plan",
@@ -9556,6 +9828,7 @@
                         "type": "integer"
                     },
                     "data": {
+                        "description": "List of PaymentPlans",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/PaymentPlansProductModel"
@@ -9565,6 +9838,7 @@
                 "type": "object"
             },
             "SecupayTransactionProductModel": {
+                "description": "SecupayTransactionProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -9669,6 +9943,7 @@
                 ]
             },
             "SecupayTransactionProductDTO": {
+                "description": "SecupayTransactionProductDTO",
                 "properties": {
                     "amount": {
                         "$ref": "#/components/schemas/MoneyAmount"
@@ -9792,6 +10067,7 @@
                 "type": "object"
             },
             "SecupayRedirectUrl": {
+                "description": "SecupayRedirectUrl",
                 "properties": {
                     "iframe_url": {
                         "description": "The url of the payment checkout iframe",
@@ -9901,6 +10177,7 @@
                 ]
             },
             "SecupayTransactionDTOExternalInvoicePdf": {
+                "description": "SecupayTransactionDTOExternalInvoicePdf",
                 "properties": {
                     "update_existing": {
                         "description": "Update existing invoice PDF",
@@ -9910,6 +10187,7 @@
                 "type": "object"
             },
             "SecupayTransactionExternalInvoicePdf": {
+                "description": "SecupayTransactionExternalInvoicePdf",
                 "properties": {
                     "document": {
                         "description": "Information about the saved document",
@@ -9941,6 +10219,7 @@
                 "type": "object"
             },
             "SecupayTransactionCancelDTO": {
+                "description": "SecupayTransactionCancelDTO",
                 "properties": {
                     "contract": {
                         "$ref": "#/components/schemas/PaymentContractsProductModel"
@@ -9957,6 +10236,7 @@
                 "type": "object"
             },
             "SecupayTransactionCaptureDTO": {
+                "description": "SecupayTransactionCaptureDTO",
                 "properties": {
                     "contract": {
                         "$ref": "#/components/schemas/PaymentContractsProductModel"
@@ -9968,6 +10248,7 @@
                 "type": "object"
             },
             "SecupayTransactionUpdateBasketDTO": {
+                "description": "SecupayTransactionUpdateBasketDTO",
                 "properties": {
                     "contract": {
                         "$ref": "#/components/schemas/PaymentContractsProductModel"
@@ -9983,6 +10264,7 @@
                 "type": "object"
             },
             "SecupayTransactionReverseAccrualDTO": {
+                "description": "SecupayTransactionReverseAccrualDTO",
                 "properties": {
                     "accrual": {
                         "description": "Indicates whether the payment is locked for pay-out (TRUE) or not (FALSE).",
@@ -9993,6 +10275,7 @@
                 "type": "object"
             },
             "SecupayTransactionSetShippingInformationDTO": {
+                "description": "SecupayTransactionSetShippingInformationDTO",
                 "properties": {
                     "carrier": {
                         "description": "Shipping provider name",
@@ -10004,6 +10287,14 @@
                     },
                     "invoice_number": {
                         "description": "Merchants invoice number",
+                        "type": "string"
+                    },
+                    "shipped_at": {
+                        "description": "Timestamp of the shipping date",
+                        "type": "string"
+                    },
+                    "order_id": {
+                        "description": "Order-ID",
                         "type": "string"
                     }
                 },
@@ -10049,7 +10340,137 @@
                 },
                 "type": "object"
             },
+            "PaymentCrowdFundingData": {
+                "description": "PaymentCrowdFundingData",
+                "properties": {
+                    "project": {
+                        "$ref": "#/components/schemas/CrowdFundingDataDetails"
+                    },
+                    "paid_out": {
+                        "description": "Total transaction amount of all transactions for this merchant",
+                        "type": "integer"
+                    },
+                    "open": {
+                        "$ref": "#/components/schemas/CrowdFundingDataOpenAmount"
+                    }
+                },
+                "type": "object"
+            },
+            "CrowdFundingDataDetails": {
+                "description": "Details of the project transaction count and total amount per payment method",
+                "properties": {
+                    "currency": {
+                        "description": "ISO code of the currency for this merchant",
+                        "type": "string",
+                        "default": "EUR"
+                    },
+                    "total_amount": {
+                        "description": "Total transaction amount of all transactions for this merchant",
+                        "type": "integer",
+                        "default": "0"
+                    },
+                    "total_count": {
+                        "description": "Count of the transactions",
+                        "type": "integer",
+                        "default": "0"
+                    },
+                    "debit": {
+                        "$ref": "#/components/schemas/PaymentMethodBreakdown"
+                    },
+                    "credit_card": {
+                        "$ref": "#/components/schemas/PaymentMethodBreakdown"
+                    },
+                    "prepay": {
+                        "$ref": "#/components/schemas/PaymentMethodBreakdown"
+                    },
+                    "sofort": {
+                        "$ref": "#/components/schemas/PaymentMethodBreakdown"
+                    },
+                    "twint": {
+                        "$ref": "#/components/schemas/PaymentMethodBreakdown"
+                    }
+                },
+                "type": "object"
+            },
+            "PaymentMethodBreakdown": {
+                "description": "Information for a specific payment method transaction count and transaction amount",
+                "properties": {
+                    "count": {
+                        "description": "Count of the transactions",
+                        "type": "integer",
+                        "default": "0"
+                    },
+                    "amount": {
+                        "description": "Total transaction amount",
+                        "type": "integer",
+                        "default": "0"
+                    }
+                },
+                "type": "object"
+            },
+            "CrowdFundingDataOpenAmount": {
+                "description": "Information about the open amount which is not yet paid out",
+                "properties": {
+                    "total": {
+                        "description": "Total of all open transactions amounts",
+                        "type": "integer",
+                        "default": "0"
+                    },
+                    "outside_cancellation_period": {
+                        "description": "Open total of transaction which outside of the cancellation period",
+                        "properties": {
+                            "total": {
+                                "description": "Open transaction amount",
+                                "type": "integer",
+                                "default": "0"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "inside_cancellation_period": {
+                        "$ref": "#/components/schemas/CrowdFundingDataOpenAmountInsideCancelPeriod"
+                    }
+                },
+                "type": "object"
+            },
+            "CrowdFundingDataOpenAmountInsideCancelPeriod": {
+                "description": "Open total of transaction which inside of the cancellation period",
+                "properties": {
+                    "total": {
+                        "description": "Total of all open amounts",
+                        "type": "integer",
+                        "default": "0"
+                    },
+                    "debit": {
+                        "description": "Total of debit open amounts",
+                        "type": "integer",
+                        "default": "0"
+                    },
+                    "credit_card": {
+                        "description": "Total of credit card open amounts",
+                        "type": "integer",
+                        "default": "0"
+                    },
+                    "prepay": {
+                        "description": "Total of prepay open amounts",
+                        "type": "integer",
+                        "default": "0"
+                    },
+                    "sofort": {
+                        "description": "Total of sofort open amounts",
+                        "type": "integer",
+                        "default": "0"
+                    },
+                    "twint": {
+                        "description": "Total of twint open amounts",
+                        "type": "integer",
+                        "default": "0"
+                    }
+                },
+                "type": "object"
+            },
             "SecupayPayoutProductModel": {
+                "description": "SecupayPayoutProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -10103,6 +10524,7 @@
                 ]
             },
             "SecupayTransactionListItem": {
+                "description": "SecupayTransactionListItem",
                 "properties": {
                     "item_type": {
                         "description": "Category of item",
@@ -10145,6 +10567,7 @@
                 "type": "object"
             },
             "SecupayPayoutDTO": {
+                "description": "SecupayPayoutDTO",
                 "properties": {
                     "redirect_url": {
                         "$ref": "#/components/schemas/SecupayRedirectUrl"
@@ -10191,6 +10614,7 @@
                 "type": "object"
             },
             "PaymentSubscriptionsProductModel": {
+                "description": "PaymentSubscriptionsProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -10263,6 +10687,7 @@
                         "type": "integer"
                     },
                     "data": {
+                        "description": "List of PaymentSubscriptions",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/PaymentSubscriptionsProductModel"
@@ -10382,7 +10807,6 @@
                                 "type": "object"
                             },
                             "customer": {
-                                "description": "PaymentTransactionsProductModel",
                                 "properties": {
                                     "companyname": {
                                         "description": "Customer company name",
@@ -10449,6 +10873,7 @@
                 ]
             },
             "PaymentTransactionsInstructions": {
+                "description": "PaymentTransactionsInstructions",
                 "properties": {
                     "lang": {
                         "description": "Language",
@@ -10467,6 +10892,7 @@
                 "type": "object"
             },
             "PaymentTransactionCancelDTO": {
+                "description": "PaymentTransactionCancelDTO",
                 "properties": {
                     "reason": {
                         "description": "The reason of this cancel or refund",
@@ -10494,6 +10920,7 @@
                         "type": "integer"
                     },
                     "data": {
+                        "description": "List of PaymentTransactions",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/PaymentTransactionsProductModel"
@@ -10517,7 +10944,17 @@
                 },
                 "type": "object"
             },
+            "PaymentTransactionsIncreaseAmountDTO": {
+                "properties": {
+                    "amount": {
+                        "description": "The raised amount of the transaction",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
             "PrepaidMappingZvt": {
+                "description": "PrepaidMappingZvt",
                 "properties": {
                     "item": {
                         "description": "Prepaid item",
@@ -10537,6 +10974,7 @@
                 "type": "object"
             },
             "PrepaidZvtDTO": {
+                "description": "PrepaidZvtDTO",
                 "properties": {
                     "amount": {
                         "$ref": "#/components/schemas/MoneyAmount"
@@ -10549,6 +10987,7 @@
                 "type": "object"
             },
             "PrepaidItemsProductModel": {
+                "description": "PrepaidItemsProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -10610,6 +11049,7 @@
                         "type": "integer"
                     },
                     "data": {
+                        "description": "List of PrepaidItems",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/PrepaidItemsProductModel"
@@ -10619,6 +11059,7 @@
                 "type": "object"
             },
             "PrepaidSalesProductModel": {
+                "description": "PrepaidSalesProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -10722,6 +11163,7 @@
                 ]
             },
             "PrepaidSalesItem": {
+                "description": "PrepaidSalesItem",
                 "properties": {
                     "object": {
                         "description": "Object of item",
@@ -10748,6 +11190,7 @@
                 "type": "object"
             },
             "PrepaidSalesSmartDevice": {
+                "description": "PrepaidSalesSmartDevice",
                 "properties": {
                     "object": {
                         "description": "Object of smart device",
@@ -10769,6 +11212,7 @@
                 "type": "object"
             },
             "PrepaidSalesProductDTO": {
+                "description": "PrepaidSalesProductDTO",
                 "properties": {
                     "item": {
                         "description": "prepaid sales transaction id",
@@ -10777,7 +11221,452 @@
                 },
                 "type": "object"
             },
+            "AvailableCountry": {
+                "description": "AvailableCountry",
+                "properties": {
+                    "en": {
+                        "description": "English Translation for Country",
+                        "type": "string"
+                    },
+                    "iso_code": {
+                        "description": "The Iso Code for Country",
+                        "type": "string"
+                    },
+                    "de": {
+                        "description": "German Translation for Country",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ServicesIdentrequestsList": {
+                "description": "ServicesIdentrequestsList",
+                "properties": {
+                    "count": {
+                        "description": "Number of existing identrequests",
+                        "type": "integer"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ServicesIdentrequestsProductModel"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "ServicesIdentrequestsProductModel": {
+                "description": "ServicesIdentrequestsProductModel",
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/BaseProductModel"
+                    },
+                    {
+                        "$ref": "#/components/schemas/CreatedField"
+                    },
+                    {
+                        "$ref": "#/components/schemas/UpdatedField"
+                    },
+                    {
+                        "properties": {
+                            "contract": {
+                                "$ref": "#/components/schemas/ProductInstanceUID"
+                            },
+                            "provider": {
+                                "description": "Third party identification provider",
+                                "type": "string",
+                                "enum": [
+                                    "post_ident",
+                                    "bank_ident",
+                                    "webid"
+                                ]
+                            },
+                            "type": {
+                                "description": "Type",
+                                "type": "string",
+                                "enum": [
+                                    "person"
+                                ]
+                            },
+                            "status": {
+                                "description": "The status of the identrequest",
+                                "type": "string"
+                            },
+                            "demo": {
+                                "description": "Demo Flag",
+                                "type": "boolean"
+                            },
+                            "person": {
+                                "description": "The person which should be identified by third party provider",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/IdentrequestPerson"
+                                }
+                            },
+                            "owner_transaction_id": {
+                                "description": "Arbitrary ID to identify identrequest on merchant",
+                                "type": "string"
+                            },
+                            "redirect_url": {
+                                "$ref": "#/components/schemas/IdentrequestRedirectUrls"
+                            },
+                            "graduation_date": {
+                                "$ref": "#/components/schemas/IsoDateTime"
+                            },
+                            "treated": {
+                                "description": "Flag to identify if identrequest was internally processed by secupay",
+                                "type": "boolean",
+                                "readOnly": true
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "ServicesIdentrequestsProductDTO": {
+                "description": "ServicesIdentrequestsProductDTO",
+                "properties": {
+                    "provider": {
+                        "description": "Third party identification provider",
+                        "type": "string",
+                        "enum": [
+                            "post_ident",
+                            "bank_ident",
+                            "webid"
+                        ]
+                    },
+                    "type": {
+                        "description": "Type",
+                        "type": "string",
+                        "enum": [
+                            "person"
+                        ]
+                    },
+                    "demo": {
+                        "description": "Demo Flag",
+                        "type": "boolean"
+                    },
+                    "person": {
+                        "description": "The person which should be identified by third party provider",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/IdentrequestPersonDTO"
+                        }
+                    },
+                    "owner_transaction_id": {
+                        "description": "Arbitrary ID to identify identrequest on merchant",
+                        "type": "string"
+                    },
+                    "redirect_url": {
+                        "$ref": "#/components/schemas/IdentrequestRedirectUrls"
+                    }
+                },
+                "type": "object"
+            },
+            "IdentrequestPersonDTO": {
+                "description": "IdentrequestPersonDTO",
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Contact"
+                    },
+                    {
+                        "$ref": "#/components/schemas/IdentificationCustomData"
+                    }
+                ]
+            },
+            "IdentrequestPerson": {
+                "description": "IdentrequestPerson",
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/IdentrequestPersonDTO"
+                    },
+                    {
+                        "properties": {
+                            "transaction_id": {
+                                "description": "An internal transaction_id to identify the person inside and identrequest",
+                                "type": "string"
+                            },
+                            "redirect_url": {
+                                "description": "The url the person should visit to be forwarded to identification provider",
+                                "type": "string"
+                            },
+                            "status": {
+                                "description": "The status of the person identification request",
+                                "type": "string"
+                            },
+                            "provider": {
+                                "description": "The generated ID of the provider for this identrequest - can be null on creation",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "IdentrequestRedirectUrls": {
+                "description": "IdentrequestRedirectUrls",
+                "properties": {
+                    "url_success": {
+                        "description": "After successfully identification of the person is returned to this page.",
+                        "type": "string"
+                    },
+                    "url_failure": {
+                        "description": "After canceling or on errors the person to be identified will be redirected to this page.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "IdentificationCustomData": {
+                "description": "IdentificationCustomData",
+                "properties": {
+                    "custom1": {
+                        "description": "Some custom fields which can be individually used to store information",
+                        "type": "string"
+                    },
+                    "custom2": {
+                        "description": "Some custom fields which can be individually used to store information",
+                        "type": "string"
+                    },
+                    "custom3": {
+                        "description": "Some custom fields which can be individually used to store information",
+                        "type": "string"
+                    },
+                    "custom4": {
+                        "description": "Some custom fields which can be individually used to store information",
+                        "type": "string"
+                    },
+                    "custom5": {
+                        "description": "Some custom fields which can be individually used to store information",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ServicesIdentresultsList": {
+                "description": "ServicesIdentresultsList",
+                "properties": {
+                    "count": {
+                        "description": "Number of existing identresults",
+                        "type": "integer"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ServicesIdentresultsProductModel"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "ServicesIdentresultsProductModel": {
+                "description": "ServicesIdentresultsProductModel",
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/BaseProductModel"
+                    },
+                    {
+                        "$ref": "#/components/schemas/CreatedField"
+                    },
+                    {
+                        "properties": {
+                            "request": {
+                                "$ref": "#/components/schemas/ProductInstanceUID"
+                            },
+                            "contract": {
+                                "$ref": "#/components/schemas/ProductInstanceUID"
+                            },
+                            "status": {
+                                "description": "The status of the identrequest",
+                                "type": "string"
+                            },
+                            "demo": {
+                                "description": "Demo Flag",
+                                "type": "boolean"
+                            },
+                            "person": {
+                                "description": "The details from identification process about identified person",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/IdentresultPerson"
+                                }
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "IdentresultPerson": {
+                "description": "IdentresultPerson",
+                "properties": {
+                    "identificationprocess": {
+                        "$ref": "#/components/schemas/IdentificationProcess"
+                    },
+                    "customdata": {
+                        "$ref": "#/components/schemas/IdentificationCustomData"
+                    },
+                    "contactdata": {
+                        "$ref": "#/components/schemas/ContactData"
+                    },
+                    "userdata": {
+                        "$ref": "#/components/schemas/UserData"
+                    },
+                    "attachments": {
+                        "description": "User Data submitted by provider",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/IdentDocument"
+                        }
+                    },
+                    "identificationdocument": {
+                        "$ref": "#/components/schemas/IdentDocumentData"
+                    },
+                    "video": {
+                        "description": "The url to download the identification video",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "IdentificationProcess": {
+                "description": "IdentificationProcess",
+                "properties": {
+                    "status": {
+                        "description": "The status from identification provider",
+                        "type": "string"
+                    },
+                    "identificatontime": {
+                        "$ref": "#/components/schemas/IsoDateTime"
+                    },
+                    "transactionnumber": {
+                        "description": "The person transaction_id from identrequest",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ContactData": {
+                "description": "ContactData",
+                "properties": {
+                    "mobile": {
+                        "description": "Mobile phone number",
+                        "type": "string",
+                        "example": "+49 155 5555555"
+                    },
+                    "email": {
+                        "description": "E-mail address",
+                        "type": "string",
+                        "example": "m.mustermann@example.com"
+                    }
+                },
+                "type": "object"
+            },
+            "UserData": {
+                "description": "UserData",
+                "properties": {
+                    "dob": {
+                        "$ref": "#/components/schemas/ValueField"
+                    },
+                    "birthplace": {
+                        "$ref": "#/components/schemas/ValueField"
+                    },
+                    "forename": {
+                        "$ref": "#/components/schemas/ValueField"
+                    },
+                    "surname": {
+                        "$ref": "#/components/schemas/ValueField"
+                    },
+                    "nationality": {
+                        "$ref": "#/components/schemas/ValueField"
+                    },
+                    "gender": {
+                        "$ref": "#/components/schemas/ValueField"
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/UserAddressData"
+                    }
+                },
+                "type": "object"
+            },
+            "UserAddressData": {
+                "description": "UserAddressData",
+                "properties": {
+                    "street": {
+                        "$ref": "#/components/schemas/ValueField"
+                    },
+                    "street_number": {
+                        "$ref": "#/components/schemas/ValueField"
+                    },
+                    "city": {
+                        "$ref": "#/components/schemas/ValueField"
+                    },
+                    "postal_code": {
+                        "$ref": "#/components/schemas/ValueField"
+                    },
+                    "country": {
+                        "$ref": "#/components/schemas/ValueField"
+                    }
+                },
+                "type": "object"
+            },
+            "IdentDocumentData": {
+                "description": "IdentDocumentData",
+                "properties": {
+                    "country": {
+                        "$ref": "#/components/schemas/ValueField"
+                    },
+                    "dateissued": {
+                        "$ref": "#/components/schemas/ValueField"
+                    },
+                    "issuedby": {
+                        "$ref": "#/components/schemas/ValueField"
+                    },
+                    "number": {
+                        "$ref": "#/components/schemas/ValueField"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/ValueField"
+                    },
+                    "validuntil": {
+                        "$ref": "#/components/schemas/ValueField"
+                    }
+                },
+                "type": "object"
+            },
+            "ValueField": {
+                "description": "ValueField",
+                "properties": {
+                    "value": {
+                        "description": "The submitted value from identification provider",
+                        "type": "string"
+                    },
+                    "status": {
+                        "description": "The status for value from identification provider - can be empty",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "IdentDocument": {
+                "description": "IdentDocument",
+                "properties": {
+                    "type": {
+                        "description": "The type of the identification document",
+                        "type": "string"
+                    },
+                    "url": {
+                        "description": "The url to identification document",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
             "UploadidentsProductModel": {
+                "description": "UploadidentsProductModel",
                 "properties": {
                     "service_issue_id": {
                         "description": "Service issue id",
@@ -10787,6 +11676,7 @@
                 "type": "object"
             },
             "UploadidentsProductDTO": {
+                "description": "UploadidentsProductDTO",
                 "properties": {
                     "merchant_id": {
                         "description": "Merchant ID",
@@ -10819,6 +11709,7 @@
                 "type": "object"
             },
             "SmartDevicesProductModel": {
+                "description": "SmartDevicesProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -10901,6 +11792,7 @@
                 ]
             },
             "SmartDevicesProducts": {
+                "description": "SmartDevicesProducts",
                 "properties": {
                     "loyalty": {
                         "$ref": "#/components/schemas/SmartDeviceProductsEnabled"
@@ -10927,6 +11819,7 @@
                 "type": "object"
             },
             "SmartDeviceProductsEnabled": {
+                "description": "SmartDeviceProductEnabled",
                 "properties": {
                     "enabled": {
                         "description": "Enabled",
@@ -10936,6 +11829,7 @@
                 "type": "object"
             },
             "SmartDeviceProductsPrepaid": {
+                "description": "SmartDeviceProductsPrepaid",
                 "properties": {
                     "enabled": {
                         "description": "Enabled",
@@ -10957,6 +11851,7 @@
                 "type": "object"
             },
             "SmartDevicesDevice": {
+                "description": "SmartDevicesDevice",
                 "properties": {
                     "object": {
                         "description": "Object of device",
@@ -10974,6 +11869,7 @@
                 "type": "object"
             },
             "SmartDevicesDTO": {
+                "description": "SmartDevicesDTO",
                 "properties": {
                     "merchant": {
                         "description": "Merchant",
@@ -11026,13 +11922,14 @@
                 "type": "object"
             },
             "SmartDevicesList": {
+                "description": "SmartDevicesList",
                 "properties": {
                     "count": {
                         "description": "Number of existing smart devices",
                         "type": "integer"
                     },
                     "data": {
-                        "description": "SmartDevicesList",
+                        "description": "List of SmartDevices",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/SmartDevicesProductModel"
@@ -11051,6 +11948,7 @@
                 "type": "object"
             },
             "SmartRoutingsProductModel": {
+                "description": "SmartRoutingsProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -11087,6 +11985,7 @@
                 ]
             },
             "SmartRoutingsAssign": {
+                "description": "SmartRoutingsAssign",
                 "properties": {
                     "object": {
                         "description": "Object of smart routing assign",
@@ -11113,6 +12012,7 @@
                 "type": "object"
             },
             "SmartRoutingsDTO": {
+                "description": "SmartRoutingsDTO",
                 "properties": {
                     "store": {
                         "description": "General store ID",
@@ -11132,6 +12032,7 @@
                         "type": "integer"
                     },
                     "data": {
+                        "description": "List of SmartRoutings",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/SmartRoutingsProductModel"
@@ -11150,6 +12051,7 @@
                 "type": "object"
             },
             "SmartTemplatesProductModel": {
+                "description": "SmartTemplatesProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -11202,6 +12104,7 @@
                 ]
             },
             "SmartTemplatesComponentModel": {
+                "description": "SmartTemplatesComponentModel",
                 "properties": {
                     "id": {
                         "description": "Id of component item of the page",
@@ -11230,6 +12133,7 @@
                 "type": "object"
             },
             "SmartTemplatesElementModel": {
+                "description": "SmartTemplatesElementModel",
                 "properties": {
                     "id": {
                         "description": "Id of element item of the component",
@@ -11253,11 +12157,19 @@
                         "items": {
                             "$ref": "#/components/schemas/SmartTemplatesAccordionItemModel"
                         }
+                    },
+                    "form_elements": {
+                        "description": "The Form items to be shown in dynamic form element",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SmartTemplatesFormElementModel"
+                        }
                     }
                 },
                 "type": "object"
             },
             "SmartTemplatesAccordionItemModel": {
+                "description": "SmartTemplatesAccordionItemModel",
                 "properties": {
                     "id": {
                         "description": "Id of element item of the component",
@@ -11285,14 +12197,33 @@
                 },
                 "type": "object"
             },
+            "SmartTemplatesFormElementModel": {
+                "description": "SmartTemplatesFormElementModel",
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/SmartTemplatesElementModel"
+                    },
+                    {
+                        "properties": {
+                            "name": {
+                                "description": "Name of form element",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
             "SmartTemplatesList": {
+                "description": "SmartTemplatesList",
                 "properties": {
                     "count": {
                         "description": "Number of existing smart transactions",
                         "type": "integer"
                     },
                     "data": {
-                        "description": "SmartTemplatesList",
+                        "description": "List of SmartTemplates",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/SmartTemplatesProductModel"
@@ -11302,6 +12233,7 @@
                 "type": "object"
             },
             "SmartTransactionsProductModel": {
+                "description": "SmartTransactionsProductModel",
                 "type": "object",
                 "allOf": [
                     {
@@ -11467,6 +12399,9 @@
                             },
                             "payment_context": {
                                 "$ref": "#/components/schemas/PaymentContext"
+                            },
+                            "subscription": {
+                                "$ref": "#/components/schemas/ProductInstanceUID"
                             }
                         },
                         "type": "object"
@@ -11474,6 +12409,7 @@
                 ]
             },
             "OneOfSmartTransactionsDeliveryOptionsModel": {
+                "description": "SmartTransactionsBaseDeliveryOptionsModel",
                 "type": "object",
                 "discriminator": {
                     "propertyName": "type",
@@ -11492,6 +12428,7 @@
                 ]
             },
             "SmartTransactionsShippingModel": {
+                "description": "SmartTransactionsShippingModel",
                 "properties": {
                     "type": {
                         "description": "Type of delivery option",
@@ -11517,6 +12454,7 @@
                 "type": "object"
             },
             "SmartTransactionsTimeSlot": {
+                "description": "SmartTransactionsTimeSlot",
                 "properties": {
                     "start_date": {
                         "description": "Start Date",
@@ -11530,6 +12468,7 @@
                 "type": "object"
             },
             "SmartTransactionsCollectionModel": {
+                "description": "SmartTransactionsCollectionModel",
                 "properties": {
                     "type": {
                         "description": "Type of delivery option",
@@ -11554,6 +12493,7 @@
                 "type": "object"
             },
             "SmartTransactionsCheckoutLinks": {
+                "description": "SmartTransactionsCheckoutLinks",
                 "properties": {
                     "url_checkout": {
                         "description": "Smart Checkout URL",
@@ -11563,13 +12503,13 @@
                 "type": "object"
             },
             "SmartTransactionsPreTransactionModel": {
+                "description": "SmartTransactionsPreTransactionModel",
                 "properties": {
                     "missing_sum": {
                         "description": "missing sum",
                         "type": "integer"
                     },
                     "bonus_products": {
-                        "description": "SmartTransactionsPreTransactionModel",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/SmartTransactionsBonusProducts"
@@ -11579,6 +12519,7 @@
                 "type": "object"
             },
             "SmartTransactionsBaseProduct": {
+                "description": "SmartTransactionsBaseProduct",
                 "properties": {
                     "id": {
                         "description": "Bonus Product ID",
@@ -11609,6 +12550,7 @@
                 "type": "object"
             },
             "SmartTransactionsBonusProducts": {
+                "description": "SmartTransactionsBonusProducts",
                 "type": "object",
                 "allOf": [
                     {
@@ -11626,6 +12568,7 @@
                 ]
             },
             "SmartTransactionsCheckin": {
+                "description": "SmartTransactionsCheckin",
                 "properties": {
                     "object": {
                         "description": "Object of smart transaction check in",
@@ -11644,6 +12587,7 @@
                 "type": "object"
             },
             "SmartTransactionsCommunication": {
+                "description": "SmartTransactionsCommunication",
                 "properties": {
                     "action_type": {
                         "description": "action type",
@@ -11659,6 +12603,7 @@
                 "type": "object"
             },
             "SmartTransactionsPaymentLinks": {
+                "description": "SmartTransactionsPaymentLinks",
                 "properties": {
                     "prepaid": {
                         "description": "process with pay in advance",
@@ -11666,7 +12611,7 @@
                         "example": "https://example.com/prepaid"
                     },
                     "debit": {
-                        "description": "process with SEAP direct debit",
+                        "description": "process with SEPA direct debit",
                         "type": "string",
                         "example": "https://example.com/debit"
                     },
@@ -11699,6 +12644,7 @@
                 "type": "object"
             },
             "SmartTransactionsBasketInfo": {
+                "description": "SmartTransactionsBasketInfo",
                 "properties": {
                     "sum": {
                         "description": "Sum",
@@ -11715,6 +12661,7 @@
                 "type": "object"
             },
             "SmartTransactionsBasket": {
+                "description": "SmartTransactionsBasket",
                 "properties": {
                     "products": {
                         "description": "Products",
@@ -11731,6 +12678,7 @@
                 "type": "object"
             },
             "SmartTransactionsBasketProduct": {
+                "description": "SmartTransactionsBasketProduct",
                 "properties": {
                     "id": {
                         "description": "Product id",
@@ -11794,11 +12742,20 @@
                         "items": {
                             "$ref": "#/components/schemas/SmartTransactionsSubBasketProduct"
                         }
+                    },
+                    "plan_id": {
+                        "description": "subscription item plan_id",
+                        "type": "string"
+                    },
+                    "start_at": {
+                        "description": "timestamp when the subscription should start",
+                        "type": "string"
                     }
                 },
                 "type": "object"
             },
             "SmartTransactionsSubBasketProduct": {
+                "description": "SmartTransactionsSubBasketProduct",
                 "properties": {
                     "id": {
                         "description": "Product id",
@@ -11860,6 +12817,7 @@
                 "type": "object"
             },
             "SmartTransactionsBasketProductGroup": {
+                "description": "SmartTransactionsBasketProductGroup",
                 "properties": {
                     "id": {
                         "description": "Group id",
@@ -11877,6 +12835,7 @@
                 "type": "object"
             },
             "SmartTransactionsIdent": {
+                "description": "SmartTransactionsIdent",
                 "properties": {
                     "object": {
                         "description": "Object of smart transaction ident",
@@ -11914,6 +12873,7 @@
                 "type": "object"
             },
             "SmartTransactionsMerchant": {
+                "description": "SmartTransactionsMerchant",
                 "properties": {
                     "object": {
                         "description": "Object type of instance",
@@ -11931,6 +12891,7 @@
                 "type": "object"
             },
             "SmartTransactionsContainer": {
+                "description": "SmartTransactionsContainer",
                 "type": "object",
                 "allOf": [
                     {
@@ -11948,6 +12909,7 @@
                 ]
             },
             "SmartTransactionsReceipt": {
+                "description": "SmartTransactionsReceipt",
                 "properties": {
                     "type": {
                         "description": "Type",
@@ -11960,6 +12922,7 @@
                 "type": "object"
             },
             "SmartTransactionsReceiptValue": {
+                "description": "SmartTransactionsReceiptValue",
                 "properties": {
                     "caption": {
                         "description": "Caption",
@@ -11971,6 +12934,7 @@
                     },
                     "decoration": {
                         "description": "Decoration",
+                        "type": "array",
                         "items": {
                             "type": "string"
                         }
@@ -11987,6 +12951,7 @@
                 "type": "object"
             },
             "SmartTransactionsPrepare": {
+                "description": "SmartTransactionsPrepare",
                 "properties": {
                     "customer": {
                         "$ref": "#/components/schemas/ProductInstanceUID"
@@ -12025,6 +12990,7 @@
                 "type": "object"
             },
             "SmartTransactionsPrepareCallbackUrls": {
+                "description": "SmartTransactionsPrepareCallbackUrls",
                 "properties": {
                     "success_url": {
                         "description": "Success URL",
@@ -12038,6 +13004,7 @@
                 "type": "object"
             },
             "SmartTransactionsDTO": {
+                "description": "SmartTransactionsDTO",
                 "properties": {
                     "merchant": {
                         "description": "Merchant",
@@ -12145,6 +13112,7 @@
                 "type": "object"
             },
             "SmartTransactionPreparePayloadDataModel": {
+                "description": "SmartTransactionPreparePayloadDataModel",
                 "properties": {
                     "callback_urls": {
                         "description": "Callback urls",
@@ -12169,13 +13137,14 @@
                 "type": "object"
             },
             "SmartTransactionsList": {
+                "description": "SmartTransactionsList",
                 "properties": {
                     "count": {
                         "description": "Number of existing smart transactions",
                         "type": "integer"
                     },
                     "data": {
-                        "description": "SmartTransactionsList",
+                        "description": "List of SmartTransactions",
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/SmartTransactionsProductModel"
@@ -12185,6 +13154,7 @@
                 "type": "object"
             },
             "SmartTransactionsSetDeliveryModel": {
+                "description": "SmartTransactionsSetDeliveryModel",
                 "properties": {
                     "delivery_options": {
                         "$ref": "#/components/schemas/OneOfSmartTransactionsDeliveryOptionsModel"
@@ -12193,6 +13163,7 @@
                 "type": "object"
             },
             "SmartTransactionsPrepaidSalesDetails": {
+                "description": "SmartTransactionsPrepaidSalesDetails",
                 "properties": {
                     "id": {
                         "description": "ID",
@@ -12210,6 +13181,7 @@
                 "type": "object"
             },
             "SmartTransactionsApplicationContext": {
+                "description": "SmartTransactionsApplicationContext",
                 "properties": {
                     "locks": {
                         "$ref": "#/components/schemas/SmartTransactionsApplicationContextLocks"
@@ -12223,11 +13195,17 @@
                     "checkout_template": {
                         "description": "Smart Checkout Template ID",
                         "type": "string"
+                    },
+                    "language": {
+                        "description": "The language Smart Checkout is starting with",
+                        "type": "string",
+                        "example": "de"
                     }
                 },
                 "type": "object"
             },
             "SmartTransactionsApplicationContextLocks": {
+                "description": "SmartTransactionsApplicationContextLocks",
                 "properties": {
                     "customer": {
                         "description": "look customer data",
@@ -12241,6 +13219,7 @@
                 "type": "object"
             },
             "SmartTransactionsApplicationContextReturnUrls": {
+                "description": "SmartTransactionsApplicationContextReturnUrls",
                 "properties": {
                     "url_success": {
                         "description": "Success URL",
@@ -12253,11 +13232,16 @@
                     "url_error": {
                         "description": "Error URL",
                         "type": "string"
+                    },
+                    "url_push": {
+                        "description": "Push URL",
+                        "type": "string"
                     }
                 },
                 "type": "object"
             },
             "PaymentInstructions": {
+                "description": "PaymentInstructions",
                 "type": "object",
                 "allOf": [
                     {
@@ -12275,6 +13259,7 @@
                 ]
             },
             "SmartTransactionsApplicationContextIframeOpts": {
+                "description": "SmartTransactionsApplicationContextIframeOpts",
                 "properties": {
                     "payment_hint_title": {
                         "description": "payment hint title",
@@ -12328,6 +13313,7 @@
                 "type": "object"
             },
             "PaymentContext": {
+                "description": "PaymentContext",
                 "properties": {
                     "auto_capture": {
                         "description": "auto capture the smart transaction",
@@ -12335,7 +13321,6 @@
                         "default": false
                     },
                     "payment_methods": {
-                        "description": "PaymentContext",
                         "type": "array",
                         "items": {
                             "type": "string"
@@ -12345,6 +13330,13 @@
                         "description": "is this smart transaction created automatically by the merchant (process without customer interaction)",
                         "type": "boolean",
                         "default": false
+                    },
+                    "creditcard_schemes": {
+                        "description": "The supported credit card schemes with given contract",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
                     }
                 },
                 "type": "object"
@@ -12382,7 +13374,7 @@
             "sort": {
                 "name": "sort",
                 "in": "query",
-                "description": "String with comma separated pairs of `field:order`.\n \nOptions for order:\n * `asc` ascending;\n * `dsc` descending.",
+                "description": "String with comma separated pairs of `field:order`.\n\nOptions for order:\n * `asc` ascending;\n * `dsc` descending.",
                 "required": false,
                 "schema": {
                     "type": "string"
@@ -12402,6 +13394,7 @@
         "securitySchemes": {
             "oauth_token": {
                 "type": "oauth2",
+                "description": "OAuth2 information",
                 "flows": {
                     "clientCredentials": {
                         "tokenUrl": "https://connect-testing.secupay-ag.de/oauth/token",
@@ -12436,39 +13429,39 @@
         },
         {
             "name": "General Stores",
-            "description": "The stores of a merchant. Smart ZVT devices are assigned to \nstores. And Click & Collect arrangments are for specific stores."
+            "description": "The stores of a merchant. Smart ZVT devices are assigned to\nstores. And Click & Collect arrangments are for specific stores."
         },
         {
             "name": "Loyalty Cardgroups",
-            "description": "Card groups define different programmes offered by a \nmerchant. Every merchant card is assigned to one card group at a time. The card \ngroup can be changed during the lifetime of the card, for instance to lift a \ngift card to become a customer card, which is an important conversion goal. You \nwould also add customer data in this moment. The card credits are kept, when \nyou change the card group."
+            "description": "Card groups define different programmes offered by a\nmerchant. Every merchant card is assigned to one card group at a time. The card\ngroup can be changed during the lifetime of the card, for instance to lift a\ngift card to become a customer card, which is an important conversion goal. You\nwould also add customer data in this moment. The card credits are kept, when\nyou change the card group."
         },
         {
             "name": "Loyalty Cards",
-            "description": "A secucard loyalty card is a physical or virtual card, \nidentified by its card number. It is rather the customer's view on the card. \nOne card can be used for multiple merchants. See merchant card for more \ninformation."
+            "description": "A secucard loyalty card is a physical or virtual card,\nidentified by its card number. It is rather the customer's view on the card.\nOne card can be used for multiple merchants. See merchant card for more\ninformation."
         },
         {
             "name": "Loyalty Customers",
-            "description": "The optional loyalty customer holds the customer data of a \nloyalty card. A secucard issued as anonymous gift card can be personalized \nlater, for instance to use it as customer card then. S. a. Card Groups for more \ninformation."
+            "description": "The optional loyalty customer holds the customer data of a\nloyalty card. A secucard issued as anonymous gift card can be personalized\nlater, for instance to use it as customer card then. S. a. Card Groups for more\ninformation."
         },
         {
             "name": "Loyalty Merchantcards",
-            "description": "The merchant card is a per-merchant view on a loyalty card.\nSo a secucard loyalty card can be used for more than one merchant, having \nindividual card groups (programmes) and credit.\n\nFrom the perspective of the merchant, one card can have two different forms of \ncredit at the same time, monetary credit and bonus credit, one for money paid \nin, the other as reward for a revenue. They have different origins and are \nhandled differenty in book-keeping. However, they make virtually no difference \nto the customer whe he spends it."
+            "description": "The merchant card is a per-merchant view on a loyalty card.\nSo a secucard loyalty card can be used for more than one merchant, having\nindividual card groups (programmes) and credit.\n\nFrom the perspective of the merchant, one card can have two different forms of\ncredit at the same time, monetary credit and bonus credit, one for money paid\nin, the other as reward for a revenue. They have different origins and are\nhandled differenty in book-keeping. However, they make virtually no difference\nto the customer whe he spends it."
         },
         {
             "name": "Loyalty Transactions",
-            "description": "A loyalty transaction can be a charge of monetary credit or \nbonus credit, which can be spent (discharge) in another transaction. \nFurthermore loyalty transactions track revenues related to loyalty programmes."
+            "description": "A loyalty transaction can be a charge of monetary credit or\nbonus credit, which can be spent (discharge) in another transaction.\nFurthermore loyalty transactions track revenues related to loyalty programmes."
         },
         {
             "name": "Payment Containers",
-            "description": "Payment containers save payment instrument, holding either\na credit card, or a bank account used for SEPA direct debit. Payment containers \nbelong to payment customers, and cannot be used independently."
+            "description": "Payment containers save payment instrument, holding either\na credit card, or a bank account used for SEPA direct debit. Payment containers\nbelong to payment customers, and cannot be used independently."
         },
         {
             "name": "Payment Contracts",
-            "description": "Payment contracts offer a view to a merchant's contracts, \nand are used to create payment transactions. S. a. General Contracts."
+            "description": "Payment contracts offer a view to a merchant's contracts,\nand are used to create payment transactions. S. a. General Contracts."
         },
         {
             "name": "Payment Customers",
-            "description": "The Payment Customer is used to store the customer details, \nand use it as biling or delivery address. It is also the owner of the Payment \nContainers."
+            "description": "The Payment Customer is used to store the customer details,\nand use it as biling or delivery address. It is also the owner of the Payment\nContainers."
         },
         {
             "name": "Payment Plan",
@@ -12480,7 +13473,7 @@
         },
         {
             "name": "Payment Secupay Debits",
-            "description": "A convenient way to create a SEPA direct dedit transaction. \nS. a. Payment Transactions."
+            "description": "A convenient way to create a SEPA direct dedit transaction.\nS. a. Payment Transactions."
         },
         {
             "name": "Payment Secupay Invoices",
@@ -12488,7 +13481,7 @@
         },
         {
             "name": "Payment Secupay Payout",
-            "description": "A convenient way to create a payout transaction. Payouts \nare payments paid by a merchant and received by his customers. S. a. Payment \nTransactions."
+            "description": "A convenient way to create a payout transaction. Payouts\nare payments paid by a merchant and received by his customers. S. a. Payment\nTransactions."
         },
         {
             "name": "Payment Secupay Prepays",
@@ -12512,23 +13505,35 @@
         },
         {
             "name": "Prepaid Items",
-            "description": "Manages the available e-goods products, either PIN printing \nor POS activation (POSA). Examples for such products are phone charge, or \nvouchers for an online shop."
+            "description": "Manages the available e-goods products, either PIN printing\nor POS activation (POSA). Examples for such products are phone charge, or\nvouchers for an online shop."
         },
         {
             "name": "Prepaid Sales Product",
             "description": "Prepaid transactions"
         },
         {
+            "name": "Public Website",
+            "description": "Collection of Public available Endpoints."
+        },
+        {
+            "name": "Services Identrequests Product",
+            "description": "Create an identification request with certain provider"
+        },
+        {
+            "name": "Services Identresults Product",
+            "description": "Get an identresult for an identrequest"
+        },
+        {
             "name": "Services Uploadidents Product",
-            "description": "Creates a customer identification request, connected with a \nparticular payment transaction for payout."
+            "description": "Creates a customer identification request, connected with a\nparticular payment transaction for payout."
         },
         {
             "name": "Smart Devices",
-            "description": "A Smart Device is a device like a POS payment terminal, or \nan electronic cash register (ECR). You can innterconnect such devices with each \nother (s. Smart Routings), but they are also connected with our system. Every \ndevice belongs to a store (s. General Stores). There are also virtual devices \nfor specific tasks."
+            "description": "A Smart Device is a device like a POS payment terminal, or\nan electronic cash register (ECR). You can innterconnect such devices with each\nother (s. Smart Routings), but they are also connected with our system. Every\ndevice belongs to a store (s. General Stores). There are also virtual devices\nfor specific tasks."
         },
         {
             "name": "Smart Routings",
-            "description": "A routing defines a connection between two Smart ZVT \neligible devices (s. Smart Devices). For instance you can flexibly connect \nelectronic cash registers (ECR) with POS payment terminals. Our server can use \nthe same link to trigger ZVT functions for a different purpose, for instance to \nintegrate e-commerce with your point of sale (POS), which is commonly known as \ncross-channel, omni-channel, or multi-channel."
+            "description": "A routing defines a connection between two Smart ZVT\neligible devices (s. Smart Devices). For instance you can flexibly connect\nelectronic cash registers (ECR) with POS payment terminals. Our server can use\nthe same link to trigger ZVT functions for a different purpose, for instance to\nintegrate e-commerce with your point of sale (POS), which is commonly known as\ncross-channel, omni-channel, or multi-channel."
         },
         {
             "name": "Smart Templates",
@@ -12536,7 +13541,7 @@
         },
         {
             "name": "Smart Transactions",
-            "description": "In difference to a Payment Transaction, a Smart Transaction \ncovers a wider range of use cases. It is also more connected to the business \ncase than to the many details of the payment pocess. And it is the basis for \nSmart Checkout and Payment Link.\n\nSmart Transactions can be used for e-commerce and cross channel scenarios, to \nintegrate customer loyalty programmes at the POS, etc., etc. It is not \npredetermined to a specific payment method, and will manage the payment \ntransaction for you."
+            "description": "In difference to a Payment Transaction, a Smart Transaction\ncovers a wider range of use cases. It is also more connected to the business\ncase than to the many details of the payment pocess. And it is the basis for\nSmart Checkout and Payment Link.\n\nSmart Transactions can be used for e-commerce and cross channel scenarios, to\nintegrate customer loyalty programmes at the POS, etc., etc. It is not\npredetermined to a specific payment method, and will manage the payment\ntransaction for you."
         }
     ],
     "x-tagGroups": [
